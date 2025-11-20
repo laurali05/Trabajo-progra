@@ -86,11 +86,15 @@ public class Actividades {
      * @return
      */
     public String getPeriodoIn() {
-        String resultado;
-        int dia = periodoIn[0];
-        int mes = periodoIn[1];
-        int año = periodoIn[2];
-        resultado = "[" + dia + "," + mes + "," + año + "]";
+        String resultado = "[";
+
+        for (int i = 0; i < periodoIn.length; i++) {
+            resultado += periodoIn[i];
+            if (i < periodoIn.length - 1) {
+                resultado += ", ";
+            }
+        }
+        resultado += "]";
         return resultado;
     }
 
@@ -100,11 +104,15 @@ public class Actividades {
      * @return
      */
     public String getPeriodoFin() {
-        String resultado;
-        int dia = periodoFin[0];
-        int mes = periodoFin[1];
-        int año = periodoFin[2];
-        resultado = "[" + dia + "," + mes + "," + año + "]";
+        String resultado = "[";
+
+        for (int i = 0; i < periodoFin.length; i++) {
+            resultado += periodoFin[i];
+            if (i < periodoFin.length - 1) {
+                resultado += ", ";
+            }
+        }
+        resultado += "]";
         return resultado;
     }
 
@@ -132,8 +140,12 @@ public class Actividades {
         return resultado;
     }
 
-    public String toString(){
-        
+    @Override
+    public String toString() {
+        return "Actividad: " + nom +
+                "\nPeriodo de inicio: " + getPeriodoIn() +
+                "\nPeriodo de fin: " + getPeriodoFin() +
+                "\nColectivos: " + getColectivos();
     }
 
 }
