@@ -1,15 +1,15 @@
 package Actividades;
 
-public class ActividadesDia extends Actividades{
+public class ActividadesDia extends Actividades {
     public int[] fecha = new int[3];
     public int[] horario = new int[2];
     public int limite;
     public double precio;
     public String ciudad;
-    
-    public ActividadesDia(String nom, int[] periodoin, int[] periodofin, String[] colectivos, int[] fecha,
+
+    public ActividadesDia(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos, int[] fecha,
             int[] horario, int limite, double precio, String ciudad) {
-        super(nom, periodoin, periodofin, colectivos);
+        super(nom, periodoIn, periodoFin, colectivos);
         this.fecha = fecha;
         this.horario = horario;
         this.limite = limite;
