@@ -1,9 +1,13 @@
 package Usuari;
- private String grau;
 
-public class UsuariEstudiant extends Usuari(String nom, String correu,Strig grau) {
-  
+
+
+public class UsuariEstudiant extends Usuari {
+   private String grau;
+
+   public UsuariEstudiant(String nom, String correu,String grau){
   super(nom,correu);
   this.grau=grau;
+   }
     
 }

@@ -1,9 +1,10 @@
 package Usuari;
- private String departament;
 
-public class UsuariPTI extends Usuari(String nom, String correu,Strig departament) {
-  
-  super(nom,correu);
-  this.departament=departament;
-    
+public class UsuariPTI extends Usuari {
+  private String departament;
+
+  public UsuariPTI(String nom, String correu, String departament) {
+    super(nom, correu);
+    this.departament = departament;
+  }
 }

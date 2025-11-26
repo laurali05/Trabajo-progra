@@ -24,7 +24,7 @@ public class Usuari {
         
     }
 
-    public copia(){
+    public Usuari copia(){
         Usuari usu= new Usuari(nom,correu);
          return usu;
     }

@@ -1,31 +1,18 @@
 package Usuari;
-public class Usuari {
 
-    private String nom;
-    private String correu;
+public class LlistaUsuari {
+    private int nElem;
+    private Usuari[] llista;
 
-    /**
-     * Constructor sense parametres
-     */
-    public Usuari(){
-        nom ="Nom";
-        correu ="Nom.Cognom";
-    }
-    
-    
-    /**
-     * Contructor per parametres
-     * @param nom
-     * @param correu
-     */
-    public Usuari(String nom,String correu) {
-        this.nom=nom;
-        this.correu=correu;
-        
+    public LlistaUsuari(int max) {
+        llista = new Usuari[max];
+        nElem = 0;
     }
 
-    public copia(){
-        Usuari usu= new Usuari(nom,correu);
-         return usu;
+    public void afegir(Usuari usu) {
+        llista[nElem] = usu;
+        nElem++;
+
     }
+
 }
