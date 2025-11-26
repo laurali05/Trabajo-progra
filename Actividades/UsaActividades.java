@@ -13,7 +13,7 @@ public class UsaActividades {
         compruebaSettersGettersActividades();
         compruebaCopiaEIgualsActividades();
 
-        System.out.println("------ PRUEBAS CLASE ACTIVIDADES DIA------");
+        System.out.println("------ PRUEBAS CLASE ACTIVIDADES DIA ------");
         System.out.println();
 
         comprobarConstructorToStringActividadesDia();
@@ -21,6 +21,12 @@ public class UsaActividades {
         compruebaCopiaEIgualsActividadesDia();
 
         // TODO 2: Hacer pruebas clase ActividadesOnline
+        System.out.println("------ PRUEBAS CLASE ACTIVIDADES ONLINE ------");
+        System.out.println();
+
+        comprobarConstructorToStringActividadesOnline();
+        compruebaSettersGettersActividadesOnline();
+        compruebaCopiaEIgualsActividadesOnline();
         // TODO 3: Hacer pruebas clase ActividadesPeriódicas
     }
 
@@ -270,6 +276,82 @@ public class UsaActividades {
 
         System.out.println("------ Comprueba si son iguales después de cambiar la ciudad ------");
         b.setCiudad("Torredembarra");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+    }
+
+    private static void comprobarConstructorToStringActividadesOnline() {
+        System.out.println("------ COMPRUEBA EL CONSTRUCTOR Y EL TO STRING ------");
+        System.out.println("------ Comprueba el constructor y el toString (todo correcto) ------");
+        System.out.println();
+
+        ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7, "https://www.universitat.cat/actividades/java2025");
+        System.out.println(a);
+        System.out.println();
+
+        System.out.println("------ Comprueba el constructor con parámetros con fecha incorrecta ------");
+        System.out.println();
+        ActividadesOnline b = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, new Data(6, 3, 2025), 7, "https://www.universitat.cat/actividades/java2025");
+        System.out.println(b);
+        System.out.println();
+
+    }
+
+    private static void compruebaSettersGettersActividadesOnline() {
+        System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
+        System.out.println();
+
+        ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7, "https://www.universitat.cat/actividades/java2025");
+        System.out.println("------ COMPRUEBA LA FECHA ------");
+        System.out.println("------ Fecha de inicio correcta ------");
+        a.setFechaIn(new Data(3, 12, 2025));
+        System.out.println("La fecha de inicio de la actividad es " + a.getFechaIn());
+        System.out.println();
+
+        System.out.println("------ Fecha de inicio incorrecta ------");
+        a.setFechaIn(new Data(4, 1, 2025));
+        System.out.println("La fecha de inicio de la actividad es " + a.getFechaIn());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA EL PERIODO DE VISUALIZACIÓN DE LA ACTIVIDAD ------");
+        a.setPeriodoVis(15);
+        System.out.println("El periodo de visualización de la actividad es: " + a.getPeriodoVis());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA EL ENLACE DE LA ACTIVIDAD ------");
+        a.setEnlace("https://www.universitat.cat/actividades/java2024");
+        System.out.println("El límite de inscripciones de la actividad es: " + a.getEnlace());
+        System.out.println();
+    }
+
+    private static void compruebaCopiaEIgualsActividadesOnline() {
+        System.out.println("------ COMPRUEBA COPIA ------");
+        ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7, "https://www.universitat.cat/actividades/java2025");
+        ActividadesOnline b = a.copia();
+        System.out.println(b);
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA IGUALES ------");
+
+        System.out.println("------ Comprueba cuando las dos actividades son iguales ------");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+        System.out.println("------ Comprueba si son iguales después de cambiar la fecha de inicio ------");
+        b.setFechaIn(new Data(18, 12, 2025));
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el periodo de visualización ------");
+        b.setPeriodoVis(30);
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el enlace de la actividad ------");
+        b.setEnlace("https://www.universitat.cat/actividadesOnline/java2024");
         System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
         System.out.println();
     }
