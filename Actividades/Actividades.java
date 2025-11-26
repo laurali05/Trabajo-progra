@@ -1,9 +1,11 @@
 package Actividades;
 
+import Data.Data;
+
 public class Actividades {
     public String nom;
-    public int[] periodoIn = new int[3];
-    public int[] periodoFin = new int[3];
+    public Data periodoIn;
+    public Data periodoFin;
     public String[] colectivos;
 
     /**
@@ -11,8 +13,8 @@ public class Actividades {
      */
     public Actividades() {
         this.nom = "Charla";
-        this.periodoIn = new int[] { 1, 9, 2025 };
-        this.periodoFin = new int[] { 1, 12, 2025 };
+        this.periodoIn = new Data(1, 9, 2025);
+        this.periodoFin = new Data(1, 12, 2025);
         this.colectivos = new String[] { "PDI", "PTGAS", "Estudiants" };
     }
 
@@ -24,10 +26,21 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos) {
+    public Actividades(String nom, Data periodoIn, Data periodoFin, String[] colectivos) {
         this.nom = nom;
-        this.periodoIn = periodoIn;
-        this.periodoFin = periodoFin;
+
+        if (periodoIn.getMes() >= 9 && periodoIn.getMes() <= 12) {
+            this.periodoIn = periodoIn;
+        } else {
+            this.periodoIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+        }
+
+        if (periodoFin.getMes() >= 9 && periodoFin.getMes() <= 12) {
+            this.periodoFin = periodoFin;
+        } else {
+            this.periodoFin = new Data();
+        }
+
         this.colectivos = colectivos;
     }
 
@@ -43,23 +56,27 @@ public class Actividades {
     /**
      * Setter: Asigna la fecha de inicio del periodo de inscripciones
      * 
-     * @param fecha
+     * @param periodoIn
      */
-    public void setPeriodoIn(int dia, int mes, int año) {
-        this.periodoIn[0] = dia;
-        this.periodoIn[1] = mes;
-        this.periodoIn[2] = año;
+    public void setPeriodoIn(Data periodoIn) {
+        if (periodoIn.getMes() >= 9 && periodoIn.getMes() <= 12) {
+            this.periodoIn = periodoIn;
+        } else {
+            this.periodoIn = new Data();
+        }
     }
 
     /**
      * Setter: Asigna la fecha de finalización del periodo de inscripciones
      * 
-     * @param fecha
+     * @param periodoFin
      */
-    public void setPeriodoFin(int dia, int mes, int año) {
-        this.periodoFin[0] = dia;
-        this.periodoFin[1] = mes;
-        this.periodoFin[2] = año;
+    public void setPeriodoFin(Data periodoFin) {
+        if (periodoFin.getMes() >= 9 && periodoFin.getMes() <= 12) {
+            this.periodoFin = periodoFin;
+        } else {
+            this.periodoFin = new Data();
+        }
     }
 
     /**
@@ -113,17 +130,8 @@ public class Actividades {
      * 
      * @return
      */
-    public String getPeriodoIn() {
-        String resultado = "[";
-
-        for (int i = 0; i < periodoIn.length; i++) {
-            resultado += periodoIn[i];
-            if (i < periodoIn.length - 1) {
-                resultado += ", ";
-            }
-        }
-        resultado += "]";
-        return resultado;
+    public Data getPeriodoIn() {
+        return periodoIn;
     }
 
     /**
@@ -131,17 +139,8 @@ public class Actividades {
      * 
      * @return
      */
-    public String getPeriodoFin() {
-        String resultado = "[";
-
-        for (int i = 0; i < periodoFin.length; i++) {
-            resultado += periodoFin[i];
-            if (i < periodoFin.length - 1) {
-                resultado += ", ";
-            }
-        }
-        resultado += "]";
-        return resultado;
+    public Data getPeriodoFin() {
+        return periodoFin;
     }
 
     /**
@@ -182,7 +181,11 @@ public class Actividades {
      * @return
      */
     public Actividades copia() {
-        Actividades a = this;
+        Actividades a = new Actividades();
+        a.nom = this.nom;
+        a.periodoIn = this.periodoIn;
+        a.periodoFin = this.periodoFin;
+        a.colectivos = this.colectivos;
         return a;
     }
 
@@ -197,31 +200,19 @@ public class Actividades {
             return false;
         }
 
-        if (this.periodoIn.length != a.periodoIn.length) {
+        if (!this.periodoIn.esIgual(a.periodoIn)) {
             return false;
-        } else {
-            for (int i = 0; i < this.periodoIn.length; i++) {
-                if (this.periodoIn[i] != a.periodoIn[i]) {
-                    return false;
-                }
-            }
         }
 
-        if (this.periodoFin.length != a.periodoFin.length) {
+        if (!this.periodoFin.esIgual(a.periodoFin)) {
             return false;
-        } else {
-            for (int j = 0; j < this.periodoFin.length; j++) {
-                if (this.periodoFin[j] != a.periodoFin[j]) {
-                    return false;
-                }
-            }
         }
 
         if (this.colectivos.length != a.colectivos.length) {
             return false;
         } else {
-            for (int k = 0; k < this.colectivos.length; k++) {
-                if (!this.colectivos[k].equalsIgnoreCase(a.colectivos[k])) {
+            for (int i = 0; i < this.colectivos.length; i++) {
+                if (!this.colectivos[i].equalsIgnoreCase(a.colectivos[i])) {
                     return false;
                 }
             }

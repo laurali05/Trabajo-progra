@@ -13,4 +13,9 @@ public class ActividadesOnline extends Actividades {
         this.enlace = enlace;
     }
     
+    //TODO 1: Hacer los setters
+    //TODO 2: Hacer los getter
+    //TODO 3: Hacer el toString
+    //TODO 4: Hacer el copia
+    //TODO 5: Hacer el iguals
 }
