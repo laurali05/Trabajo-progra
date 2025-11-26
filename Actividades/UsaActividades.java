@@ -20,7 +20,6 @@ public class UsaActividades {
         compruebaSettersGettersActividadesDia();
         compruebaCopiaEIgualsActividadesDia();
 
-        // TODO 2: Hacer pruebas clase ActividadesOnline
         System.out.println("------ PRUEBAS CLASE ACTIVIDADES ONLINE ------");
         System.out.println();
 
@@ -28,6 +27,13 @@ public class UsaActividades {
         compruebaSettersGettersActividadesOnline();
         compruebaCopiaEIgualsActividadesOnline();
         // TODO 3: Hacer pruebas clase ActividadesPeriódicas
+
+        System.out.println("------ PRUEBAS CLASE ACTIVIDADES PERIÓDICAS ------");
+        System.out.println();
+
+        comprobarConstructorToStringActividadesPeriodicas();
+        compruebaSettersGettersActividadesPeriodicas();
+        compruebaCopiaEIgualsActividadesPeriodicas();
     }
 
     private static void comprobarConstructorToStringActividades() {
@@ -352,6 +358,156 @@ public class UsaActividades {
 
         System.out.println("------ Comprueba si son iguales después de cambiar el enlace de la actividad ------");
         b.setEnlace("https://www.universitat.cat/actividadesOnline/java2024");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+    }
+
+    private static void comprobarConstructorToStringActividadesPeriodicas() {
+        System.out.println("------ COMPRUEBA EL CONSTRUCTOR Y EL TO STRING ------");
+        System.out.println("------ Comprueba el constructor y el toString (todo correcto) ------");
+        System.out.println();
+
+        ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4, 20, 0,"Sescelades","Tarragona");
+        System.out.println(a);
+        System.out.println();
+
+        System.out.println("------ Comprueba el constructor con parámetros con fecha y horario incorrecto ------");
+        System.out.println();
+        ActividadesPeriodicas b = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, "Lunes", new int[] { 40, 00 }, new Data(6, 5, 2025), 4, 20, 0,"Sescelades","Tarragona");
+        System.out.println(b);
+        System.out.println();
+
+    }
+
+    private static void compruebaSettersGettersActividadesPeriodicas() {
+        System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
+        System.out.println();
+
+        ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4, 20, 0,"Sescelades","Tarragona");
+        
+        System.out.println("------ COMPRUEBA DIA SEMANA ------");
+        System.out.println("------ Día de la semana correcto ------");
+        a.setDiaSemana("Lunes");
+        System.out.println("El día de la semana que tiene lugar la actividad es: "+ a.getDiaSemana());
+        System.out.println();
+
+        System.out.println("------ Día de la semana incorrecto ------");
+        a.setDiaSemana("Sopa");
+        System.out.println("El día de la semana que tiene lugar la actividad es: "+ a.getDiaSemana());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA EL HORARIO DE LA ACTIVIDAD ------");
+        System.out.println("------ Horario correcto ------");
+        a.setHorario(19, 30);
+        System.out.println("El horario de la actividad es: " + a.getHorario());
+        System.out.println();
+
+        System.out.println("------ Horario incorrecto horas ------");
+        a.setHorario(24, 30);
+        System.out.println("El horario de la actividad es: " + a.getHorario());
+        System.out.println();
+
+        System.out.println("------ Horario incorrecto minutos ------");
+        a.setHorario(15, 60);
+        System.out.println("El horario de la actividad es: " + a.getHorario());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA LA FECHA ------");
+        System.out.println("------ Fecha correcta ------");
+        a.setFechaIn(new Data(4, 11, 2025));
+        System.out.println("La fecha de la actividad es " + a.getFechaIn());
+        System.out.println();
+
+        System.out.println("------ Fecha incorrecta ------");
+        a.setFechaIn(new Data(4, 3, 2025));
+        System.out.println("La fecha de la actividad es " + a.getFechaIn());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA NÚMERO DE SEMANAS DE DURACIÓN ------");
+        a.setNumSemanas(6);
+        System.out.println("El límite de inscripciones de la actividad es: " + a.getNumSemanas());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA LÍMITE DE INSCRIPCIONES ------");
+        System.out.println("------ Límite de inscripciones ------");
+        a.setLimite(50);
+        System.out.println("El límite de inscripciones de la actividad es: " + a.getLimite());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA EL PRECIO ------");
+        System.out.println("------ Precio de la actividad ------");
+        a.setPrecio(40.0);
+        System.out.println(
+                "El precio de la actividad es: " + a.getPrecio());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA EL CENTRO ------");
+        a.setCentro("Catalunya");
+        System.out.println(
+                "El centro donde se realiza la actividad es: " + a.getCentro());
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA LA CIUDAD ------");
+        a.setCiudad("Reus");
+        System.out.println(
+                "La ciudad donde se realiza la actividad es: " + a.getCiudad());
+        System.out.println();
+    }
+
+    private static void compruebaCopiaEIgualsActividadesPeriodicas() {
+        System.out.println("------ COMPRUEBA COPIA ------");
+        ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4, 20, 0,"Sescelades","Tarragona");
+        ActividadesPeriodicas b = a.copia();
+        System.out.println(b);
+        System.out.println();
+
+        System.out.println("------ COMPRUEBA IGUALES ------");
+
+        System.out.println("------ Comprueba cuando las dos actividades son iguales ------");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el día de la semana ------");
+        b.setDiaSemana("Miércoles");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el horario ------");
+        b.setHorario(17, 45);
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar la fecha de inicio ------");
+        b.setFechaIn(new Data(15, 11, 2025));
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el número de semanas de duración ------");
+        b.setNumSemanas(8);
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el límte ------");
+        b.setLimite(40);
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el precio ------");
+        b.setPrecio(5.5);
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar el centro ------");
+        b.setCentro("Catalunya");
+        System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
+        System.out.println();
+
+        System.out.println("------ Comprueba si son iguales después de cambiar la ciudad ------");
+        b.setCiudad("Torredembarra");
         System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
         System.out.println();
     }

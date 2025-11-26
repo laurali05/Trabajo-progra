@@ -10,6 +10,7 @@ public class ActividadesOnline extends Actividades {
     public ActividadesOnline(String nom, Data periodoIn, Data periodoFin, String[] colectivos, Data fechaIn,
             int periodoVis, String enlace) {
         super(nom, periodoIn, periodoFin, colectivos);
+        
         if (fechaIn.getMes() >= 9 && fechaIn.getMes() <= 12) {
             this.fechaIn = fechaIn;
         } else {
