@@ -28,4 +28,8 @@ public class Usuari {
         Usuari usu= new Usuari(nom,correu);
          return usu;
     }
+
+    public String toString(){
+        return "Nom:"+ nom +"correu"+ correu;
+    }
 }
