@@ -173,7 +173,7 @@ public class ActividadesDia extends Actividades {
                 this.horario, this.limite, this.precio, this.ciudad);
         return a;
     }
-    
+
     /**
      * Método que comprueba si dos actividades son iguales
      * 

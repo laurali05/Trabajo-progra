@@ -16,7 +16,10 @@ public class ActividadesPeriodicas extends Actividades {
             int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
         super(nom, periodoIn, periodoFin, colectivos);
 
-        if(diaSemana.equalsIgnoreCase("Lunes") || diaSemana.equalsIgnoreCase("Martes") | diaSemana.equalsIgnoreCase("Miércoles") | diaSemana.equalsIgnoreCase("Jueves") | diaSemana.equalsIgnoreCase("Viernes")| diaSemana.equalsIgnoreCase("Sábado") | diaSemana.equalsIgnoreCase("Domingo")){
+        if (diaSemana.equalsIgnoreCase("Lunes")
+                || diaSemana.equalsIgnoreCase("Martes") | diaSemana.equalsIgnoreCase("Miércoles")
+                        | diaSemana.equalsIgnoreCase("Jueves") | diaSemana.equalsIgnoreCase("Viernes")
+                        | diaSemana.equalsIgnoreCase("Sábado") | diaSemana.equalsIgnoreCase("Domingo")) {
             this.diaSemana = diaSemana;
         } else {
             this.diaSemana = "-----";
@@ -47,7 +50,9 @@ public class ActividadesPeriodicas extends Actividades {
      * @param dia
      */
     public void setDiaSemana(String dia) {
-        if(dia.equalsIgnoreCase("Lunes") || dia.equalsIgnoreCase("Martes") | dia.equalsIgnoreCase("Miércoles") | dia.equalsIgnoreCase("Jueves") | dia.equalsIgnoreCase("Viernes")| dia.equalsIgnoreCase("Sábado") | dia.equalsIgnoreCase("Domingo")){
+        if (dia.equalsIgnoreCase("Lunes") || dia.equalsIgnoreCase("Martes") | dia.equalsIgnoreCase("Miércoles")
+                | dia.equalsIgnoreCase("Jueves") | dia.equalsIgnoreCase("Viernes") | dia.equalsIgnoreCase("Sábado")
+                | dia.equalsIgnoreCase("Domingo")) {
             this.diaSemana = dia;
         } else {
             this.diaSemana = "------";
