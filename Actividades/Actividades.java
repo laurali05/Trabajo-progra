@@ -210,8 +210,8 @@ public class Actividades {
         if (this.periodoFin.length != a.periodoFin.length) {
             return false;
         } else {
-            for (int i = 0; i < this.periodoFin.length; i++) {
-                if (this.periodoFin[i] != a.periodoFin[i]) {
+            for (int j = 0; j < this.periodoFin.length; j++) {
+                if (this.periodoFin[j] != a.periodoFin[j]) {
                     return false;
                 }
             }
