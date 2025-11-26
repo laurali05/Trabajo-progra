@@ -39,4 +39,12 @@ public class Inscripcions{
         return novains;
     }
 
+    @Override
+    public String toString() {
+        return "Inscripcio:\nPersones: " + persones +
+                "\nActivitat: " + activitat +
+                "\nValoració de l'activitat: " + valoracio +
+                "\nData d'Inscripció: " + data;
+    }
+
 }
