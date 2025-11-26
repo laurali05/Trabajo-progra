@@ -151,4 +151,13 @@ public class Actividades {
                 "\nColectivos: " + getColectivos();
     }
 
+    /**
+     * Método que hace una copia
+     * 
+     * @return
+     */
+    public Actividades copia() {
+        Actividades a = this;
+        return a;
+    }
 }

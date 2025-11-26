@@ -13,5 +13,9 @@ public class UsaActividades {
         a.setPeriodoFin(4,11,2025);
         a.setColectivos(new String[]{"PDI", "Estudiants"});
         System.out.println(a);
+        System.out.println();
+
+        Actividades b = a.copia();
+        System.out.println(b);
     }
 }

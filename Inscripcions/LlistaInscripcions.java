@@ -1,18 +1,23 @@
 package Inscripcions;
 
-public class LlistaInscripcions{
+public class LlistaInscripcions {
     private static int limit;
     private int numElem;
     private Inscripcions[] llista;
 
-    public LlistaInscripicons (int mida){
-        llista= new LlistaInscripcions[mida];
-        limit=mida;
-        numElem=0;
+    /**
+     * Constructor 
+     * 
+     * @param mida
+     */
+    public void LlistaInscripicons(int mida){
+        llista = new Inscripcions[mida];
+        limit = mida;
+        numElem = 0;
     }
 
     public LlistaInscripcions copia() {
-        LlistaInscripcions novaLlista = new LlistaInscripcions(numElem);
+        LlistaInscripcions novaLlista = new LlistaInscripcions();
         for (int i = 0; i < numElem; i++) {
             novaLlista.afegir(llista[i]);
         }
@@ -25,5 +30,4 @@ public class LlistaInscripcions{
             numElem++;
         }
     }
-}    
-
+}

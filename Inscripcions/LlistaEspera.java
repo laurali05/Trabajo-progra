@@ -6,12 +6,12 @@ public class LlistaEspera{
     private Inscripcions[] llista;
 
     public LlistaEspera (){
-        llista= new LlistaEspera[maxPersones];
+        llista= new Inscripcions[maxPersones];
         numElem=0;
     }
 
     public LlistaEspera copia() {
-        LlistaEspera novaLlista = new LlistaEspera(numElem);
+        LlistaEspera novaLlista = new LlistaEspera();
         for (int i = 0; i < numElem; i++) {
             novaLlista.afegir(llista[i]);
         }
