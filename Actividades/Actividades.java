@@ -170,8 +170,8 @@ public class Actividades {
     @Override
     public String toString() {
         return "Actividad: " + nom +
-                "\nPeriodo de inicio: " + getPeriodoIn() +
-                "\nPeriodo de fin: " + getPeriodoFin() +
+                "\nPeriodo de inicio: " + periodoIn +
+                "\nPeriodo de fin: " + periodoFin +
                 "\nColectivos: " + getColectivos();
     }
 

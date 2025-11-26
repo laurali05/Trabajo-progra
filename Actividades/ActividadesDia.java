@@ -1,9 +1,9 @@
 package Actividades;
 
-import java.util.Arrays;
+import Data.Data;
 
 public class ActividadesDia extends Actividades {
-    public int[] fecha = new int[3];
+    public Data fecha;
     public int[] horario = new int[2];
     public int limite;
     public double precio;
@@ -22,40 +22,53 @@ public class ActividadesDia extends Actividades {
      * @param precio     Precio de la actividdd
      * @param ciudad     En que ciudad es la actividad
      */
-    public ActividadesDia(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos, int[] fecha,
+    public ActividadesDia(String nom, Data periodoIn, Data periodoFin, String[] colectivos, Data fecha,
             int[] horario, int limite, double precio, String ciudad) {
         super(nom, periodoIn, periodoFin, colectivos);
-        this.fecha = fecha;
-        this.horario = horario;
+
+        if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
+            this.fecha = fecha;
+        } else {
+            this.fecha = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+        }
+
+        if (horario[0] <= 23 && horario[0] >= 0 && horario[1] <= 59 && horario[1] >= 0) {
+            this.horario = horario;
+        } else {
+            this.horario = new int[] { 00, 00 };
+        }
         this.limite = limite;
         this.precio = precio;
         this.ciudad = ciudad;
     }
 
-    // TODO 1: Hacer los setters
-
     /**
-     * Setter: fija la fecha en la que tendrá lugar la actividad
+     * Setter: fija el día de la actividad
      * 
-     * @param dia
-     * @param mes
-     * @param año
+     * @param fecha
      */
-    public void setFecha(int dia, int mes, int año) {
-        fecha[0] = dia;
-        fecha[1] = mes;
-        fecha[2] = año;
+    public void setFecha(Data fecha) {
+        if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
+            this.fecha = fecha;
+        } else {
+            this.fecha = new Data();
+        }
     }
 
     /**
      * Setter: fija cuando será la actividad
      * 
-     * @param horas
+     * @param hora
      * @param min
      */
-    public void setHorario(int horas, int min) {
-        horario[0] = horas;
-        horario[1] = min;
+    public void setHorario(int hora, int min) {
+        if (hora <= 23 && hora >= 0 && min <= 59 && min >= 0) {
+            horario[0] = hora;
+            horario[1] = min;
+        } else {
+            horario[0] = 0;
+            horario[1] = 0;
+        }
     }
 
     /**
@@ -85,24 +98,13 @@ public class ActividadesDia extends Actividades {
         this.ciudad = ciudad;
     }
 
-    // TODO 2: Hacer los getter
-
     /**
      * Getter: devulve la fecha de la actividad
      * 
      * @return
      */
-    public String getFecha() {
-        String resultado = "[";
-
-        for (int i = 0; i < fecha.length; i++) {
-            resultado += fecha[i];
-            if (i < fecha.length - 1) {
-                resultado += ", ";
-            }
-        }
-        resultado += "]";
-        return resultado;
+    public Data getFecha() {
+        return this.fecha;
     }
 
     /**
@@ -111,15 +113,17 @@ public class ActividadesDia extends Actividades {
      * @return
      */
     public String getHorario() {
-        String resultado = "[";
-
+        String resultado = "";
         for (int i = 0; i < horario.length; i++) {
-            resultado += horario[i];
+            if (horario[i] < 10) {
+                resultado += "0" + horario[i];
+            } else {
+                resultado += horario[i];
+            }
             if (i < horario.length - 1) {
-                resultado += ", ";
+                resultado += ":";
             }
         }
-        resultado += "]";
         return resultado;
     }
 
@@ -150,24 +154,60 @@ public class ActividadesDia extends Actividades {
         return this.ciudad;
     }
 
-    // TODO 3: Hacer el toString
     @Override
     public String toString() {
-        return super.toString() + "\nFecha: " + getFecha() +
+        return super.toString() + "\nFecha: " + fecha +
                 "\nHorario: " + getHorario() +
                 "\nLímite de asistentes: " + limite +
-                "\nPrecio actividad: " + precio +
-                "\nCiudad " + ciudad;
+                "\nPrecio de la actividad: " + precio +
+                "\nCiudad: " + ciudad;
     }
 
-    // TODO 4: Hacer el copia
-
-    /** */
-    public ActividadesDia copia(){
-        ActividadesDia a = this;
+    /**
+     * Método que hace una copia
+     * 
+     * @return
+     */
+    public ActividadesDia copia() {
+        ActividadesDia a = new ActividadesDia(this.nom, this.periodoIn, this.periodoFin, this.colectivos, this.fecha,
+                this.horario, this.limite, this.precio, this.ciudad);
         return a;
     }
+    
+    /**
+     * Método que comprueba si dos actividades son iguales
+     * 
+     * @param a
+     * @return
+     */
+    public boolean iguals(ActividadesDia a) {
+        super.iguals(a);
+        if (!a.fecha.esIgual(this.fecha)) {
+            return false;
+        }
 
-    // TODO 5: Hacer el iguals
+        if (this.horario.length != a.horario.length) {
+            return false;
+        } else {
+            for (int i = 0; i < this.horario.length; i++) {
+                if (this.horario[i] != this.horario[i]) {
+                    return false;
+                }
+            }
+        }
 
+        if (this.limite != a.limite) {
+            return false;
+        }
+
+        if (this.precio != a.precio) {
+            return false;
+        }
+
+        if (!this.ciudad.equalsIgnoreCase(a.ciudad)) {
+            return false;
+        }
+
+        return true;
+    }
 }
