@@ -12,5 +12,5 @@ public class ActividadesOnline extends Actividades {
         this.periodoVis = periodoVis;
         this.enlace = enlace;
     }
-
+    
 }

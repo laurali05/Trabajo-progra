@@ -24,7 +24,10 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos) {
+    public Actividades(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos) { // TODO: Cambiar el
+                                                                                             // constructor para no
+                                                                                             // tener que meter "new" en
+                                                                                             // ningún sitio
         this.nom = nom;
         this.periodoIn = periodoIn;
         this.periodoFin = periodoFin;
