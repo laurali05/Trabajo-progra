@@ -10,9 +10,19 @@ public class LlistaUsuari {
     }
 
     public void afegir(Usuari usu) {
+        if(nElem<llista.length){
         llista[nElem] = usu;
         nElem++;
+        }
 
+    }
+
+     public String toString() {
+        String aux = "LlistaUsuari -> numero d'elements " + nElem;
+        for (int i = 0; i < nElem; i++) {
+            aux = aux + "\nPersona "+(i+1)+": \n\t" + llista[i];
+        }
+        return aux;
     }
 
 }

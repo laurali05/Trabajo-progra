@@ -21,8 +21,14 @@ public class UsaUsuari {
         System.err.println("\n2.3 Comprovar getters subclasse PTGAS: \n"+PTGAS1.getNom()+"\n"+PTGAS1.getCorreu()+"\n"+PTGAS1.getCampus());
         System.err.println("\n2.4 Comprovar getters subclasse PDI: \n"+PDI1.getNom()+"\n"+PDI1.getCorreu()+"\n"+PDI1.getDepartament()+"\n"+PDI1.getCampus());
 
+        System.err.println("\n3. Metode copia\n"+persona1.copia());
+
+        System.err.println("\n4. Comprovar setter, getNom original:\n"+persona1.copia().getNom());
+        persona1.setNom("Pepe");
+        System.err.println("getNom després del setter:\n"+persona1.copia().getNom());
 
 
-        
+
+
     }
 }
