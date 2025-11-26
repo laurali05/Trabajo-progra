@@ -1,17 +1,18 @@
 package Actividades;
+import Data.Data;
 
 public class ActividadesPeriodicas extends Actividades {
     public String diaSemana;
     public int[] horario = new int[2];
-    public int[] fechaIn = new int[3];
+    public Data fechaIn;
     public int numSemanas;
     public int limite;
     public double precio;
     public String centro;
     public String ciudad;
 
-    public ActividadesPeriodicas(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos, String diaSemana,
-            int[] horario, int[] fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
+    public ActividadesPeriodicas(String nom, Data periodoIn, Data periodoFin, String[] colectivos, String diaSemana,
+            int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
         super(nom, periodoIn, periodoFin, colectivos);
         this.diaSemana = diaSemana;
         this.horario = horario;

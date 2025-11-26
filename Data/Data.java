@@ -11,8 +11,8 @@ public class Data {
 	 */
 	public Data() {
 		this.dia = 1;
-		this.mes = 1;
-		this.any = 2000;
+		this.mes = 11;
+		this.any = 1111;
 	}
 
 	/**

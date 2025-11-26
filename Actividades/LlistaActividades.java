@@ -1,4 +1,5 @@
 package Actividades;
+import Data.Data;
 
 public class LlistaActividades {
     private int numElems;
