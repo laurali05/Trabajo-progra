@@ -10,7 +10,7 @@ public class Actividades {
      * Constructor sin parámetros
      */
     public Actividades() {
-        this.nom = "'Charla'";
+        this.nom = "Charla";
         this.periodoIn = new int[] { 1, 9, 2025 };
         this.periodoFin = new int[] { 1, 12, 2025 };
         this.colectivos = new String[] { "PDI", "PTGAS", "Estudiants" };
@@ -24,10 +24,7 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos) { // TODO: Cambiar el
-                                                                                             // constructor para no
-                                                                                             // tener que meter "new" en
-                                                                                             // ningún sitio
+    public Actividades(String nom, int[] periodoIn, int[] periodoFin, String[] colectivos) {
         this.nom = nom;
         this.periodoIn = periodoIn;
         this.periodoFin = periodoFin;
@@ -66,12 +63,40 @@ public class Actividades {
     }
 
     /**
-     * Setter: Asigna los colectivos que pueden estar en la actividad
+     * Setter: Asigna los colectivos que pueden asistir a la actividad
      * 
-     * @param nombres
+     * @param PDI
+     * @param PTGAS
+     * @param Estudiants
      */
-    public void setColectivos(String[] nombres) {
-        this.colectivos = nombres;
+    public void setColectivos(Boolean PDI, Boolean PTGAS, Boolean Estudiants) {
+        int n = 0;
+        if (PDI == true) {
+            n++;
+        }
+
+        if (PTGAS) {
+            n++;
+        }
+
+        if (Estudiants) {
+            n++;
+        }
+
+        colectivos = new String[n];
+        int index = 0;
+        if (PDI) {
+            colectivos[index] = "PDI";
+            index++;
+        }
+        if (PTGAS) {
+            colectivos[index] = "PTGAS";
+            index++;
+        }
+        if (Estudiants) {
+            colectivos[index] = "Estudiants";
+            index++;
+        }
     }
 
     /**
@@ -159,5 +184,49 @@ public class Actividades {
     public Actividades copia() {
         Actividades a = this;
         return a;
+    }
+
+    /**
+     * Método que compara si dos actividades son iguales
+     * 
+     * @param a
+     * @return
+     */
+    public boolean iguals(Actividades a) {
+        if (!this.nom.equalsIgnoreCase(a.nom)) {
+            return false;
+        }
+
+        if (this.periodoIn.length != a.periodoIn.length) {
+            return false;
+        } else {
+            for (int i = 0; i < this.periodoIn.length; i++) {
+                if (this.periodoIn[i] != a.periodoIn[i]) {
+                    return false;
+                }
+            }
+        }
+
+        if (this.periodoFin.length != a.periodoFin.length) {
+            return false;
+        } else {
+            for (int i = 0; i < this.periodoFin.length; i++) {
+                if (this.periodoFin[i] != a.periodoFin[i]) {
+                    return false;
+                }
+            }
+        }
+
+        if (this.colectivos.length != a.colectivos.length) {
+            return false;
+        } else {
+            for (int k = 0; k < this.colectivos.length; k++) {
+                if (!this.colectivos[k].equalsIgnoreCase(a.colectivos[k])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

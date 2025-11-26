@@ -9,4 +9,8 @@ public class Inscripcions{
         this.activitat=activitat;
     }
 
+    public Inscripcions copia(){
+        Inscripcions a = this;
+        return a;
+    }
 }
