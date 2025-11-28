@@ -78,4 +78,17 @@ public class Usuari {
         this.correu = correu;
     }
 
+    /**
+     * Metode que comproba si dos instancies son iguals
+     * @param usu
+     * @return
+     */
+    public boolean esIgual(Usuari usu){
+        if(this.getNom().equals(usu.getNom()) && this.getCorreu().equals(usu.getCorreu())){
+
+            return true;
+        }
+        else return false;
+    }
+
 }

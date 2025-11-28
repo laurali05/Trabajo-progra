@@ -49,4 +49,19 @@ public class LlistaUsuari {
         return aux;
     }
 
+    /**
+     * Metode que compara si dues llistes son iguals
+     * @param aux
+     * @return
+     */
+    public boolean esIgual(LlistaUsuari aux) {
+        if (this.nElem != aux.nElem)
+            return false;
+        for (int i = 0; i < nElem; i++) {
+            if (!this.llista[i].esIgual(aux.llista[i]))
+                return false;
+        }
+        return true;
+    }
+
 }

@@ -5,12 +5,39 @@ public class UsaLlistaUsuari {
         comprovarConstructor();
         ComprovarAfegir();
         comprovarCopia();
+        comprobarEsIgual();
+
+    }
+
+    private static void comprobarEsIgual() {
+        LlistaUsuari dades = new LlistaUsuari(100);
+
+        Usuari persona1 = new Usuari();
+
+        UsuariEstudiant estudiant1 = new UsuariEstudiant("Estudiant", "Estudiant.Cognom", "GEB", 2020);
+
+        UsuariPTGAS PTGAS1 = new UsuariPTGAS("Treballador", "Treballador.Cognom", "Catalunya");
+
+        UsuariPDI PDI1 = new UsuariPDI("Professor", "Professor.Cognom", "DEQ", "Catalunya");
+
+        dades.afegir(persona1);
+        dades.afegir(estudiant1);
+        dades.afegir(PTGAS1);
+        dades.afegir(PDI1);
+
+        LlistaUsuari dades2 = dades.copia();
+        System.err.println("\n4.1 Comprobar metode de comparació de dos insancies iguals" );
+        System.err.println("\nSon iguals? " + dades.esIgual(dades2));
+
+        Usuari persona2 = new Usuari("pepe", "pepe.rivas");
+        dades.afegir(persona2);
+        System.err.println("\n4.2 Comprobar metode de comparació de dos insancies diferents" );
+        System.err.println("\nSon iguals? " + dades.esIgual(dades2));
 
     }
 
     private static void comprovarCopia() {
 
-        
         LlistaUsuari dades = new LlistaUsuari(100);
 
         Usuari persona1 = new Usuari();

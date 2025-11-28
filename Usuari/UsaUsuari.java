@@ -27,6 +27,9 @@ public class UsaUsuari {
         persona1.setNom("Pepe");
         System.err.println("getNom després del setter:\n"+persona1.copia().getNom());
 
+        System.err.println("\nSon iguals? "+persona1.esIgual(PDI1));
+        System.err.println("\nSon iguals? "+persona1.esIgual(persona1.copia()));
+
 
 
 
