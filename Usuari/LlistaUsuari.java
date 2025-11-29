@@ -82,7 +82,7 @@ public class LlistaUsuari {
             }
         }
 
-        if(!trobat){
+        if (!trobat) {
             throw new UsuariNoTrobatException();
 
         }

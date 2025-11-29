@@ -29,12 +29,12 @@ public class UsaLlistaUsuari {
         dades.afegir(PDI1);
 
         LlistaUsuari dades2 = dades.copia();
-        System.err.println("\n4.1 Comprobar metode de comparació de dos insancies iguals" );
+        System.err.println("\n4.1 Comprobar metode de comparació de dos insancies iguals");
         System.err.println("\nSon iguals? " + dades.esIgual(dades2));
 
         Usuari persona2 = new Usuari("pepe", "pepe.rivas");
         dades.afegir(persona2);
-        System.err.println("\n4.2 Comprobar metode de comparació de dos insancies diferents" );
+        System.err.println("\n4.2 Comprobar metode de comparació de dos insancies diferents");
         System.err.println("\nSon iguals? " + dades.esIgual(dades2));
 
     }
@@ -88,7 +88,7 @@ public class UsaLlistaUsuari {
         System.err.println(dades);
     }
 
-    private static void comprobarExcepcio(){
+    private static void comprobarExcepcio() {
         LlistaUsuari dades = new LlistaUsuari(100);
 
         Usuari persona1 = new Usuari();
@@ -104,18 +104,17 @@ public class UsaLlistaUsuari {
         dades.afegir(PTGAS1);
         dades.afegir(PDI1);
 
-        try{
+        try {
             System.err.println("\n5. Buscar Usuari i comprovar la classe excepcio");
-        Usuari usuari= dades.buscarUsuari("Professor");
-        System.err.println("\nL'Usuari és:\n"+usuari);
+            Usuari usuari = dades.buscarUsuari("Professor");
+            System.err.println("\nL'Usuari és:\n" + usuari);
 
-        Usuari usuari2= dades.buscarUsuari("Inexistent");
-        System.err.println("\n5. Buscar Usuari\n\nL'Usuari és:\n"+usuari2);
+            Usuari usuari2 = dades.buscarUsuari("Inexistent");
+            System.err.println("\nL'Usuari és:\n" + usuari2);
 
-        }
-        catch(UsuariNoTrobatException e){
+        } catch (UsuariNoTrobatException e) {
 
-            System.err.println("\nError: "+e);
+            System.err.println("\nError: " + e);
 
         }
 
