@@ -83,7 +83,7 @@ public class LlistaUsuari {
         }
 
         if (!trobat) {
-            throw new UsuariNoTrobatException();
+            throw new UsuariNoTrobatException("No s'ha trobat l'usuari "+nom);
 
         }
         return llista[i];

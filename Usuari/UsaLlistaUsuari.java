@@ -109,7 +109,7 @@ public class UsaLlistaUsuari {
             Usuari usuari = dades.buscarUsuari("Professor");
             System.err.println("\nL'Usuari és:\n" + usuari);
 
-            Usuari usuari2 = dades.buscarUsuari("Inexistent");
+            Usuari usuari2 = dades.buscarUsuari("Nom Inexistent");
             System.err.println("\nL'Usuari és:\n" + usuari2);
 
         } catch (UsuariNoTrobatException e) {
