@@ -14,7 +14,7 @@ public class UsaInscripcions {
          Inscripcions insini = new Inscripcions();
          System.out.println(insini.toString()+"\n"); 
 
-         // Generaci´po d'una inscripció amb parametres
+         // Generació d'una inscripció amb parametres
 
          System.out.println("Generació de inscripció amb parametres:\n");
          Data datanova = new Data(6, 9 ,2025);
