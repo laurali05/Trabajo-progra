@@ -2,6 +2,10 @@ package Actividades;
 
 import Data.Data;
 
+/**
+ * Clase: UsaLlistaActividades
+ * Autor: Laura Lope
+ */
 public class UsaLlistaActividades {
     public static void main(String[] args) {
         System.out.println("------ PRUEBAS CLASE LLISTA ACTIVIDADES ------");

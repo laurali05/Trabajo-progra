@@ -1,5 +1,9 @@
 package Actividades;
 
+/**
+ * Clase: Lista de actividades
+ * Autor: Laura Lope
+ */
 public class LlistaActividades {
     private int numElems;
     private Actividades[] llista;

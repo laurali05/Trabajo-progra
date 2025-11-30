@@ -2,6 +2,10 @@ package Actividades;
 
 import Data.Data;
 
+/**
+ * Clase: Actividades online
+ * Autor: Laura Lope
+ */
 public class ActividadesOnline extends Actividades {
     public Data fechaIn;
     public int periodoVis; // Periodo de visualización

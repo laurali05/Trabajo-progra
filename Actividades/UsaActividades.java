@@ -2,8 +2,10 @@ package Actividades;
 
 import Data.Data;
 
-//Clase que comprueba que lo que hago funciona
-
+/**
+ * Clase: UsaActividades
+ * Autor: Laura Lope
+ */
 public class UsaActividades {
         public static void main(String[] args) {
                 System.out.println("------ PRUEBAS CLASE ACTIVIDADES ------");

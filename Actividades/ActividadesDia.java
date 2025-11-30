@@ -2,6 +2,10 @@ package Actividades;
 
 import Data.Data;
 
+/**
+ * Clase: Actividades día
+ * Autor: Laura Lope
+ */
 public class ActividadesDia extends Actividades {
     public Data fecha;
     public int[] horario = new int[2];

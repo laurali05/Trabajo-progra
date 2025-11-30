@@ -2,6 +2,10 @@ package Actividades;
 
 import Data.Data;
 
+/**
+ * Clase: Actividades 
+ * Autor: Laura Lope
+ */
 public class Actividades {
     public String nom;
     public Data periodoIn;

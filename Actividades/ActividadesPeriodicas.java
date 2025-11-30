@@ -2,6 +2,10 @@ package Actividades;
 
 import Data.Data;
 
+/**
+ * Clase: Actividades periódicas
+ * Autor: Laura Lope
+ */
 public class ActividadesPeriodicas extends Actividades {
     public String diaSemana;
     public int[] horario = new int[2];
