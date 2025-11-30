@@ -41,6 +41,41 @@ public class Inscripcions{
         return novains;
     }
 
+    //Getters y setters
+
+    public Usuari getUsuari(){
+        return persona;
+    }
+
+    public Actividades getActivitat(){
+        return activitat;
+    }
+
+    public int getValoracio(){
+        return valoracio;
+    }
+
+    public Data getData(){
+        return data;
+    }
+
+    public void setUsuari(Usuari persona){
+        this.persona = persona;
+    }
+
+    public void setActivitat(Actividades activitat){
+        this.activitat = activitat;
+    }
+
+    public void setValoracio(int valoracio){
+        this.valoracio = valoracio;
+    }
+
+    public void setData(Data data){
+        this.data = data;
+    }
+
+    //toString
     @Override
     public String toString() {
         return "Inscripcio: \nUsuari: " + persona +
