@@ -1,13 +1,14 @@
 package Actividades;
 
 import Data.Data;
+import Excepcions.NomActivitatDuplicatException;
 
 /**
  * Clase: UsaLlistaActividades
  * Autor: Laura Lope
  */
 public class UsaLlistaActividades {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBAS CLASE LLISTA ACTIVIDADES ------");
         System.out.println();
 
@@ -15,10 +16,11 @@ public class UsaLlistaActividades {
         compruebaAfegirLlistaActividades();
         compruebaCopiaLlistaActividades();
         compruebaEqualsLlistaActividades();
+        compruebaExcepcionNomDuplicat();
 
     }
 
-    private static void compruebaConstructorToStringLlistaActividades() {
+    private static void compruebaConstructorToStringLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA CONSTRUCTOR Y TOSTRING ------");
         LlistaActividades lista = new LlistaActividades(10);
         System.out.println("Lista vacía: ");
@@ -26,7 +28,7 @@ public class UsaLlistaActividades {
         System.out.println();
     }
 
-    private static void compruebaAfegirLlistaActividades() {
+    private static void compruebaAfegirLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA AFEGIR ------");
         LlistaActividades lista = new LlistaActividades(5);
 
@@ -51,7 +53,7 @@ public class UsaLlistaActividades {
         System.out.println();
     }
 
-    private static void compruebaCopiaLlistaActividades() {
+    private static void compruebaCopiaLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA COPIA ------");
         LlistaActividades lista = new LlistaActividades(5);
 
@@ -66,7 +68,7 @@ public class UsaLlistaActividades {
         System.out.println();
     }
 
-    private static void compruebaEqualsLlistaActividades() {
+    private static void compruebaEqualsLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA IGUALS ------");
         LlistaActividades lista1 = new LlistaActividades(5);
         LlistaActividades lista2 = new LlistaActividades(5);
@@ -85,5 +87,27 @@ public class UsaLlistaActividades {
         lista2.afegir(b);
         System.out.println("¿Son iguales (diferente número de elementos)? " + lista1.iguals(lista2));
         System.out.println();
+    }
+
+    private static void compruebaExcepcionNomDuplicat() {
+        System.out.println("------ PRUEBA EXCEPCIÓN -------");
+
+        LlistaActividades lista = new LlistaActividades(200);
+
+        Actividades a = new Actividades("Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
+                new String[] { "Estudiants" });
+
+        Actividades b = new Actividades("Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
+                new String[] { "PDI" });
+
+        try {
+            lista.afegir(a);
+            System.out.println("Primera actividad añadidad correctamente: " + a.getNom());
+            System.out.println();
+            lista.afegir(b);
+            System.out.println("No se lanzó la excepción esperada.");
+        } catch (NomActivitatDuplicatException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

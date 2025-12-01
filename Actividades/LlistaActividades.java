@@ -1,5 +1,7 @@
 package Actividades;
 
+import Excepcions.NomActivitatDuplicatException;
+
 /**
  * Clase: Lista de actividades
  * Autor: Laura Lope
@@ -23,7 +25,13 @@ public class LlistaActividades {
      * 
      * @param a
      */
-    public void afegir(Actividades a) {
+    public void afegir(Actividades a) throws NomActivitatDuplicatException {
+        for (int i = 0; i < numElems; i++) {
+            if (llista[i].getNom().equalsIgnoreCase(a.getNom())) {
+                throw new NomActivitatDuplicatException("Ya existe una actividad con este nombre: " + a.getNom());
+            }
+        }
+
         if (numElems < llista.length) {
             llista[numElems] = a;
             numElems++;
@@ -48,7 +56,7 @@ public class LlistaActividades {
      * 
      * @return
      */
-    public LlistaActividades copia() {
+    public LlistaActividades copia() throws NomActivitatDuplicatException {
         LlistaActividades nueva = new LlistaActividades(llista.length);
         for (int i = 0; i < numElems; i++) {
             nueva.afegir(llista[i]); // Si quieres copia profunda: implementar método copia en Actividades
