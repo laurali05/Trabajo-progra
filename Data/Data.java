@@ -6,8 +6,7 @@ public class Data {
 	private int any;
 
 	/**
-	 * Constructor per defecte, sense paràmetres inicialitza a una data de
-	 * referència
+	 * Constructor sin parámetros
 	 */
 	public Data() {
 		this.dia = 1;
@@ -16,19 +15,18 @@ public class Data {
 	}
 
 	/**
-	 * Constructor que rep la data per paràmetre
-	 * Ha de validar que la data és correcta. Si rep una data incorrecta inicialitza la instància
-	 * amb la data de referència.
+	 * Constructor con parámetros
+	 * 
 	 * @param dia
 	 * @param mes
 	 * @param any
 	 */
 	public Data(int dia, int mes, int any) {
-		if (esDataCorrecta(dia, mes, any)) { // ens asegurem que és una data valida
+		if (esDataCorrecta(dia, mes, any)) {
 			this.dia = dia;
 			this.mes = mes;
 			this.any = any;
-		} else { // posem la data de referència com a senyal d'error
+		} else {
 			this.dia = 1;
 			this.mes = 1;
 			this.any = 2000;
@@ -37,6 +35,7 @@ public class Data {
 
 	/**
 	 * Getter
+	 * 
 	 * @return dia de la data
 	 */
 	public int getDia() {
@@ -45,6 +44,7 @@ public class Data {
 
 	/**
 	 * Getter
+	 * 
 	 * @return mes de la data
 	 */
 	public int getMes() {
@@ -53,6 +53,7 @@ public class Data {
 
 	/**
 	 * Getter
+	 * 
 	 * @return any de la data
 	 */
 	public int getAny() {
@@ -60,8 +61,8 @@ public class Data {
 	}
 
 	/**
-	 * Setter conjunt per a poder validar la correctesa de la data rebuda.
-	 * Només es fa la modificació de la data si que es rep per paràmetre és correcte.
+	 * Setter
+	 * 
 	 * @param dia
 	 * @param mes
 	 * @param any
@@ -75,9 +76,10 @@ public class Data {
 	}
 
 	/**
-	 * Mètode que comprova si la data actual és la mateixa a la que es rep per paràmetre
-	 * @param data - valor de data a comparar amb l'actual
-	 * @return si són iguals
+	 * Método que comprueba si dos fechas son iguales
+	 * 
+	 * @param data - fecha a comparar
+	 * @return si son iguales
 	 */
 	public boolean esIgual(Data data) {
 		if (this.dia == data.getDia() && this.mes == data.getMes() && this.any == data.getAny()) {
@@ -87,14 +89,11 @@ public class Data {
 	}
 
 	/**
-	 * Mètode que calcula i retorna una instància amb el valor del dia següent
-	 * * @return la data del dia seguent
+	 * Mètode que calcula el dia siguiente a la fecha actual
+	 * * @return
 	 */
 	public Data diaSeguent() {
-		Data novaData=new Data(dia, mes, any);
-
-		// també podria haver-se fet de la següent forma:
-		// Data novaData=this.copia();
+		Data novaData = new Data(dia, mes, any);
 
 		novaData.dia++;
 		if (novaData.dia > diesMes(novaData.mes, novaData.any)) {
@@ -108,13 +107,9 @@ public class Data {
 		return novaData;
 	}
 
-	
 	/**
-	 * FIXAR-SE AMB LA FORMA DIFERENT COM S'HA IMPLEMENTAT EL MÈTODE RESPECTE AL diaSeguent
 	 * 
-	 * en l'anterior es crea una nova instància, en aquest es modifica el valor de la instància actual
-	 * 
-	 * Mètode que calcula sobre la instància actual el valor del dia anterior
+	 * Método que calcula el día anterior a la fecha actual
 	 */
 	public void diaAnterior() {
 		this.dia--;
@@ -128,26 +123,21 @@ public class Data {
 		}
 	}
 
-	
 	/**
-	 * Mètode que calcula quants dies falten per arribar des de la data actual a la
-	 * que rebem per paràmetre
+	 * Método que calcula cuanto falta para una fecha introducida por parámetro
 	 * 
-	 * @param data - valor de data a la que calcular el número de dies que falten
-	 * @return si la data que es rep per paràmetre és superior o igual a la data de
-	 *         la instància sobre la que es crida el mètode es retorna el número de
-	 *         dies. Si la data que es rep per paràmetre és inferior es retorna -1.
+	 * @param data
+	 * @return
 	 */
-	public int numDiesAData(Data data) { // compta el nombre de dies entre dos dates
+	public int numDiesAData(Data data) {
 		Data dataTemp;
 		int contador;
-		// és necessari una nova instancia per no modificar la data actual
 		dataTemp = new Data(dia, mes, any);
 		if (dataTemp.esDataInferiorOigual(data)) {
 			contador = 0;
 			// la data rebuda és major que l'actual
 			while (!dataTemp.esIgual(data)) {
-				dataTemp=dataTemp.diaSeguent(); // augmenta la data actual fins coincidir amb la rebuda per paràmetre
+				dataTemp = dataTemp.diaSeguent();
 				contador++;
 			}
 		} else
@@ -156,78 +146,78 @@ public class Data {
 	}
 
 	/**
-	 * Mètode per comprova si la data actual és inferior a la passada per paràmetre
+	 * Método que comprueba si una fecha es inferior a otra
 	 * 
 	 * @param nova
 	 * @return
 	 */
 	public boolean esDataInferiorOigual(Data nova) {
-	      boolean esInferior; 
-	      if (any<nova.any) esInferior=true;
-	      else if (any>nova.any) esInferior=false;
-	      else {
-	    	  // cas anys iguals
-	    	 if (mes<nova.mes) esInferior=true;
-	    	 else if (mes>nova.mes) esInferior=false;
-	    	 else {
-	    		 // anys i mes iguals
-	    		 if (dia<=nova.dia) esInferior=true;
-	    		 else esInferior=false;
-	    	 }		
-	      }
-		  return esInferior; 
+		boolean esInferior;
+		if (any < nova.any)
+			esInferior = true;
+		else if (any > nova.any)
+			esInferior = false;
+		else {
+			// cas anys iguals
+			if (mes < nova.mes)
+				esInferior = true;
+			else if (mes > nova.mes)
+				esInferior = false;
+			else {
+				// anys i mes iguals
+				if (dia <= nova.dia)
+					esInferior = true;
+				else
+					esInferior = false;
+			}
+		}
+		return esInferior;
 
-	  }
-	
+	}
+
 	/**
-	 * Mètode que comprova si la data actual correspon a un any de traspas
-	 * @return si és any de traspas
+	 * Método que comprueba si la fecha actual pertenece a un año bisiesto
+	 * 
+	 * @return
 	 */
 	public boolean esDataAnyTraspas() {
-		if (esAnyTraspas(this.any)) { // només amb l'any hi ha prou
+		if (esAnyTraspas(this.any)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	/**
-	 * Mètode que transforma el contingut d'un objecte en una cadena de caracters per ser
-	 * mostrat per pantalla
-	 */
+	@Override
 	public String toString() {
-		return("["+dia+", "+mes+", "+any+"]");
+		return ("[" + dia + ", " + mes + ", " + any + "]");
 	}
 
 	/**
-	 * Mètode que crea un duplicat d'un objecte data
-	 * @return un nou objecte amb el mateix contingut
+	 * Método que crea un duplicado de la fecha actual
+	 * 
+	 * @return
 	 */
 	public Data copia() {
-		Data aux = new Data (dia, mes, any);
+		Data aux = new Data(dia, mes, any);
 		return aux;
 	}
 
-	// Mètodes de classe (STATIC).
-	// no s'apliquen sobre el contingut d'una instància de data sinó sobre valors
-	// que es reben per paràmetre.
-	// són mètodes auxiliars i per això estan definits com a private
-
 	private static boolean esDataCorrecta(int dia, int mes, int any) {
-		boolean hoEs=true;
-		if (dia < 1 || dia > 31) { // dia incorrecte
-			hoEs= false;
+		boolean hoEs = true;
+		if (dia < 1 || dia > 31) {
+			hoEs = false;
 		}
-		if (mes < 1 || mes > 12) { // mes incorrecte
-			hoEs= false;
+		if (mes < 1 || mes > 12) {
+			hoEs = false;
 		}
-		if (dia > diesMes(mes, any)) { // dia del mes incorrecte
-			hoEs= false;
+		if (dia > diesMes(mes, any)) {
+			hoEs = false;
 		}
 		return hoEs;
 	}
 
-	private static boolean esAnyTraspas(int any) { // ens estalviem crear una instancia de data
+	private static boolean esAnyTraspas(int any) {
 		if ((any % 4 == 0) && ((any % 100 != 0) || (any % 400 == 0))) {
 			return true;
 		} else {
@@ -235,7 +225,7 @@ public class Data {
 		}
 	}
 
-	private static int diesMes(int mes, int any) { // per saber quants dies te un mes d'un any
+	private static int diesMes(int mes, int any) {
 		int diesMes;
 		if (mes == 2) {
 			if (esAnyTraspas(any)) {
