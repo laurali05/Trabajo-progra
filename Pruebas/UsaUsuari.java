@@ -2,6 +2,10 @@ package Pruebas;
 
 import Usuari.*;
 
+/**
+ * Classe UsaUsuari 
+ * Autor: Jordi Vivas
+ */
 public class UsaUsuari {
     public static void main(String[] args) {
 

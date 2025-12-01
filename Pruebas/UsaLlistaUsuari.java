@@ -3,6 +3,10 @@ package Pruebas;
 import Excepcions.UsuariNoTrobatException;
 import Usuari.*;
 
+/**
+ * Classe UsaLlistaUsuari
+ * Autor: Jordi Vivas
+ */
 public class UsaLlistaUsuari {
     public static void main(String[] args) {
         comprovarConstructor();
