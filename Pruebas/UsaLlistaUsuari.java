@@ -1,6 +1,7 @@
-package Usuari;
+package Pruebas;
 
 import Excepcions.UsuariNoTrobatException;
+import Usuari.*;
 
 public class UsaLlistaUsuari {
     public static void main(String[] args) {

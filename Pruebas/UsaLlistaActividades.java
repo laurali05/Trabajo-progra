@@ -1,6 +1,8 @@
-package Actividades;
+package Pruebas;
 
+import Actividades.*;
 import Data.Data;
+
 import Excepcions.NomActivitatDuplicatException;
 
 /**
