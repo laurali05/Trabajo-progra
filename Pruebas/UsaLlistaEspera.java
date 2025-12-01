@@ -2,6 +2,10 @@ package Pruebas;
 
 import Inscripcions.*;
 
+/**
+ * Classe UsaLlistaEspera
+ * Autor: Izan Flores
+ */
 public class UsaLlistaEspera {
    public static void main(String[] args) {
       System.out.println("------ PRUEBAS CLASE LLISTA ESPERA ------\n");

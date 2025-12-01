@@ -5,6 +5,10 @@ import Data.Data;
 import Inscripcions.Inscripcions;
 import Usuari.Usuari;
 
+/**
+ * Classe UsaInscripcions
+ * Autor: Izan Flores
+ */
 public class UsaInscripcions {
     public static void main(String[] args) {
         System.out.println("------ PRUEBAS CLASE INSCRIPCIONS ------\n");
