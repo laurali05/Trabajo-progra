@@ -2,7 +2,7 @@ package Excepcions;
 
 public class UsuariJaInscritException extends Exception {
     
-    public UsuariJaInscritException(){
-        super();
+    public UsuariJaInscritException(String missatge){
+        super(missatge);
     }
 }
