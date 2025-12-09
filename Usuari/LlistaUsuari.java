@@ -2,6 +2,7 @@ package Usuari;
 
 import Excepcions.UsuariNoTrobatException;
 
+
 public class LlistaUsuari {
     private int nElem;
     private Usuari[] llista;

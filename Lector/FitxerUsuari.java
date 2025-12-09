@@ -5,12 +5,21 @@ import Usuari.*;
 import Excepcions.*;
 
 
+/**
+ * Classe FitxerUsuari
+ * Autor: Jordi Vivas
+ */
+
 
 public class FitxerUsuari {
-    
+    /**
+     * metode per carregar les dades del fitxer d'Usuaris
+     * @return
+     * @throws CarregarFitxersException
+     */
     public static LlistaUsuari carregarFitxeUsuari() throws CarregarFitxersException{
         try{
-            Scanner lectura = new Scanner(new File("fitxerUsuari.txt"));
+            Scanner lectura = new Scanner(new File("Fitxers/fitxerUsuari.txt"),"UTF-8");
 
             LlistaUsuari llista = new LlistaUsuari(1000);
 
@@ -32,11 +41,13 @@ public class FitxerUsuari {
                     String departament = parts[3];
                     String campus = parts[4];
                     u = new UsuariPDI(nom,correu,departament,campus);
+                    llista.afegir(u);
 
                 }
                 else if(tipus.equals("Treballador")){
                     String campus = parts[3];
                     u = new UsuariPTGAS(nom,correu,campus);
+                    llista.afegir(u);
                 }
                 
             }
