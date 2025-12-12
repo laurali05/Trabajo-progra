@@ -13,20 +13,20 @@ import java.util.Scanner;
 
 public class App {
 
-    static Scanner teclat = new Scanner(System.in);// Ens permetrà llegir el que el usuari introdueixi per teclat.
+    static Scanner teclat = new Scanner(System.in);// Ens permetrà llegir el número que el usuari introdueixi per teclat.
 
     public static void main(String[] args) {
 
-        int opcio = 0; // Inicialització de la variable opció
+        int opcio = 0; 
         do {
             try {
                 mostrarMenu();
                 opcio = Integer.parseInt(teclat.nextLine());
             } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
                                                // mostra aquesta excepciò.
-                System.out.println(e + "   Es necessari introduir un numero");
+                System.out.println(e + "   Es necessari introduir un numero.");
             }
-        } while (opcio < 22);// Mentre opcio<15 mostrar menú
+        } while (opcio < 22);// Mentre opcio<22 mostrar menú
 
         teclat.close();
     }
