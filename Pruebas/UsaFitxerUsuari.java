@@ -1,7 +1,8 @@
-package Lector;
+package Pruebas;
 
 import Usuari.LlistaUsuari;
 import Excepcions.*;
+import Lector.*;
 
 /**
  * Classe UsaFitxerUsuari

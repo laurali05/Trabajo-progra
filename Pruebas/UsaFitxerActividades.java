@@ -1,7 +1,8 @@
-package Lector;
+package Pruebas;
 
 import Actividades.*;
 import Excepcions.*;
+import Lector.*;
 
 /**
  * Clase UsaFitxerActividades
