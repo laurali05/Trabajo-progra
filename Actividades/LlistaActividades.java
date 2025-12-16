@@ -21,6 +21,22 @@ public class LlistaActividades {
     }
 
     /**
+     * Método que devuelve el número de elemenetos de la lista
+     * 
+     * @return
+     */
+    public int getNumElems() {
+        return numElems;
+    }
+
+    public Actividades getActividad(int index){
+        if(index >= 0 && index < numElems){
+            return llista[index];
+        }
+        return null;
+    }
+
+    /**
      * Método para añadir una actividad
      * 
      * @param a

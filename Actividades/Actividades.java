@@ -7,6 +7,7 @@ import Data.Data;
  * Autor: Laura Lope
  */
 public class Actividades {
+    public String tipo;
     public String nom;
     public Data periodoIn;
     public Data periodoFin;
@@ -16,6 +17,7 @@ public class Actividades {
      * Constructor sin parámetros
      */
     public Actividades() {
+        this.tipo = "Dia";
         this.nom = "Charla";
         this.periodoIn = new Data(1, 9, 2025);
         this.periodoFin = new Data(1, 12, 2025);
@@ -46,6 +48,15 @@ public class Actividades {
         }
 
         this.colectivos = colectivos;
+    }
+
+    /**
+     * Setter: Asigna el tipo del que es la actividad
+     * 
+     * @param tipo
+     */
+    public void setTipo(String tipo){
+        this.tipo = tipo;
     }
 
     /**
@@ -119,6 +130,15 @@ public class Actividades {
             index++;
         }
     }
+    
+    /**
+     * Getter: Devuelve el tipo de la actividad
+     * 
+     * @return
+     */
+    public String getTipo(){
+        return this.tipo;
+    }
 
     /**
      * Getter: Devuelve el nombre de la actividad
@@ -173,7 +193,8 @@ public class Actividades {
 
     @Override
     public String toString() {
-        return "Actividad: " + nom +
+        return "Tipo de Actividad: " + tipo +
+                "\nActividad: " + nom +
                 "\nPeriodo de inicio: " + periodoIn +
                 "\nPeriodo de fin: " + periodoFin +
                 "\nColectivos: " + getColectivos();
@@ -186,6 +207,7 @@ public class Actividades {
      */
     public Actividades copia() {
         Actividades a = new Actividades();
+        a.tipo = this.tipo;
         a.nom = this.nom;
         a.periodoIn = this.periodoIn;
         a.periodoFin = this.periodoFin;
@@ -200,6 +222,10 @@ public class Actividades {
      * @return
      */
     public boolean iguals(Actividades a) {
+        if(this.tipo.equalsIgnoreCase(a.tipo)){
+            return false;
+        }
+
         if (!this.nom.equalsIgnoreCase(a.nom)) {
             return false;
         }

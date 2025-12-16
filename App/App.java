@@ -9,6 +9,8 @@ import Usuari.*;
 import Actividades.*;
 import java.util.Scanner;
 
+import Excepcions.CarregarFitxersException;
+
 import Usuari.LlistaUsuari;
 
 public class App {
@@ -17,22 +19,21 @@ public class App {
                                                    // teclat.
 
     public static void main(String[] args) {
-
         LlistaUsuari llistaUsuari = null;
         LlistaActividades llistaActividades = null;
         LlistaInscripcions llistaInscripcions = null;
-        
-
-        try {
-             llistaUsuari = FitxerUsuari.carregarFitxeUsuari();
-             llistaActividades = FitxerActividades.carregarFitxerActividades();
-             llistaInscripcions = FitxerSerialitzat.carregarInscripcions();
-             
-        } catch (CarregarFitxersException e) {
-            System.out.println(e + "   Error al cargar el fitxer");
-        }
 
         int opcio = 0;
+
+        try {
+            llistaUsuari = FitxerUsuari.carregarFitxeUsuari();
+            llistaActividades = FitxerActividades.carregarFitxerActividades();
+            llistaInscripcions = FitxerSerialitzat.carregarInscripcions();
+
+        } catch (CarregarFitxersException e) {
+            System.out.println(e + "Error al cargar els fitxers");
+
+        }
 
         try {
             mostrarMenu();
@@ -55,10 +56,10 @@ public class App {
                     opcio2(llistaUsuari);
                     break;
                 case 3:
-                    opcio3(llistaUsuari);
+                    opcio3(llistaActividades);
                     break;
                 case 4:
-                    opcio4(llistaUsuari);
+                    opcio4(llistaActividades);
                     break;
                 case 5:
                     opcio5(llistaUsuari);
@@ -112,13 +113,7 @@ public class App {
                     opcio21(llistaUsuari);
                     break;
             }
-            try {
-                mostrarMenu();
-                opcio = Integer.parseInt(teclat.nextLine());
-            } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
-                                               // mostra aquesta excepciò.
-                System.out.println(e + "   Es necessari introduir un numero.");
-            }
+            
         }
 
         System.out.println("Has sortit del programa");
@@ -211,14 +206,55 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio5'");
     }
 
-    private static void opcio4(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio4'");
+    private static void opcio4(LlistaActividades llistaActividades) {
+        Data avui = new Data(20, 9, 2025);
+                        Boolean act = false;
+                        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+                            Actividades b = llistaActividades.getActividad(i);
+                            if (b.tipo.equalsIgnoreCase("Dia")) {
+                                ActividadesDia dia = (ActividadesDia) b;
+                                if (avui.esIgual(dia.getFechaIn())) {
+                                    System.out.println("\n" + b.toString());
+                                    act = true;
+                                }
+                            } else if (b.tipo.equalsIgnoreCase("Perioica")) {
+                                ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
+                                if (avui.esIgual(periodica.getFechaIn())) { // Cambiarlo para que cuente desde el día
+                                                                            // que empieza hasta el dia que termina
+                                    System.out.println("\n" + b.toString());
+                                    act = true;
+                                }
+                            } else if (b.tipo.equalsIgnoreCase("Online")) {
+                                ActividadesOnline online = (ActividadesOnline) b;
+                                if (avui.esIgual(online.getFechaIn())) { // Cambiarlo para que cuente desde el día que
+                                                                         // empieza hasta el dia que termina
+                                    System.out.println("\n" + b.toString());
+                                    act = true;
+                                }
+                            }
+                        }
+
+                        if (!act) {
+                            System.out.println("Hoy no hay actividades");
+                        }
     }
 
-    private static void opcio3(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio3'");
+    private static void opcio3(LlistaActividades llistaActividades) {
+        Data hoy = new Data(); // Aquí tengo que poner la fecha de la opción 1
+        boolean actividades = false;
+
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+            Actividades a = llistaActividades.getActividad(i);
+
+            if ((a.getPeriodoIn().esDataInferiorOigual(hoy)) && (hoy.esDataInferiorOigual(a.getPeriodoFin()))) {
+                System.out.println("\n" + a.toString());
+                actividades = true;
+            }
+        }
+
+        if (!actividades) {
+            System.out.println("No hay actividades en periodo de inscripción");
+        }
     }
 
     private static void opcio2(LlistaUsuari llistaUsuari) {

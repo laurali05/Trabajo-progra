@@ -16,9 +16,27 @@ public class ActividadesPeriodicas extends Actividades {
     public String centro;
     public String ciudad;
 
+    /**
+     * Constructor
+     * 
+     * @param nom
+     * @param periodoIn
+     * @param periodoFin
+     * @param colectivos
+     * @param diaSemana
+     * @param horario
+     * @param fechaIn
+     * @param numSemanas
+     * @param limite
+     * @param precio
+     * @param centro
+     * @param ciudad
+     */
     public ActividadesPeriodicas(String nom, Data periodoIn, Data periodoFin, String[] colectivos, String diaSemana,
             int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
         super(nom, periodoIn, periodoFin, colectivos);
+
+        this.tipo = "Periodica";
 
         if (diaSemana.equalsIgnoreCase("Lunes")
                 || diaSemana.equalsIgnoreCase("Martes") | diaSemana.equalsIgnoreCase("Miércoles")
