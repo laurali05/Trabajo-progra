@@ -1,6 +1,10 @@
 package Actividades;
 
 import Excepcions.NomActivitatDuplicatException;
+import Usuari.LlistaUsuari;
+import Usuari.UsuariEstudiant;
+import Usuari.UsuariPDI;
+import Usuari.UsuariPTGAS;
 
 /**
  * Clase: Lista de actividades
@@ -29,8 +33,8 @@ public class LlistaActividades {
         return numElems;
     }
 
-    public Actividades getActividad(int index){
-        if(index >= 0 && index < numElems){
+    public Actividades getActividad(int index) {
+        if (index >= 0 && index < numElems) {
             return llista[index];
         }
         return null;
@@ -94,6 +98,54 @@ public class LlistaActividades {
                 return false;
         }
         return true;
+    }
+
+    /**
+     * Metode que retorna una llista especifica de una subclasse
+     * Laura no te asustes de este metodo lo necesito para la opcio 2
+     * @param opcio
+     * @return
+     */
+    public LlistaActividades llistaTipus(int opcio) {
+        LlistaActividades llistaEsp = new LlistaActividades(numElems);
+        if (opcio == 1) {
+            for (int i = 0; i < numElems; i++) {
+                if (llista[i] instanceof ActividadesDia) {
+                    try {
+                        llistaEsp.afegir(llista[i]);
+                    } catch (NomActivitatDuplicatException e) {
+                        System.err.println(e + "Activitat duplicada");
+                    }
+                }
+            }
+
+        }
+        if (opcio == 2) {
+            for (int i = 0; i < numElems; i++) {
+                if (llista[i] instanceof ActividadesOnline) {
+                    try {
+                        llistaEsp.afegir(llista[i]);
+                    } catch (NomActivitatDuplicatException e) {
+                        System.err.println(e + "Activitat duplicada");
+                    }
+                }
+            }
+
+        }
+        if (opcio == 3) {
+            for (int i = 0; i < numElems; i++) {
+                if (llista[i] instanceof ActividadesPeriodicas) {
+                    try {
+                        llistaEsp.afegir(llista[i]);
+                    } catch (NomActivitatDuplicatException e) {
+                        System.err.println(e + "Activitat duplicada");
+                    }
+                }
+            }
+
+        }
+        return llistaEsp;
+
     }
 
 }

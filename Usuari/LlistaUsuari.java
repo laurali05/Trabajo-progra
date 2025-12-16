@@ -2,7 +2,6 @@ package Usuari;
 
 import Excepcions.UsuariNoTrobatException;
 
-
 public class LlistaUsuari {
     private int nElem;
     private Usuari[] llista;
@@ -84,10 +83,48 @@ public class LlistaUsuari {
         }
 
         if (!trobat) {
-            throw new UsuariNoTrobatException("No s'ha trobat l'usuari "+nom);
+            throw new UsuariNoTrobatException("No s'ha trobat l'usuari " + nom);
 
         }
         return llista[i];
+    }
+
+
+    
+    /**
+     * Metode que retorna una llista especifica de una subclasse
+     * 
+     * @param opcio
+     * @return
+     */ 
+    public LlistaUsuari llistaTipus(int opcio) {
+        LlistaUsuari llistaEsp = new LlistaUsuari(nElem);
+        if (opcio == 1) {
+            for (int i = 0; i < nElem; i++) {
+                if (llista[i] instanceof UsuariEstudiant) {
+                    llistaEsp.afegir(llista[i]);
+                }
+            }
+
+        }
+        if (opcio == 2) {
+            for (int i = 0; i < nElem; i++) {
+                if (llista[i] instanceof UsuariPDI) {
+                    llistaEsp.afegir(llista[i]);
+                }
+            }
+
+        }
+        if (opcio == 3) {
+            for (int i = 0; i < nElem; i++) {
+                if (llista[i] instanceof UsuariPTGAS) {
+                    llistaEsp.afegir(llista[i]);
+                }
+            }
+
+        }
+        return llistaEsp;
+        
     }
 
 }

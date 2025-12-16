@@ -53,7 +53,7 @@ public class App {
                     opcio1(llistaUsuari);
                     break;
                 case 2:
-                    opcio2(llistaUsuari);
+                    opcio2(llistaUsuari, llistaActividades, llistaInscripcions);
                     break;
                 case 3:
                     opcio3(llistaActividades);
@@ -113,7 +113,17 @@ public class App {
                     opcio21(llistaUsuari);
                     break;
             }
-            
+            try {
+                mostrarMenu();
+                opcio = Integer.parseInt(teclat.nextLine());
+            } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
+                                               // mostra aquesta excepciò.
+                System.out.println(e + "   Es necessari introduir un numero.");
+            }
+            if (opcio > 22) {
+                System.out.println("Numero més gran dels valors del menu");
+            }
+
         }
 
         System.out.println("Has sortit del programa");
@@ -208,35 +218,35 @@ public class App {
 
     private static void opcio4(LlistaActividades llistaActividades) {
         Data avui = new Data(20, 9, 2025);
-                        Boolean act = false;
-                        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-                            Actividades b = llistaActividades.getActividad(i);
-                            if (b.tipo.equalsIgnoreCase("Dia")) {
-                                ActividadesDia dia = (ActividadesDia) b;
-                                if (avui.esIgual(dia.getFechaIn())) {
-                                    System.out.println("\n" + b.toString());
-                                    act = true;
-                                }
-                            } else if (b.tipo.equalsIgnoreCase("Perioica")) {
-                                ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
-                                if (avui.esIgual(periodica.getFechaIn())) { // Cambiarlo para que cuente desde el día
-                                                                            // que empieza hasta el dia que termina
-                                    System.out.println("\n" + b.toString());
-                                    act = true;
-                                }
-                            } else if (b.tipo.equalsIgnoreCase("Online")) {
-                                ActividadesOnline online = (ActividadesOnline) b;
-                                if (avui.esIgual(online.getFechaIn())) { // Cambiarlo para que cuente desde el día que
-                                                                         // empieza hasta el dia que termina
-                                    System.out.println("\n" + b.toString());
-                                    act = true;
-                                }
-                            }
-                        }
+        Boolean act = false;
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+            Actividades b = llistaActividades.getActividad(i);
+            if (b.tipo.equalsIgnoreCase("Dia")) {
+                ActividadesDia dia = (ActividadesDia) b;
+                if (avui.esIgual(dia.getFechaIn())) {
+                    System.out.println("\n" + b.toString());
+                    act = true;
+                }
+            } else if (b.tipo.equalsIgnoreCase("Perioica")) {
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
+                if (avui.esIgual(periodica.getFechaIn())) { // Cambiarlo para que cuente desde el día
+                                                            // que empieza hasta el dia que termina
+                    System.out.println("\n" + b.toString());
+                    act = true;
+                }
+            } else if (b.tipo.equalsIgnoreCase("Online")) {
+                ActividadesOnline online = (ActividadesOnline) b;
+                if (avui.esIgual(online.getFechaIn())) { // Cambiarlo para que cuente desde el día que
+                                                         // empieza hasta el dia que termina
+                    System.out.println("\n" + b.toString());
+                    act = true;
+                }
+            }
+        }
 
-                        if (!act) {
-                            System.out.println("Hoy no hay actividades");
-                        }
+        if (!act) {
+            System.out.println("Hoy no hay actividades");
+        }
     }
 
     private static void opcio3(LlistaActividades llistaActividades) {
@@ -257,9 +267,66 @@ public class App {
         }
     }
 
-    private static void opcio2(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio2'");
+    private static void opcio2(LlistaUsuari llistaUsuari, LlistaActividades llistaActividades,
+            LlistaInscripcions llistaInscripcions) {
+        int opcio = 0;
+        System.out.println("Quina llista vols mostrar:");
+        System.out.println("1. Llista d'usuaris");
+        System.out.println("2. Llista d'activitats");
+        System.out.println("3. Llista d'incripcions");
+        try {
+            opcio = Integer.parseInt(teclat.nextLine());
+
+            switch (opcio) {
+                case 1:
+                    System.out.println("\nEscull una opció:");
+                    System.out.println("1. Mostrar llista sencera");
+                    System.out.println("2. Mostrar llista de tipus especific");
+                    opcio = Integer.parseInt(teclat.nextLine());
+                    switch (opcio) {
+                        case 1:
+                            System.out.println(llistaUsuari.toString());
+                            break;
+                        case 2:
+
+                            System.err.println("Quin tipus especific de la llista d'usuaris vols mostrar:");
+                            System.out.println("1. Mostrar llista d'estudiants");
+                            System.out.println("2. Mostrar llista de professors");
+                            System.out.println("3. Mostrar llista de treballadors");
+                            opcio = Integer.parseInt(teclat.nextLine());
+                            LlistaUsuari llistaEsp = llistaUsuari.llistaTipus(opcio);
+                            System.out.println(llistaEsp.toString());
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("\nEscull una opció:");
+                    System.out.println("1. Mostrar llista sencera");
+                    System.out.println("2. Mostrar llista de tipus especific");
+                    opcio = Integer.parseInt(teclat.nextLine());
+                    switch (opcio) {
+                        case 1:
+                            System.out.println(llistaActividades.toString());
+                            break;
+                        case 2:
+
+                            System.err.println("Quin tipus especific de la llista d'usuaris vols mostrar:");
+                            System.out.println("1. Mostrar llista de activitats de un dia específic");
+                            System.out.println("2. Mostrar llista de activitats online");
+                            System.out.println("3. Mostrar llista de activitats periodiques");
+                            opcio = Integer.parseInt(teclat.nextLine());
+                            LlistaActividades llistaEsp = llistaActividades.llistaTipus(opcio);
+                            System.out.println(llistaEsp.toString());
+                    }
+                    break;
+
+                case 3:
+                     System.out.println(llistaInscripcions.toString());
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            System.err.println(e + "   Es necessari introduir un numero.");
+        }
     }
 
     private static void opcio1(LlistaUsuari llistaUsuari) {
