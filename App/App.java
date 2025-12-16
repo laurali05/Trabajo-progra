@@ -201,6 +201,7 @@ public class App {
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
+        //TODO solucionar usuaris mateix nom
         System.out.println("introdueix el nom de l'usuari");
         String nom = teclat.nextLine();
         Usuari usu = null;
