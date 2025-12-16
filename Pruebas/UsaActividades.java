@@ -217,12 +217,12 @@ public class UsaActividades {
                 System.out.println("------ COMPRUEBA LA FECHA ------");
                 System.out.println("------ Fecha correcta ------");
                 a.setFecha(new Data(4, 11, 2025));
-                System.out.println("La fecha de la actividad es " + a.getFecha());
+                System.out.println("La fecha de la actividad es " + a.getFechaIn());
                 System.out.println();
 
                 System.out.println("------ Fecha incorrecta ------");
                 a.setFecha(new Data(4, 3, 2025));
-                System.out.println("La fecha de la actividad es " + a.getFecha());
+                System.out.println("La fecha de la actividad es " + a.getFechaIn());
                 System.out.println();
 
                 System.out.println("------ COMPRUEBA EL HORARIO DE LA ACTIVIDAD ------");

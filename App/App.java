@@ -1,13 +1,15 @@
 package App;
 
-/*import Data.*;
-import Excepcions.*;
-import Fitxers.*;
-import Inscripcions.*;
+import Data.*;
+//import Fitxers.*;
+//import Inscripcions.*;
 import Lector.*;
-import Usuari.*;
-import Actividades.*;*/
+//import Usuari.*;
+import Actividades.*;
 import java.util.Scanner;
+
+import Excepcions.CarregarFitxersException;
+
 
 
 
@@ -17,11 +19,71 @@ public class App {
 
     public static void main(String[] args) {
 
+        LlistaActividades listaActividades = null;
+
+        try {
+            listaActividades = FitxerActividades.carregarFitxerActividades();
+            System.out.println("Datos cargados correctamente");
+        } catch (CarregarFitxersException e) {
+            return;
+        }
+
         int opcio = 0; 
         do {
             try {
                 mostrarMenu();
                 opcio = Integer.parseInt(teclat.nextLine());
+
+                switch (opcio) {
+                    case 3:
+                        Data hoy = new Data(); //Aquí tengo que poner la fecha de la opción 1
+                        boolean actividades = false;
+
+                        for (int i = 0; i < listaActividades.getNumElems(); i++) {
+                            Actividades a = listaActividades.getActividad(i);
+
+                            if((a.getPeriodoIn().esDataInferiorOigual(hoy)) && (hoy.esDataInferiorOigual(a.getPeriodoFin()))){
+                                System.out.println("\n" + a.toString());
+                                actividades = true;
+                            }
+                        }
+
+                        if (!actividades){
+                            System.out.println("No hay actividades en periodo de inscripción");
+                        }
+                        break;
+
+                    case 4:
+                        Data avui = new Data(20,9,2025);
+                        Boolean act = false;
+                        for (int i = 0; i < listaActividades.getNumElems(); i++){
+                            Actividades b = listaActividades.getActividad(i);
+                            if (b.tipo.equalsIgnoreCase("Dia")){
+                                ActividadesDia dia = (ActividadesDia) b;
+                                if(avui.esIgual(dia.getFechaIn())){
+                                System.out.println("\n"+b.toString());
+                                act = true;
+                                }
+                            } else if (b.tipo.equalsIgnoreCase("Perioica")){
+                                ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
+                                if(avui.esIgual(periodica.getFechaIn())){ //Cambiarlo para que cuente desde el día que empieza hasta el dia que termina
+                                System.out.println("\n"+b.toString());
+                                act = true;
+                                }
+                            } else if (b.tipo.equalsIgnoreCase("Online")){
+                                ActividadesOnline online = (ActividadesOnline) b;
+                                if(avui.esIgual(online.getFechaIn())){ //Cambiarlo para que cuente desde el día que empieza hasta el dia que termina
+                                System.out.println("\n"+ b.toString());
+                                act = true;
+                                }
+                            }
+                        }
+
+                          if(!act){
+                                System.out.println("Hoy no hay actividades");
+                            }
+                        break;
+                }
             } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
                                                // mostra aquesta excepciò.
                 System.out.println(e + "   Es necessari introduir un numero.");

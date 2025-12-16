@@ -7,7 +7,7 @@ import Data.Data;
  * Autor: Laura Lope
  */
 public class ActividadesDia extends Actividades {
-    public Data fecha;
+    public Data fechaIn;
     public int[] horario = new int[2];
     public int limite;
     public double precio;
@@ -16,6 +16,7 @@ public class ActividadesDia extends Actividades {
     /**
      * Constructor con parámetros
      * 
+     * @param tipo
      * @param nom
      * @param periodoIn
      * @param periodoFin
@@ -28,12 +29,14 @@ public class ActividadesDia extends Actividades {
      */
     public ActividadesDia(String nom, Data periodoIn, Data periodoFin, String[] colectivos, Data fecha,
             int[] horario, int limite, double precio, String ciudad) {
-        super(nom, periodoIn, periodoFin, colectivos);
+        super (nom, periodoIn, periodoFin, colectivos);
+        
+        this.tipo = "Dia";
 
         if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
-            this.fecha = fecha;
+            this.fechaIn = fecha;
         } else {
-            this.fecha = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+            this.fechaIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
         }
 
         if (horario[0] <= 23 && horario[0] >= 0 && horario[1] <= 59 && horario[1] >= 0) {
@@ -53,9 +56,9 @@ public class ActividadesDia extends Actividades {
      */
     public void setFecha(Data fecha) {
         if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
-            this.fecha = fecha;
+            this.fechaIn = fecha;
         } else {
-            this.fecha = new Data();
+            this.fechaIn = new Data();
         }
     }
 
@@ -107,8 +110,8 @@ public class ActividadesDia extends Actividades {
      * 
      * @return
      */
-    public Data getFecha() {
-        return this.fecha;
+    public Data getFechaIn() {
+        return this.fechaIn;
     }
 
     /**
@@ -160,7 +163,7 @@ public class ActividadesDia extends Actividades {
 
     @Override
     public String toString() {
-        return super.toString() + "\nFecha: " + fecha +
+        return super.toString() + "\nFecha: " + fechaIn +
                 "\nHorario: " + getHorario() +
                 "\nLímite de asistentes: " + limite +
                 "\nPrecio de la actividad: " + precio +
@@ -173,7 +176,7 @@ public class ActividadesDia extends Actividades {
      * @return
      */
     public ActividadesDia copia() {
-        ActividadesDia a = new ActividadesDia(this.nom, this.periodoIn, this.periodoFin, this.colectivos, this.fecha,
+        ActividadesDia a = new ActividadesDia(this.nom, this.periodoIn, this.periodoFin, this.colectivos, this.fechaIn,
                 this.horario, this.limite, this.precio, this.ciudad);
         return a;
     }
@@ -186,7 +189,7 @@ public class ActividadesDia extends Actividades {
      */
     public boolean iguals(ActividadesDia a) {
         super.iguals(a);
-        if (!a.fecha.esIgual(this.fecha)) {
+        if (!a.fechaIn.esIgual(this.fechaIn)) {
             return false;
         }
 
