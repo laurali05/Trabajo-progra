@@ -196,9 +196,21 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio9'");
     }
 
+    /**
+     * Autor Jordi
+     * @param llistaUsuari
+     */
     private static void opcio8(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio8'");
+        System.out.println("introdueix el nom de l'usuari");
+        String nom = teclat.nextLine();
+        Usuari usu = null;
+        try {
+            usu = llistaUsuari.buscarUsuari(nom);
+        } catch (UsuariNoTrobatException e) {
+            System.out.println("No s'ha trobat el nom del usuari " + e);
+        }
+        System.out.println(usu);
+
     }
 
     private static void opcio7(LlistaUsuari llistaUsuari) {
@@ -267,6 +279,13 @@ public class App {
         }
     }
 
+    /**
+     * Autor Jordi
+     * 
+     * @param llistaUsuari
+     * @param llistaActividades
+     * @param llistaInscripcions
+     */
     private static void opcio2(LlistaUsuari llistaUsuari, LlistaActividades llistaActividades,
             LlistaInscripcions llistaInscripcions) {
         int opcio = 0;
@@ -321,7 +340,7 @@ public class App {
                     break;
 
                 case 3:
-                     System.out.println(llistaInscripcions.toString());
+                    System.out.println(llistaInscripcions.toString());
                     break;
             }
         } catch (NumberFormatException e) {
