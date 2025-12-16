@@ -9,8 +9,6 @@ import Usuari.*;
 import Actividades.*;
 import java.util.Scanner;
 
-import Excepcions.CarregarFitxersException;
-
 import Usuari.LlistaUsuari;
 
 public class App {
