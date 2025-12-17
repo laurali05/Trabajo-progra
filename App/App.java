@@ -19,6 +19,7 @@ public class App {
         LlistaUsuari llistaUsuari = null;
         LlistaActividades llistaActividades = null;
         LlistaInscripcions llistaInscripcions = null;
+        LlistaEspera llistaEspera = null;
         Data avui = new Data();
 
         int opcio = 0;
@@ -382,6 +383,10 @@ public class App {
         }
     }
 
+    /**
+     * Autor Izan
+     * @param avui
+     */
     private static void opcio1(Data avui) {
         System.out.println("La data d'avui es "+ avui);
     }
@@ -398,7 +403,7 @@ public class App {
         System.out.println("  8. Detall d'un usuari en qüestió");
         System.out.println("  9. Activitats a la que esta apuntat un usuari en qüestió");
         System.out.println("  10. Inscribir-me a una activitat");
-        System.out.println("  11. Consultar usurais apuntats i en llista d'espera a una activitat en qüestió");
+        System.out.println("  11. Consultar usuaris apuntats i en llista d'espera a una activitat en qüestió");
         System.out.println("  12. Eliminar un usuari d'una activitat");
         System.out.println("  13. Afegir nova activitat d'un día");
         System.out.println("  14. Afegir nova activitat periòdica");
