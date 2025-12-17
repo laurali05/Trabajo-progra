@@ -228,6 +228,12 @@ public class App {
 
     }
 
+    /**
+     * Autor Jordi
+     * 
+     * @param llistaUsuari
+     * @param llistaInscripcions
+     */
     private static void opcio9(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions) {
         System.out.println("Introduiu el nom del usuari:");
         String nom = teclat.nextLine();
