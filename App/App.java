@@ -375,8 +375,12 @@ public class App {
                     break;
 
                 case 3:
+                    if(llistaInscripcions ==null){
+                        System.out.println("Llista Buida");
+                    }
+                    else{
                     System.out.println(llistaInscripcions.toString());
-                    break;
+                    break;}
             }
         } catch (NumberFormatException e) {
             System.err.println(e + "   Es necessari introduir un numero.");
