@@ -238,6 +238,7 @@ public class App {
             System.out.println("No s'ha trobat el nom del usuari " + e);
         }
         LlistaActividades llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
+        System.out.println(llistaActitatsUsu);
 
     }
 
