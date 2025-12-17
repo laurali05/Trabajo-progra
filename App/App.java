@@ -214,9 +214,15 @@ public class App {
         ins.setActivitat(novaActividades);
         try{
         llistaInscripcions.afegir(ins);
+        try{
+        FitxerSerialitzat.guardarInscripcions(llistaInscripcions);
+        } catch(GuardarFitxersException e){
+            System.err.println("Ja esta guardat");
+        }
         } catch(UsuariJaInscritException e){
             System.err.println("L'usuari " + e + " ja esta inscrit.");
         }
+
     }
 
     private static void opcio9(LlistaUsuari llistaUsuari) {
