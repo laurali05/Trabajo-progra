@@ -7,10 +7,10 @@ import java.io.*;
 public class FitxerSerialitzat {
 
     /**
-     * Mètode que carrega les dades de l'arxiu fitxerAssociacio.bin a un objecte
-     * LlistaAssociacions
+     * Mètode que carrega les dades de l'arxiu fitxerInscripcio.bin a un objecte
+     * LlistaInscripcions
      * 
-     * @return Les associacions de l'arxiu fitxerAssociacio en forma de llista
+     * @return Les inscripcions de l'arxiu fitxerInscripcio en forma de llista
      * @throws CarregarFitxersException
      */
     public static LlistaInscripcions carregarInscripcions() throws CarregarFitxersException {
@@ -27,10 +27,10 @@ public class FitxerSerialitzat {
     }
 
     /**
-     * Mètode que guarda les dades passades per paràmtre de la llista d'associacions
-     * a l'arxiu fitxerAssociacions.bin
+     * Mètode que guarda les dades passades per paràmtre de la llista d'inscripcions
+     * a l'arxiu fitxerInscripcions.bin
      * 
-     * @param llista la llista d'associacions que volem guardar
+     * @param llista la llista d'Inscripcions que volem guardar
      * @throws GuardarFitxersException
      */
     public static void guardarInscripcions(LlistaInscripcions llista) throws GuardarFitxersException {

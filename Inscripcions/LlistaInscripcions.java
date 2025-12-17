@@ -1,5 +1,10 @@
 package Inscripcions;
 
+import Actividades.LlistaActividades;
+import Lector.FitxerUsuari;
+import Usuari.LlistaUsuari;
+import Data.*;
+
 public class LlistaInscripcions{
     private static int limit;
     private int numElem;
@@ -36,6 +41,16 @@ public class LlistaInscripcions{
             llista[numElem] = ins.copia();
             numElem++;
         }
+    }
+
+    public LlistaInscripcions crearLlista(LlistaUsuari usuaris, LlistaActividades activitats){
+        LlistaInscripcions novaLlista = null;
+        Data avui = new Data();
+        for (int i=0; i<numElem;i++){
+            Inscripcions ins = new Inscripcions(usuaris[i],activitats[i],null,avui);
+            novaLlista.afegir(ins);
+        }
+        return novaLlista;
     }
 
     //Métode toString

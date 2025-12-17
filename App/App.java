@@ -26,7 +26,6 @@ public class App {
         try {
             llistaUsuari = FitxerUsuari.carregarFitxeUsuari();
             llistaActividades = FitxerActividades.carregarFitxerActividades();
-            llistaInscripcions = FitxerSerialitzat.carregarInscripcions();
 
         } catch (CarregarFitxersException e) {
             System.out.println(e + "Error al cargar els fitxers");
