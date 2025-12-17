@@ -20,12 +20,14 @@ public class App {
         LlistaUsuari llistaUsuari = null;
         LlistaActividades llistaActividades = null;
         LlistaInscripcions llistaInscripcions = null;
+        Data avui = new Data();
 
         int opcio = 0;
 
         try {
             llistaUsuari = FitxerUsuari.carregarFitxeUsuari();
             llistaActividades = FitxerActividades.carregarFitxerActividades();
+            llistaInscripcions = FitxerSerialitzat.carregarInscripcions();
 
         } catch (CarregarFitxersException e) {
             System.out.println(e + "Error al cargar els fitxers");
@@ -74,7 +76,7 @@ public class App {
                     opcio9(llistaUsuari);
                     break;
                 case 10:
-                    opcio10(llistaUsuari);
+                    opcio10(llistaUsuari,llistaActividades,avui,llistaInscripcions);
                     break;
                 case 11:
                     opcio11(llistaUsuari);
@@ -183,9 +185,38 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio11'");
     }
 
-    private static void opcio10(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio10'");
+    /**
+     * Autor Izan
+     * @param llistaUsuari
+     * @param llistaActivitat
+     * @param avui
+     * @param llistaInscripcions
+     */
+    private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui, LlistaInscripcions llistaInscripcions){
+        Inscripcions ins = new Inscripcions();
+        System.out.println("Introdueix nom de l'Usuari");
+        String nom = teclat.nextLine();
+        System.out.println("Introdueix l'activitat que vol fer:");
+        String activitat = teclat.nextLine();
+        Usuari nouUsuari = null;
+        Actividades novaActividades = null;
+        try{
+        nouUsuari = llistaUsuari.buscarUsuari(nom);
+        } catch (UsuariNoTrobatException e){
+            System.err.println("No s'ha trobat l'usuari" + e);
+        }
+        try{
+        novaActividades = llistaActivitat.buscarActividades(activitat);
+        } catch(ActivitatNoTrobadaException e){
+            System.err.println("No s'ha trobat l'activitat" + e);
+        }
+        ins.setUsuari(nouUsuari);
+        ins.setActivitat(novaActividades);
+        try{
+        llistaInscripcions.afegir(ins);
+        } catch(UsuariJaInscritException e){
+            System.err.println("L'usuari " + e + " ja esta inscrit.");
+        }
     }
 
     private static void opcio9(LlistaUsuari llistaUsuari) {

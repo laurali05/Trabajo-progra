@@ -1,9 +1,6 @@
 package Inscripcions;
 
-import Actividades.LlistaActividades;
-import Lector.FitxerUsuari;
-import Usuari.LlistaUsuari;
-import Data.*;
+import Excepcions.UsuariJaInscritException;
 
 public class LlistaInscripcions{
     private static int limit;
@@ -27,7 +24,11 @@ public class LlistaInscripcions{
     public LlistaInscripcions copia() {
         LlistaInscripcions novaLlista = new LlistaInscripcions(numElem);
         for (int i = 0; i < numElem; i++) {
+            try{
             novaLlista.afegir(llista[i]);
+            } catch(UsuariJaInscritException e){
+                System.err.println("L'usuari"+ e +"ja esta inscrit");
+            }
         }
         return novaLlista;
     }
@@ -36,21 +37,24 @@ public class LlistaInscripcions{
      * Métode per afegir noves inscripcions a la llista
      * @param ins inscripcio a afegir
      */
-    public void afegir(Inscripcions ins) {
-        if (numElem < limit) {
+    public void afegir(Inscripcions ins) throws UsuariJaInscritException {
+        int i =0;
+        boolean trobat = false;
+        while (!trobat && i<numElem){
+            if (llista[i].getUsuari().esIgual(ins.getUsuari()) && llista[i].getActivitat().iguals(ins.getActivitat())){
+                trobat = true;
+            } else {
+                i++;
+            }
+        }
+
+        if (!trobat && numElem < limit) {
             llista[numElem] = ins.copia();
             numElem++;
+        } else if(trobat){
+            throw new UsuariJaInscritException(ins.getUsuari().getNom());
         }
-    }
 
-    public LlistaInscripcions crearLlista(LlistaUsuari usuaris, LlistaActividades activitats){
-        LlistaInscripcions novaLlista = null;
-        Data avui = new Data();
-        for (int i=0; i<numElem;i++){
-            Inscripcions ins = new Inscripcions(usuaris[i],activitats[i],null,avui);
-            novaLlista.afegir(ins);
-        }
-        return novaLlista;
     }
 
     //Métode toString

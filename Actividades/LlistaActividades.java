@@ -1,10 +1,7 @@
 package Actividades;
 
+import Excepcions.ActivitatNoTrobadaException;
 import Excepcions.NomActivitatDuplicatException;
-import Usuari.LlistaUsuari;
-import Usuari.UsuariEstudiant;
-import Usuari.UsuariPDI;
-import Usuari.UsuariPTGAS;
 
 /**
  * Clase: Lista de actividades
@@ -103,6 +100,7 @@ public class LlistaActividades {
     /**
      * Metode que retorna una llista especifica de una subclasse
      * Laura no te asustes de este metodo lo necesito para la opcio 2
+     * (Jordi)
      * @param opcio
      * @return
      */
@@ -146,6 +144,34 @@ public class LlistaActividades {
         }
         return llistaEsp;
 
+    }
+
+   
+    /**
+     * Metode que retorna una activitat especifica de una subclasse
+     * Laura no te asustes de este metodo lo necesito para la opcio 10
+     * (Izan)
+     * @param activitat
+     * @return activitat en concreto
+     */
+    public Actividades buscarActividades(String activitat) throws ActivitatNoTrobadaException {
+
+        int i = 0;
+        boolean trobat = false;
+
+        while (i < numElems && !trobat) {
+            if (llista[i].getNom().equalsIgnoreCase(activitat)) {
+                trobat = true;
+            } else {
+                i++;
+            }
+        }
+
+        if (!trobat) {
+            throw new ActivitatNoTrobadaException(activitat);
+
+        }
+        return llista[i];
     }
 
 }
