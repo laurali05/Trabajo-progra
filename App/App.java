@@ -13,13 +13,14 @@ import Usuari.LlistaUsuari;
 
 public class App {
 
-    static Scanner teclat = new Scanner(System.in,"UTF-8");// Ens permetrà llegir el número que el usuari introdueixi per teclat
-                                               
+    static Scanner teclat = new Scanner(System.in, "UTF-8");// Ens permetrà llegir el número que el usuari introdueixi
+                                                            // per teclat
+
     public static void main(String[] args) {
-        LlistaUsuari llistaUsuari = null;
-        LlistaActividades llistaActividades = null;
-        LlistaInscripcions llistaInscripcions = null;
-        LlistaEspera llistaEspera = null;
+        LlistaUsuari llistaUsuari = new LlistaUsuari(1000);
+        LlistaActividades llistaActividades = new LlistaActividades(1000);
+        LlistaInscripcions llistaInscripcions = new LlistaInscripcions(1000);
+        LlistaEspera llistaEspera = new LlistaEspera();
         Data avui = new Data();
 
         int opcio = 0;
@@ -73,10 +74,10 @@ public class App {
                     opcio8(llistaUsuari);
                     break;
                 case 9:
-                    opcio9(llistaUsuari);
+                    opcio9(llistaUsuari, llistaInscripcions);
                     break;
                 case 10:
-                    opcio10(llistaUsuari,llistaActividades,avui,llistaInscripcions);
+                    opcio10(llistaUsuari, llistaActividades, avui, llistaInscripcions);
                     break;
                 case 11:
                     opcio11(llistaUsuari);
@@ -187,12 +188,14 @@ public class App {
 
     /**
      * Autor Izan
+     * 
      * @param llistaUsuari
      * @param llistaActivitat
      * @param avui
      * @param llistaInscripcions
      */
-    private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui, LlistaInscripcions llistaInscripcions){
+    private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui,
+            LlistaInscripcions llistaInscripcions) {
         Inscripcions ins = new Inscripcions();
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();
@@ -200,42 +203,51 @@ public class App {
         String activitat = teclat.nextLine();
         Usuari nouUsuari = null;
         Actividades novaActividades = null;
-        try{
-        nouUsuari = llistaUsuari.buscarUsuari(nom);
-        } catch (UsuariNoTrobatException e){
+        try {
+            nouUsuari = llistaUsuari.buscarUsuari(nom);
+        } catch (UsuariNoTrobatException e) {
             System.err.println("No s'ha trobat l'usuari" + e);
         }
-        try{
-        novaActividades = llistaActivitat.buscarActividades(activitat);
-        } catch(ActivitatNoTrobadaException e){
+        try {
+            novaActividades = llistaActivitat.buscarActividades(activitat);
+        } catch (ActivitatNoTrobadaException e) {
             System.err.println("No s'ha trobat l'activitat" + e);
         }
         ins.setUsuari(nouUsuari);
         ins.setActivitat(novaActividades);
-        try{
-        llistaInscripcions.afegir(ins);
-        try{
-        FitxerSerialitzat.guardarInscripcions(llistaInscripcions);
-        } catch(GuardarFitxersException e){
-            System.err.println("Ja esta guardat");
-        }
-        } catch(UsuariJaInscritException e){
+        try {
+            llistaInscripcions.afegir(ins);
+            try {
+                FitxerSerialitzat.guardarInscripcions(llistaInscripcions);
+            } catch (GuardarFitxersException e) {
+                System.err.println("Ja esta guardat");
+            }
+        } catch (UsuariJaInscritException e) {
             System.err.println("L'usuari " + e + " ja esta inscrit.");
         }
 
     }
 
-    private static void opcio9(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio9'");
+    private static void opcio9(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions) {
+        System.out.println("Introduiu el nom del usuari:");
+        String nom = teclat.nextLine();
+        Usuari usu=null;
+        try {
+             usu = llistaUsuari.buscarUsuari(nom);
+        } catch (UsuariNoTrobatException e) {
+            System.out.println("No s'ha trobat el nom del usuari " + e);
+        }
+        LlistaActividades llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
+
     }
 
     /**
      * Autor Jordi
+     * 
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
-        //TODO solucionar usuaris mateix nom
+        // TODO solucionar usuaris mateix nom
         System.out.println("introdueix el nom de l'usuari");
         String nom = teclat.nextLine();
         Usuari usu = null;
@@ -375,12 +387,12 @@ public class App {
                     break;
 
                 case 3:
-                    if(llistaInscripcions ==null){
+                    if (llistaInscripcions == null) {
                         System.out.println("Llista Buida");
+                    } else {
+                        System.out.println(llistaInscripcions.toString());
+                        break;
                     }
-                    else{
-                    System.out.println(llistaInscripcions.toString());
-                    break;}
             }
         } catch (NumberFormatException e) {
             System.err.println(e + "   Es necessari introduir un numero.");
@@ -389,10 +401,11 @@ public class App {
 
     /**
      * Autor Izan
+     * 
      * @param avui
      */
     private static void opcio1(Data avui) {
-        System.out.println("La data d'avui es "+ avui);
+        System.out.println("La data d'avui es " + avui);
     }
 
     private static void mostrarMenu() {
