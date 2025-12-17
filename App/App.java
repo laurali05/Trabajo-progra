@@ -13,9 +13,8 @@ import Usuari.LlistaUsuari;
 
 public class App {
 
-    static Scanner teclat = new Scanner(System.in);// Ens permetrà llegir el número que el usuari introdueixi per
-                                                   // teclat.
-
+    static Scanner teclat = new Scanner(System.in,"UTF-8");// Ens permetrà llegir el número que el usuari introdueixi per teclat
+                                               
     public static void main(String[] args) {
         LlistaUsuari llistaUsuari = null;
         LlistaActividades llistaActividades = null;
@@ -49,7 +48,7 @@ public class App {
             switch (opcio) {
 
                 case 1:
-                    opcio1(llistaUsuari);
+                    opcio1(avui);
                     break;
                 case 2:
                     opcio2(llistaUsuari, llistaActividades, llistaInscripcions);
@@ -383,9 +382,8 @@ public class App {
         }
     }
 
-    private static void opcio1(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio1'");
+    private static void opcio1(Data avui) {
+        System.out.println("La data d'avui es "+ avui);
     }
 
     private static void mostrarMenu() {
