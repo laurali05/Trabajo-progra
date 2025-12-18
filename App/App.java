@@ -60,7 +60,7 @@ public class App {
                     opcio4(llistaActividades, llistaInscripcions);
                     break;
                 case 5:
-                    opcio5(llistaUsuari);
+                    opcio5(llistaActividades);
                     break;
                 case 6:
                     opcio6(llistaUsuari);
@@ -281,14 +281,67 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio6'");
     }
 
-    private static void opcio5(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio5'");
+    /**
+     * Método que te devuelve el nombre de las actividades que están activas
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     */
+    private static void opcio5(LlistaActividades llistaActividades) {
+        Data avui = new Data(27,9,2025);
+        boolean act = false;
+        int contador = 0;
+
+        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+            Actividades a = llistaActividades.getActividad(i);
+
+            if(a.tipo.equalsIgnoreCase("Dia")){
+                ActividadesDia dia = (ActividadesDia) a;
+                if(avui.esIgual(dia.getFechaIn())){
+                    contador ++;
+                    System.out.println("\n" + contador + " " + dia.getNom());
+                    act = true;
+                }
+
+            } else if (a.tipo.equalsIgnoreCase("Periodica")){
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
+
+                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
+
+                if(periodica.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))){
+                    contador ++;
+                    System.out.println("\n" + contador + " " + periodica.getNom());
+                    act = true;
+                }
+            }else if (a.tipo.equalsIgnoreCase("Online")){
+                ActividadesOnline online = (ActividadesOnline) a;
+
+                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
+
+                if(online.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))){
+                    contador ++;
+                    System.out.println("\n" + contador + " " + online.getNom());
+                    act = true;
+                }
+            }
+        }
+
+        if(!act){
+            System.out.println("No hay actividades activas");
+        }
     }
 
+    /**
+     * Método que comprueba que actividades tiene clase hoy y si hay plazas y lista
+     * de espera
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     * @param llistaInscripcions
+     */
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
         Data avui = new Data(27, 9, 2025); // Aquí tengo que poner la fecha de la opción 1
-        Boolean act = false;
+        boolean act = false;
 
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades b = llistaActividades.getActividad(i);
