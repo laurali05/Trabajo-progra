@@ -1,5 +1,6 @@
 package Inscripcions;
 
+import Actividades.Actividades;
 import Actividades.LlistaActividades;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
@@ -73,6 +74,13 @@ public class LlistaInscripcions {
         return text;
     }
 
+    /**
+     * Metode que retorna un llista d'activitats d'un usuari concret
+     * (Jordi)
+     * 
+     * @param nom
+     * @return
+     */
     public LlistaActividades ActivitatsUsuari(Usuari nom) {
         LlistaActividades aux = new LlistaActividades(limit);
         try {
@@ -107,5 +115,42 @@ public class LlistaInscripcions {
         }
 
         return contador;
+    }
+
+    /**
+     * Metode necesari per la opcio 12
+     * (Jordi)
+     * 
+     * @param usuari
+     * @param act
+     */
+    public void eliminarInscripcio(Usuari usuari, Actividades act, LlistaEspera llistaEspera) {
+        boolean trobat = false;
+        int i = 0;
+        Inscripcions insEspera = null;
+        while (!trobat && i < numElem) {
+            if (llista[i].getUsuari().equals(usuari) && llista[i].getActivitat().equals(act)) {
+                for (int j = 0; j < numElem; j++) {
+                    llista[j] = llista[j + 1];
+                    numElem--;
+                }
+                trobat = true;
+            } else
+                i++;
+        }
+        if (!trobat) {
+            System.out.println("L'usuari no està apuntat en aquesta activitat");
+        } else {
+
+            System.out.println("L'usuari ha estat eliminat de la activitat correctament");
+            insEspera = llistaEspera.buscarPrimerEspera(act);
+            try {
+                if (insEspera != null) {
+                    this.afegir(insEspera);
+                }
+            } catch (UsuariJaInscritException e) {
+                System.err.println(e + ": Usuari ja inscrit");
+            }
+        }
     }
 }
