@@ -63,7 +63,7 @@ public class App {
                     opcio5(llistaActividades);
                     break;
                 case 6:
-                    opcio6(llistaUsuari);
+                    opcio6(llistaActividades, llistaInscripcions);
                     break;
                 case 7:
                     opcio7(llistaUsuari);
@@ -276,9 +276,39 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio7'");
     }
 
-    private static void opcio6(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio6'");
+    /**
+     * Método que indica las actividades con plazas disponibles
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     * @param llistaInscripcions
+     */
+    private static void opcio6(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
+
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+            Actividades a = llistaActividades.getActividad(i);
+
+            if (a.getTipo().equalsIgnoreCase("Dia")) {
+                ActividadesDia dia = (ActividadesDia) a;
+
+                int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
+
+                if (numInscritos <= dia.getLimite()) {
+                    System.out.println("En la actividad '" + dia.getNom() + "'' hay plazas disponibles");
+                }
+            } else if (a.getTipo().equalsIgnoreCase("Periodica")) {
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
+
+                int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
+
+                if (numInscritos <= periodica.getLimite()) {
+                    System.out.println("En la actividad '" + periodica.getNom() + "'' hay plazas diposnibles");
+                }
+            } else if (a.getTipo().equalsIgnoreCase("Online")) {
+                ActividadesOnline online = (ActividadesOnline) a;
+                System.out.println("En la actividad '" + online.getNom() + "'' hay plazas disponibles");
+            }
+        }
     }
 
     /**
@@ -288,45 +318,45 @@ public class App {
      * @param llistaActividades
      */
     private static void opcio5(LlistaActividades llistaActividades) {
-        Data avui = new Data(27,9,2025);
+        Data avui = new Data(27, 9, 2025);
         boolean act = false;
         int contador = 0;
 
-        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades a = llistaActividades.getActividad(i);
 
-            if(a.tipo.equalsIgnoreCase("Dia")){
+            if (a.tipo.equalsIgnoreCase("Dia")) {
                 ActividadesDia dia = (ActividadesDia) a;
-                if(avui.esIgual(dia.getFechaIn())){
-                    contador ++;
-                    System.out.println("\n" + contador + " " + dia.getNom());
+                if (avui.esIgual(dia.getFechaIn())) {
+                    contador++;
+                    System.out.println(contador + ". " + dia.getNom());
                     act = true;
                 }
 
-            } else if (a.tipo.equalsIgnoreCase("Periodica")){
+            } else if (a.tipo.equalsIgnoreCase("Periodica")) {
                 ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
 
                 Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
 
-                if(periodica.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))){
-                    contador ++;
-                    System.out.println("\n" + contador + " " + periodica.getNom());
+                if (periodica.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))) {
+                    contador++;
+                    System.out.println(contador + ". " + periodica.getNom());
                     act = true;
                 }
-            }else if (a.tipo.equalsIgnoreCase("Online")){
+            } else if (a.tipo.equalsIgnoreCase("Online")) {
                 ActividadesOnline online = (ActividadesOnline) a;
 
                 Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
 
-                if(online.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))){
-                    contador ++;
-                    System.out.println("\n" + contador + " " + online.getNom());
+                if (online.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))) {
+                    contador++;
+                    System.out.println(contador + ". " + online.getNom());
                     act = true;
                 }
             }
         }
 
-        if(!act){
+        if (!act) {
             System.out.println("No hay actividades activas");
         }
     }
@@ -342,6 +372,7 @@ public class App {
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
         Data avui = new Data(27, 9, 2025); // Aquí tengo que poner la fecha de la opción 1
         boolean act = false;
+        int contador = 0;
 
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades b = llistaActividades.getActividad(i);
@@ -349,8 +380,9 @@ public class App {
             if (b.tipo.equalsIgnoreCase("Dia")) {
                 ActividadesDia dia = (ActividadesDia) b;
                 if (avui.esIgual(dia.getFechaIn())) {
+                    contador++;
 
-                    System.out.println("\n" + dia.toString());
+                    System.out.println("\nActividad " + contador + ": \n\n" + dia.toString());
 
                     int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
 
@@ -382,7 +414,8 @@ public class App {
                     int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
 
                     if (diasDesdeInicio % 7 == 0) {
-                        System.out.println("\n" + periodica.toString());
+                        contador++;
+                        System.out.println("\nActividad " + contador + ": \n\n" + periodica.toString());
 
                         int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
 
@@ -409,7 +442,9 @@ public class App {
                 Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
 
                 if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
-                    System.out.println("\n" + online.toString());
+                    contador++;
+
+                    System.out.println("\nActividad " + contador + ": \n\n" + online.toString());
                     System.out.println("Plazas llenas: NO");
                     System.out.println("Lista de espera: NO");
                     act = true;
@@ -425,12 +460,14 @@ public class App {
     private static void opcio3(LlistaActividades llistaActividades) {
         Data hoy = new Data(); // Aquí tengo que poner la fecha de la opción 1
         boolean actividades = false;
+        int contador = 0;
 
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades a = llistaActividades.getActividad(i);
 
             if ((a.getPeriodoIn().esDataInferiorOigual(hoy)) && (hoy.esDataInferiorOigual(a.getPeriodoFin()))) {
-                System.out.println("\n" + a.toString());
+                contador++;
+                System.out.println("\nActividad " + contador + ":\n\n" + a.toString());
                 actividades = true;
             }
         }
