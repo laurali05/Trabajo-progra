@@ -248,7 +248,11 @@ public class App {
             System.out.println("No s'ha trobat el nom del usuari " + e);
         }
         LlistaActividades llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
-        System.out.println(llistaActitatsUsu);
+        if (llistaActitatsUsu.getNumElems() == 0) {
+            System.out.println("L'usuari no està apuntat a cap activitat");
+        } else {
+            System.out.println(llistaActitatsUsu);
+        }
 
     }
 
@@ -282,9 +286,9 @@ public class App {
         System.out.println("Introduce el nombre de la actividad");
         String actividad = teclat.nextLine();
 
-        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades a = llistaActividades.getActividad(i);
-            if(a.getNom().equalsIgnoreCase(actividad)){
+            if (a.getNom().equalsIgnoreCase(actividad)) {
                 System.out.println("\n" + a.toString());
             }
         }
