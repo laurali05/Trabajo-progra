@@ -9,8 +9,6 @@ import Usuari.*;
 import Actividades.*;
 import java.util.Scanner;
 
-import Usuari.LlistaUsuari;
-
 public class App {
 
     static Scanner teclat = new Scanner(System.in, "UTF-8");// Ens permetrà llegir el número que el usuari introdueixi
@@ -59,7 +57,7 @@ public class App {
                     opcio3(llistaActividades);
                     break;
                 case 4:
-                    opcio4(llistaActividades);
+                    opcio4(llistaActividades, llistaInscripcions);
                     break;
                 case 5:
                     opcio5(llistaUsuari);
@@ -243,9 +241,9 @@ public class App {
     private static void opcio9(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions) {
         System.out.println("Introduiu el nom del usuari:");
         String nom = teclat.nextLine();
-        Usuari usu=null;
+        Usuari usu = null;
         try {
-             usu = llistaUsuari.buscarUsuari(nom);
+            usu = llistaUsuari.buscarUsuari(nom);
         } catch (UsuariNoTrobatException e) {
             System.out.println("No s'ha trobat el nom del usuari " + e);
         }
@@ -288,29 +286,66 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio5'");
     }
 
-    private static void opcio4(LlistaActividades llistaActividades) {
-        Data avui = new Data(20, 9, 2025); //Aquí tengo que poner la fecha de la opción 1
+    private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
+        Data avui = new Data(27, 9, 2025); // Aquí tengo que poner la fecha de la opción 1
         Boolean act = false;
+
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades b = llistaActividades.getActividad(i);
 
             if (b.tipo.equalsIgnoreCase("Dia")) {
                 ActividadesDia dia = (ActividadesDia) b;
                 if (avui.esIgual(dia.getFechaIn())) {
-                    System.out.println("\n" + b.toString());
+
+                    System.out.println("\n" + dia.toString());
+
+                    int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
+
+                    int aforoMaximo = dia.getLimite();
+
+                    if (numInscritos >= aforoMaximo) {
+                        System.out.println("Plazas llenas: SÍ");
+                    } else {
+                        System.out.println("Plazas llenas: NO");
+                    }
+
+                    if (numInscritos > aforoMaximo) {
+                        System.out.println("Lista de espera: SÍ");
+                    } else {
+                        System.out.println("Lista de espera: NO");
+                    }
+
                     act = true;
+
                 }
 
-            } else if (b.tipo.equalsIgnoreCase("Perioica")) {
+            } else if (b.tipo.equalsIgnoreCase("Periodica")) {
                 ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
 
                 Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
 
                 if ((periodica.getFechaIn().esDataInferiorOigual(avui)) && ((avui.esDataInferiorOigual(fechaFin)))) {
+
                     int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
-                    
+
                     if (diasDesdeInicio % 7 == 0) {
-                        System.out.println("\n" + b.toString());
+                        System.out.println("\n" + periodica.toString());
+
+                        int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
+
+                        int aforoMaximo = periodica.getLimite();
+
+                        if (numInscritos >= aforoMaximo) {
+                            System.out.println("Plazas llenas: SÍ");
+                        } else {
+                            System.out.println("Plazas llenas: NO");
+                        }
+
+                        if (numInscritos > aforoMaximo) {
+                            System.out.println("Lista de espera: SÍ");
+                        } else {
+                            System.out.println("Lista de espera: NO");
+                        }
                         act = true;
                     }
                 }
@@ -321,8 +356,9 @@ public class App {
                 Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
 
                 if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
-                    
-                    System.out.println("\n" + b.toString());
+                    System.out.println("\n" + online.toString());
+                    System.out.println("Plazas llenas: NO");
+                    System.out.println("Lista de espera: NO");
                     act = true;
                 }
             }

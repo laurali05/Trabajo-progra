@@ -88,4 +88,23 @@ public class LlistaInscripcions {
         }
         return aux;
     }
+
+    /**
+     * Método que devuelve el número de personas inscritas
+     * Izan no te asustes lo necesito para el método 4
+     * 
+     * @param nomActividad
+     * @return
+     */
+    public int contarInscritos(String nomActividad) {
+        int contador = 0;
+
+        for (int i = 0; i < numElem; i++) {
+            if (llista[i].getActivitat().getNom().equals(nomActividad)) {
+                contador++;
+            }
+        }
+
+        return contador;
+    }
 }
