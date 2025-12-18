@@ -91,7 +91,8 @@ public class LlistaInscripcions {
 
     /**
      * Método que devuelve el número de personas inscritas
-     * Izan no te asustes lo necesito para el método 4
+     * Izan no te asustes lo necesito para el método 4 y 6
+     * Autor Laura Lope
      * 
      * @param nomActividad
      * @return

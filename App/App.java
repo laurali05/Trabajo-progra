@@ -66,7 +66,7 @@ public class App {
                     opcio6(llistaActividades, llistaInscripcions);
                     break;
                 case 7:
-                    opcio7(llistaUsuari);
+                    opcio7(llistaActividades);
                     break;
                 case 8:
                     opcio8(llistaUsuari);
@@ -271,9 +271,23 @@ public class App {
 
     }
 
-    private static void opcio7(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio7'");
+    /**
+     * Método que devuelve la información de una actividad en concreto
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     * @param Actividades
+     */
+    private static void opcio7(LlistaActividades llistaActividades) {
+        System.out.println("Introduce el nombre de la actividad");
+        String actividad = teclat.nextLine();
+
+        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+            Actividades a = llistaActividades.getActividad(i);
+            if(a.getNom().equalsIgnoreCase(actividad)){
+                System.out.println("\n" + a.toString());
+            }
+        }
     }
 
     /**
