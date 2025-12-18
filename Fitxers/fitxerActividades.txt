@@ -1,6 +1,6 @@
-Dia;Jornada de bienvenida ;01/09/2025;15/09/2025;Estudiants;20/09/2025;10:00;200;0.00;Tarragona
-Dia;Conferencia sobre investigación biomédica;10/10/2025;25/10/2025;PDI,PTGAS;30/10/2025;12:30;50;5.00;Reus
-Periodica;Curso de catalán para estudiantes ;01/09/2025;15/12/2025;Estudiants;Martes;16:00;10/09/2025;14;30;0.00;Campus Catalunya;Tarragona
-Periodica;Seminario de metodología de investigación;15/09/2025;20/12/2025;PDI,Estudiants;Jueves;18:00;20/09/2025;12;25;10.00;Campus Sescelades;Tarragona
+Dia;Jornada de bienvenida;01/09/2025;15/09/2025;Estudiants;20/09/2025;10:00;200;0.00;Tarragona
+Dia;Conferencia sobre investigacion biomedica;10/10/2025;25/10/2025;PDI,PTGAS;30/10/2025;12:30;50;5.00;Reus
+Periodica;Curso de catalan para estudiantes;01/09/2025;15/12/2025;Estudiants;Martes;16:00;10/09/2025;14;30;0.00;Campus Catalunya;Tarragona
+Periodica;Seminario de metodologia de investigacion;15/09/2025;20/12/2025;PDI,Estudiants;Jueves;18:00;20/09/2025;12;25;10.00;Campus Sescelades;Tarragona
 Online;Charla de empleabilidad y CV;01/10/2025;31/12/2025;Estudiants;05/10/2025;90;https://urv.cat/empleabilidad
-Online;Formación;15/09/2025;15/12/2025;PDI,PTGAS;20/09/2025;60;https://urv.cat/formacion-digital
+Online;Formacion;15/09/2025;15/12/2025;PDI,PTGAS;20/09/2025;60;https://urv.cat/formacion-digital

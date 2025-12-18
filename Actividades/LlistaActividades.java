@@ -155,7 +155,7 @@ public class LlistaActividades {
      * @return activitat en concreto
      */
     public Actividades buscarActividades(String activitat) throws ActivitatNoTrobadaException {
-
+    
         int i = 0;
         boolean trobat = false;
 

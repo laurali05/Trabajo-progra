@@ -201,20 +201,27 @@ public class App {
         String nom = teclat.nextLine();
         System.out.println("Introdueix l'activitat que vol fer:");
         String activitat = teclat.nextLine();
+
         Usuari nouUsuari = null;
         Actividades novaActividades = null;
+
         try {
             nouUsuari = llistaUsuari.buscarUsuari(nom);
         } catch (UsuariNoTrobatException e) {
             System.err.println("No s'ha trobat l'usuari" + e);
+            return;
         }
+
         try {
             novaActividades = llistaActivitat.buscarActividades(activitat);
         } catch (ActivitatNoTrobadaException e) {
             System.err.println("No s'ha trobat l'activitat" + e);
+            return;
         }
+
         ins.setUsuari(nouUsuari);
         ins.setActivitat(novaActividades);
+        
         try {
             llistaInscripcions.afegir(ins);
             try {

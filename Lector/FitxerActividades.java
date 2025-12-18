@@ -28,8 +28,8 @@ public class FitxerActividades {
                 String linea = leer.nextLine();
                 String[] secciones = linea.split(";");
 
-                String tipo = secciones[0];
-                String nombre = secciones[1];
+                String tipo = secciones[0].trim();
+                String nombre = secciones[1].trim();
 
                 String[] partesPeriodoIn = secciones[2].split("/");
                 Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
