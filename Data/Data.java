@@ -203,6 +203,25 @@ public class Data {
 		return aux;
 	}
 
+	/**
+	 * Suma x días a la fecha actual 
+	 * Autor Laura Lope
+	 * 
+	 * @param dias
+	 * @return
+	 */
+	public Data sumarDias(int dias){
+		Data nuevaData = new Data(this.dia, this.mes, this.any);
+
+		for (int i = 0; i < dias; i++){
+			nuevaData = nuevaData.diaSeguent();
+		}
+
+		return nuevaData;
+	}
+
+	
+
 	private static boolean esDataCorrecta(int dia, int mes, int any) {
 		boolean hoEs = true;
 		if (dia < 1 || dia > 31) {

@@ -209,19 +209,18 @@ public class App {
             nouUsuari = llistaUsuari.buscarUsuari(nom);
         } catch (UsuariNoTrobatException e) {
             System.err.println("No s'ha trobat l'usuari" + e);
-            return;
         }
 
         try {
             novaActividades = llistaActivitat.buscarActividades(activitat);
         } catch (ActivitatNoTrobadaException e) {
             System.err.println("No s'ha trobat l'activitat" + e);
-            return;
+
         }
 
         ins.setUsuari(nouUsuari);
         ins.setActivitat(novaActividades);
-        
+
         try {
             llistaInscripcions.afegir(ins);
             try {
@@ -290,27 +289,39 @@ public class App {
     }
 
     private static void opcio4(LlistaActividades llistaActividades) {
-        Data avui = new Data(20, 9, 2025);
+        Data avui = new Data(20, 9, 2025); //Aquí tengo que poner la fecha de la opción 1
         Boolean act = false;
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades b = llistaActividades.getActividad(i);
+
             if (b.tipo.equalsIgnoreCase("Dia")) {
                 ActividadesDia dia = (ActividadesDia) b;
                 if (avui.esIgual(dia.getFechaIn())) {
                     System.out.println("\n" + b.toString());
                     act = true;
                 }
+
             } else if (b.tipo.equalsIgnoreCase("Perioica")) {
                 ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
-                if (avui.esIgual(periodica.getFechaIn())) { // Cambiarlo para que cuente desde el día
-                                                            // que empieza hasta el dia que termina
-                    System.out.println("\n" + b.toString());
-                    act = true;
+
+                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
+
+                if ((periodica.getFechaIn().esDataInferiorOigual(avui)) && ((avui.esDataInferiorOigual(fechaFin)))) {
+                    int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
+                    
+                    if (diasDesdeInicio % 7 == 0) {
+                        System.out.println("\n" + b.toString());
+                        act = true;
+                    }
                 }
+
             } else if (b.tipo.equalsIgnoreCase("Online")) {
                 ActividadesOnline online = (ActividadesOnline) b;
-                if (avui.esIgual(online.getFechaIn())) { // Cambiarlo para que cuente desde el día que
-                                                         // empieza hasta el dia que termina
+
+                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
+
+                if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
+                    
                     System.out.println("\n" + b.toString());
                     act = true;
                 }

@@ -149,8 +149,8 @@ public class LlistaActividades {
    
     /**
      * Metode que retorna una activitat especifica de una subclasse
-     * Laura no te asustes de este metodo lo necesito para la opcio 10
-     * (Izan)
+     * Autor Izan Flores
+     * 
      * @param activitat
      * @return activitat en concreto
      */
