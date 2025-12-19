@@ -81,7 +81,7 @@ public class App {
                     opcio11(llistaUsuari);
                     break;
                 case 12:
-                    opcio12(llistaUsuari,llistaInscripcions,llistaActividades,llistaEspera);
+                    opcio12(llistaUsuari, llistaInscripcions, llistaActividades, llistaEspera);
                     break;
                 case 13:
                     opcio13(llistaUsuari);
@@ -105,7 +105,7 @@ public class App {
                     opcio19(llistaUsuari);
                     break;
                 case 20:
-                    opcio20(llistaUsuari);
+                    opcio20(llistaInscripcions, llistaUsuari);
                     break;
                 case 21:
                     opcio21(llistaUsuari);
@@ -134,9 +134,23 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio21'");
     }
 
-    private static void opcio20(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio20'");
+    private static void opcio20(LlistaInscripcions llistaInscripcions, LlistaUsuari llistaUsuari) {
+        int opcio = 0;
+        Usuari usuMesActiu = null;
+        System.err.println("Quin tipus especific d'usuari vols mostrar:");
+        System.out.println("1. Mostrar l'estudiant més actiu");
+        System.out.println("2. Mostrar el professor més actiu");
+        System.out.println("3. Mostrar el treballador més actiu");
+        try {
+            opcio = Integer.parseInt(teclat.nextLine());
+            usuMesActiu = llistaInscripcions.UsuariMesActiu(opcio, llistaUsuari);
+        } catch (NumberFormatException e) {
+            System.err.println(e + "   Es necessari introduir un numero.");
+        }
+        if (usuMesActiu !=null) {
+            System.out.println("L'usuari més actiu del tipus seleccionat és: \n"+usuMesActiu);
+        }
+
     }
 
     private static void opcio19(LlistaUsuari llistaUsuari) {
@@ -181,8 +195,9 @@ public class App {
      * @param llistaInscripcions
      * @param llistaActivitat
      */
-    private static void opcio12(LlistaUsuari llistaUsuari,LlistaInscripcions llistaInscripcions,LlistaActividades llistaActivitat,LlistaEspera llistaEspera) {
-       
+    private static void opcio12(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions,
+            LlistaActividades llistaActivitat, LlistaEspera llistaEspera) {
+
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();
         System.out.println("Introdueix l'activitat que vol eliminar-se:");
@@ -204,7 +219,7 @@ public class App {
 
         }
 
-        llistaInscripcions.eliminarInscripcio(usuari,act,llistaEspera);
+        llistaInscripcions.eliminarInscripcio(usuari, act, llistaEspera);
     }
 
     private static void opcio11(LlistaUsuari llistaUsuari) {
@@ -290,7 +305,6 @@ public class App {
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
-        // TODO solucionar usuaris mateix nom
         System.out.println("introdueix el nom de l'usuari");
         String nom = teclat.nextLine();
         Usuari usu = null;

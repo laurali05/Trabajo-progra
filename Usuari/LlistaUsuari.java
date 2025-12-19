@@ -127,4 +127,22 @@ public class LlistaUsuari {
         
     }
 
+    /** Metode que retorna el numero d'elements de la llista
+     * 
+     * @return
+     */
+    public int getNumElems() {
+       return nElem;
+    }
+
+    /**
+     * Metode que retorna un usuari a partir de la seva posició
+     * 
+     * @param i
+     * @return
+     */
+    public Usuari buscarUsuariPerPos(int i) {
+       return llista[i];
+    }
+
 }

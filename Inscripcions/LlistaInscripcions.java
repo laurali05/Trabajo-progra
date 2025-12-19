@@ -4,7 +4,11 @@ import Actividades.Actividades;
 import Actividades.LlistaActividades;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
+import Usuari.LlistaUsuari;
 import Usuari.Usuari;
+import Usuari.UsuariEstudiant;
+import Usuari.UsuariPDI;
+import Usuari.UsuariPTGAS;
 
 public class LlistaInscripcions {
     private static int limit;
@@ -152,5 +156,85 @@ public class LlistaInscripcions {
                 System.err.println(e + ": Usuari ja inscrit");
             }
         }
+    }
+
+    /**
+     * Metode que compara cuantes activitats fa cada usuari d'un tipus especific i
+     * retorna el mes actiu
+     * (Jordi)
+     * 
+     * @param opcio
+     * @param llistaUsuari
+     * @return
+     */
+    public Usuari UsuariMesActiu(int opcio, LlistaUsuari llistaUsuari) {
+        int numActivitats = 0;
+        int max = 0;
+        Usuari auxUsuari = null;
+        int pos = 0;
+        boolean actiu = false;
+        if (opcio == 1) {
+            for (int i = 0; i < llistaUsuari.getNumElems(); i++) {
+
+                auxUsuari = llistaUsuari.buscarUsuariPerPos(i);
+                if (auxUsuari instanceof UsuariEstudiant) {
+                    numActivitats = this.ActivitatsUsuari(auxUsuari).getNumElems();
+
+                    if (numActivitats > max) {
+
+                        actiu = true;
+                        pos = i;
+                    }
+                }
+            }
+            if (actiu == false) {
+
+                System.out.println("No hi ha ningun usuari amb cap activitat");
+                return null;
+            } else
+                return llistaUsuari.buscarUsuariPerPos(pos);
+        }
+        if (opcio == 2) {
+            for (int i = 0; i < llistaUsuari.getNumElems(); i++) {
+
+                auxUsuari = llistaUsuari.buscarUsuariPerPos(i);
+                if (auxUsuari instanceof UsuariPDI) {
+                    numActivitats = this.ActivitatsUsuari(auxUsuari).getNumElems();
+
+                    if (numActivitats > max) {
+                        actiu = true;
+                        pos = i;
+                    }
+                }
+            }
+            if (actiu == false) {
+                System.out.println("No hi ha ningun usuari amb cap activitat");
+                return null;
+            } else
+                return llistaUsuari.buscarUsuariPerPos(pos);
+        }
+        if (opcio == 3) {
+            for (int i = 0; i < llistaUsuari.getNumElems(); i++) {
+
+                auxUsuari = llistaUsuari.buscarUsuariPerPos(i);
+                if (auxUsuari instanceof UsuariPTGAS) {
+                    numActivitats = this.ActivitatsUsuari(auxUsuari).getNumElems();
+
+                    if (numActivitats > max) {
+                        actiu = true;
+                        pos = i;
+                    }
+                }
+            }
+            if (actiu == false) {
+                System.out.println("No hi ha ningun usuari amb cap activitat");
+                return null;
+            } else
+                return llistaUsuari.buscarUsuariPerPos(pos);
+        } else {
+            System.err.println("Opció seleccionada incorrecta");
+            return null;
+        }
+
     }
 }

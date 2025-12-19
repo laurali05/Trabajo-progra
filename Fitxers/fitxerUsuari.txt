@@ -1,3 +1,4 @@
 Estudiant;Iker;Iker.Peña;GEB;2020;
 Professor;Xavi;Xavi.Domingo;DEQ;Catalunya;
 Treballador;Alex;Alex.Palacios;Catalunya;
+Estudiant;Nom;Nom.Cognom;GEB;2020;
