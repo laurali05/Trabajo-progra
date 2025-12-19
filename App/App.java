@@ -81,7 +81,7 @@ public class App {
                     opcio11(llistaUsuari);
                     break;
                 case 12:
-                    opcio12(llistaUsuari);
+                    opcio12(llistaUsuari,llistaInscripcions,llistaActividades,llistaEspera);
                     break;
                 case 13:
                     opcio13(llistaUsuari);
@@ -174,9 +174,37 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio13'");
     }
 
-    private static void opcio12(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio12'");
+    /**
+     * Autor Jordi
+     * 
+     * @param llistaUsuari
+     * @param llistaInscripcions
+     * @param llistaActivitat
+     */
+    private static void opcio12(LlistaUsuari llistaUsuari,LlistaInscripcions llistaInscripcions,LlistaActividades llistaActivitat,LlistaEspera llistaEspera) {
+       
+        System.out.println("Introdueix nom de l'Usuari");
+        String nom = teclat.nextLine();
+        System.out.println("Introdueix l'activitat que vol eliminar-se:");
+        String activitat = teclat.nextLine();
+
+        Usuari usuari = null;
+        Actividades act = null;
+
+        try {
+            usuari = llistaUsuari.buscarUsuari(nom);
+        } catch (UsuariNoTrobatException e) {
+            System.err.println("No s'ha trobat l'usuari" + e);
+        }
+
+        try {
+            act = llistaActivitat.buscarActividades(activitat);
+        } catch (ActivitatNoTrobadaException e) {
+            System.err.println("No s'ha trobat l'activitat" + e);
+
+        }
+
+        llistaInscripcions.eliminarInscripcio(usuari,act,llistaEspera);
     }
 
     private static void opcio11(LlistaUsuari llistaUsuari) {
@@ -248,7 +276,11 @@ public class App {
             System.out.println("No s'ha trobat el nom del usuari " + e);
         }
         LlistaActividades llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
-        System.out.println(llistaActitatsUsu);
+        if (llistaActitatsUsu.getNumElems() == 0) {
+            System.out.println("L'usuari no està apuntat a cap activitat");
+        } else {
+            System.out.println(llistaActitatsUsu);
+        }
 
     }
 
@@ -282,9 +314,9 @@ public class App {
         System.out.println("Introduce el nombre de la actividad");
         String actividad = teclat.nextLine();
 
-        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades a = llistaActividades.getActividad(i);
-            if(a.getNom().equalsIgnoreCase(actividad)){
+            if (a.getNom().equalsIgnoreCase(actividad)) {
                 System.out.println("\n" + a.toString());
             }
         }
