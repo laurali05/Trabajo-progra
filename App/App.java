@@ -84,7 +84,7 @@ public class App {
                     opcio12(llistaUsuari, llistaInscripcions, llistaActividades, llistaEspera);
                     break;
                 case 13:
-                    opcio13(llistaUsuari);
+                    opcio13(llistaActividades);
                     break;
                 case 14:
                     opcio14(llistaUsuari);
@@ -147,8 +147,8 @@ public class App {
         } catch (NumberFormatException e) {
             System.err.println(e + "   Es necessari introduir un numero.");
         }
-        if (usuMesActiu !=null) {
-            System.out.println("L'usuari més actiu del tipus seleccionat és: \n"+usuMesActiu);
+        if (usuMesActiu != null) {
+            System.out.println("L'usuari més actiu del tipus seleccionat és: \n" + usuMesActiu);
         }
 
     }
@@ -183,9 +183,78 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio14'");
     }
 
-    private static void opcio13(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio13'");
+    /**
+     * Método que añade una nueva actividad de tipo día
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     */
+    private static void opcio13(LlistaActividades llistaActividades) {
+        ActividadesDia dia = new ActividadesDia();
+
+        dia.setTipo("Dia");
+
+        System.out.println("Escribe el nombre de la actividad");
+        String nom = teclat.nextLine();
+        dia.setNom(nom);
+
+        System.out.println("Introduce el inicio del periodo de inscripción ");
+        String periodoInText = teclat.nextLine();
+        String[] partesPeriodoIn = periodoInText.split("/");
+        Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
+                Integer.parseInt(partesPeriodoIn[1]),
+                Integer.parseInt(partesPeriodoIn[2]));
+        dia.setPeriodoIn(periodoIn);
+
+        System.out.println("Introduce el final del periodo de inscripción ");
+        String periodoFinText = teclat.nextLine();
+        String[] partesPeriodoFin = periodoFinText.split("/");
+        Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
+                Integer.parseInt(partesPeriodoFin[1]),
+                Integer.parseInt(partesPeriodoFin[2]));
+        dia.setPeriodoFin(periodoFin);
+
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        String colectivos = teclat.nextLine();
+        dia.setColectivos(colectivos);
+
+        System.out.println("Introduce la fecha de inicio de la actividad ");
+        String fechaInText = teclat.nextLine();
+        String[] partesFecha = fechaInText.split("/");
+        Data fecha = new Data(Integer.parseInt(partesFecha[0]),
+                Integer.parseInt(partesFecha[1]),
+                Integer.parseInt(partesFecha[2]));
+        dia.setFecha(fecha);
+
+        System.out.println("Introduce el horario de la actividad ");
+        String horarioText = teclat.nextLine();
+        String[] PartesHorario = horarioText.split(":");
+        int[] horario = new int[2];
+        horario[0] = Integer.parseInt(PartesHorario[0]);
+        horario[1] = Integer.parseInt(PartesHorario[1]);
+        dia.setHorario(horario[0], horario[1]);
+
+        System.out.println("Introduce el límite de plazas que hay en la actividad");
+        String límiteText = teclat.nextLine();
+        int limite = Integer.parseInt(límiteText);
+        dia.setLimite(limite);
+
+        System.out.println("Introduce el precio de la actividad ");
+        String precioText = teclat.nextLine();
+        double precio = Double.parseDouble(precioText);
+        dia.setPrecio(precio);
+
+        System.out.println("Introduce la ciudad donde se realizará la actividad");
+        String ciudad = teclat.nextLine();
+        dia.setCiudad(ciudad);
+
+        try {
+            llistaActividades.afegir(dia);
+            System.out.println("La actividad se ha guardado correctamente");
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
+        }
+
     }
 
     /**

@@ -52,7 +52,7 @@ public class UsaActividades {
 
                 Actividades b = new Actividades("Curso de especialización", new Data(4, 10, 2025),
                                 new Data(31, 10, 2025),
-                                new String[] { "PDI", "Estudiants" });
+                                new String("PDI, Estudiants" ));
                 System.out.println(b);
                 System.out.println();
 
@@ -61,7 +61,7 @@ public class UsaActividades {
 
                 Actividades c = new Actividades("Curso de especialización", new Data(1, 6, 2025),
                                 new Data(31, 10, 2025),
-                                new String[] { "PTGAS" });
+                                new String("PTGAS" ));
                 System.out.println(c);
                 System.out.println();
         }
@@ -108,42 +108,42 @@ public class UsaActividades {
 
                 System.out.println("------ COMPRUEBA LOS COLECTIVOS ------");
                 System.out.println("------ Todos los colectivos ------");
-                a.setColectivos(true, true, true);
+                a.setColectivos("PDI, PTGA,Estudiants");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ Solo PDI ------");
-                a.setColectivos(true, false, false);
+                a.setColectivos("PDI");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
-                System.out.println("------ PDI y PTGA ------");
-                a.setColectivos(true, true, false);
+                System.out.println("------ PDI y PTGAS ------");
+                a.setColectivos("PDI, PTGAS");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ PDI y Estudiants ------");
-                a.setColectivos(true, false, true);
+                a.setColectivos("PDI, Estudiants");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ Solo PTGAS ------");
-                a.setColectivos(false, true, false);
+                a.setColectivos("PTGAS");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ PTGAS y Estudiants ------");
-                a.setColectivos(false, true, true);
+                a.setColectivos("PTGAS, Estudiants");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ Solo Estudiants ------");
-                a.setColectivos(false, false, true);
+                a.setColectivos("Estudiants");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
                 System.out.println("------ Ninguno de los colectivos ------");
-                a.setColectivos(false, false, false);
+                a.setColectivos(" ");
                 System.out.println("Los colectivos que pueden participar en la actividad son: " + a.getColectivos());
                 System.out.println();
 
@@ -180,7 +180,7 @@ public class UsaActividades {
 
                 System.out.println(
                                 "------ Comprueba si son iguales después de cambiar los colectivos que pueden asistir ------");
-                b.setColectivos(true, false, false);
+                b.setColectivos("PDI");
                 System.out.println("Son la actividad a y la b iguales? " + a.iguals(b));
                 System.out.println();
         }

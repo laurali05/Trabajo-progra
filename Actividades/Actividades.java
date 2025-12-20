@@ -3,7 +3,7 @@ package Actividades;
 import Data.Data;
 
 /**
- * Clase: Actividades 
+ * Clase: Actividades
  * Autor: Laura Lope
  */
 public class Actividades {
@@ -11,7 +11,7 @@ public class Actividades {
     public String nom;
     public Data periodoIn;
     public Data periodoFin;
-    public String[] colectivos;
+    public String colectivos;
 
     /**
      * Constructor sin parámetros
@@ -21,7 +21,7 @@ public class Actividades {
         this.nom = "Charla";
         this.periodoIn = new Data(1, 9, 2025);
         this.periodoFin = new Data(1, 12, 2025);
-        this.colectivos = new String[] { "PDI", "PTGAS", "Estudiants" };
+        this.colectivos = ("PDI, PTGAS, Estudiants");
     }
 
     /**
@@ -32,7 +32,7 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String nom, Data periodoIn, Data periodoFin, String[] colectivos) {
+    public Actividades(String nom, Data periodoIn, Data periodoFin, String colectivos) {
         this.nom = nom;
 
         if (periodoIn.getMes() >= 9 && periodoIn.getMes() <= 12) {
@@ -55,7 +55,7 @@ public class Actividades {
      * 
      * @param tipo
      */
-    public void setTipo(String tipo){
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -97,46 +97,17 @@ public class Actividades {
     /**
      * Setter: Asigna los colectivos que pueden asistir a la actividad
      * 
-     * @param PDI
-     * @param PTGAS
-     * @param Estudiants
      */
-    public void setColectivos(Boolean PDI, Boolean PTGAS, Boolean Estudiants) {
-        int n = 0;
-        if (PDI == true) {
-            n++;
-        }
-
-        if (PTGAS) {
-            n++;
-        }
-
-        if (Estudiants) {
-            n++;
-        }
-
-        colectivos = new String[n];
-        int index = 0;
-        if (PDI) {
-            colectivos[index] = "PDI";
-            index++;
-        }
-        if (PTGAS) {
-            colectivos[index] = "PTGAS";
-            index++;
-        }
-        if (Estudiants) {
-            colectivos[index] = "Estudiants";
-            index++;
-        }
+    public void setColectivos(String colectivos) {
+        this.colectivos = colectivos;
     }
-    
+
     /**
      * Getter: Devuelve el tipo de la actividad
      * 
      * @return
      */
-    public String getTipo(){
+    public String getTipo() {
         return this.tipo;
     }
 
@@ -174,20 +145,12 @@ public class Actividades {
      * @return
      */
     public String getColectivos() {
-        if (colectivos == null || colectivos.length == 0) {
+        if (colectivos == null) {
             return "[]";
         }
 
-        String resultado = "[";
+        String resultado = this.colectivos;
 
-        for (int i = 0; i < colectivos.length; i++) {
-            resultado += colectivos[i]; // Va añadiendo los distintos colectivos pero comprobando que no se pasa de la
-                                        // longitud del array
-            if (i < colectivos.length - 1) {
-                resultado += ", "; // Añade una coma al final de cada posición exceptuando la última
-            }
-        }
-        resultado += "]";
         return resultado;
     }
 
@@ -197,7 +160,7 @@ public class Actividades {
                 "\nActividad: " + nom +
                 "\nPeriodo de inicio: " + periodoIn +
                 "\nPeriodo de fin: " + periodoFin +
-                "\nColectivos: " + getColectivos();
+                "\nColectivos: " + colectivos;
     }
 
     /**
@@ -209,8 +172,8 @@ public class Actividades {
         Actividades a = new Actividades();
         a.tipo = this.tipo;
         a.nom = this.nom;
-        a.periodoIn = this.periodoIn;
-        a.periodoFin = this.periodoFin;
+        a.periodoIn = this.periodoIn.copia();
+        a.periodoFin = this.periodoFin.copia();
         a.colectivos = this.colectivos;
         return a;
     }
@@ -222,7 +185,7 @@ public class Actividades {
      * @return
      */
     public boolean iguals(Actividades a) {
-        if(this.tipo.equalsIgnoreCase(a.tipo)){
+        if (!this.tipo.equalsIgnoreCase(a.tipo)) {
             return false;
         }
 
@@ -238,14 +201,8 @@ public class Actividades {
             return false;
         }
 
-        if (this.colectivos.length != a.colectivos.length) {
+        if (!this.colectivos.equalsIgnoreCase(a.colectivos)) {
             return false;
-        } else {
-            for (int i = 0; i < this.colectivos.length; i++) {
-                if (!this.colectivos[i].equalsIgnoreCase(a.colectivos[i])) {
-                    return false;
-                }
-            }
         }
 
         return true;

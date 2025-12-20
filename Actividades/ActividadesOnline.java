@@ -12,6 +12,17 @@ public class ActividadesOnline extends Actividades {
     public String enlace;
 
     /**
+     * Constructor sin parámetros
+     * 
+     */
+    public ActividadesOnline() {
+        super();
+        this.fechaIn = new Data(2, 2, 2020);
+        this.periodoVis = 30;
+        this.enlace = "https://urv.cat/formacion-digital";
+    }
+
+    /**
      * Constructor
      * 
      * 
@@ -23,10 +34,10 @@ public class ActividadesOnline extends Actividades {
      * @param periodoVis
      * @param enlace
      */
-    public ActividadesOnline(String nom, Data periodoIn, Data periodoFin, String[] colectivos, Data fechaIn,
+    public ActividadesOnline(String nom, Data periodoIn, Data periodoFin, String colectivos, Data fechaIn,
             int periodoVis, String enlace) {
         super(nom, periodoIn, periodoFin, colectivos);
-        
+
         this.tipo = "Online";
 
         if (fechaIn.getMes() >= 9 && fechaIn.getMes() <= 12) {

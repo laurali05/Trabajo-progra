@@ -25,7 +25,7 @@ public class UsaInscripcions {
         Data datanova = new Data(6, 9, 2025);
         Usuari persona = new Usuari("Robert", "robert@gmail.com");
         Actividades activitat = new Actividades("Robotica", new Data(3, 9, 2025), new Data(3, 11, 2025),
-                new String[] { "PDI", "Estudiants" });
+                ("PDI, Estudiants"));
         Inscripcions insparam = new Inscripcions(persona, activitat, 8, datanova);
         System.out.println(insparam.toString());
 

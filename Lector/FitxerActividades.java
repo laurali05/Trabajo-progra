@@ -41,7 +41,7 @@ public class FitxerActividades {
                         Integer.parseInt(partesPeriodoFin[1]),
                         Integer.parseInt(partesPeriodoFin[2]));
 
-                String[] colectivos = secciones[4].split(",");
+                String colectivos = secciones[4];
 
                 Actividades a;
                 if (tipo.equals("Dia")) {

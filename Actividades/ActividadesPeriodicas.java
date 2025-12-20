@@ -17,6 +17,22 @@ public class ActividadesPeriodicas extends Actividades {
     public String ciudad;
 
     /**
+     * Constructor sin parámetros
+     * 
+     */
+    public ActividadesPeriodicas() {
+        super();
+        this.diaSemana = "Lunes";
+        this.horario = new int[] { 18, 0 };
+        this.fechaIn = new Data(2, 2, 2020);
+        this.numSemanas = 4;
+        this.limite = 40;
+        this.precio = 0.0;
+        this.centro = "Campus Sescelades";
+        this.ciudad = "Tarragona";
+    }
+
+    /**
      * Constructor
      * 
      * @param nom
@@ -32,7 +48,7 @@ public class ActividadesPeriodicas extends Actividades {
      * @param centro
      * @param ciudad
      */
-    public ActividadesPeriodicas(String nom, Data periodoIn, Data periodoFin, String[] colectivos, String diaSemana,
+    public ActividadesPeriodicas(String nom, Data periodoIn, Data periodoFin, String colectivos, String diaSemana,
             int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
         super(nom, periodoIn, periodoFin, colectivos);
 

@@ -14,6 +14,19 @@ public class ActividadesDia extends Actividades {
     public String ciudad;
 
     /**
+     * Constructor sin parámetros.
+     * 
+     */
+    public ActividadesDia() {
+        super();
+        this.fechaIn = new Data(20, 2, 2020);
+        this.horario = new int[] { 18, 0 };
+        this.limite = 40;
+        this.precio = 0.0;
+        this.ciudad = "Tarragona";
+    }
+
+    /**
      * Constructor con parámetros
      * 
      * @param tipo
@@ -27,10 +40,10 @@ public class ActividadesDia extends Actividades {
      * @param precio     Precio de la actividdd
      * @param ciudad     En que ciudad es la actividad
      */
-    public ActividadesDia(String nom, Data periodoIn, Data periodoFin, String[] colectivos, Data fecha,
+    public ActividadesDia(String nom, Data periodoIn, Data periodoFin, String colectivos, Data fecha,
             int[] horario, int limite, double precio, String ciudad) {
-        super (nom, periodoIn, periodoFin, colectivos);
-        
+        super(nom, periodoIn, periodoFin, colectivos);
+
         this.tipo = "Dia";
 
         if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
