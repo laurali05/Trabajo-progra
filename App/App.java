@@ -54,13 +54,13 @@ public class App {
                     opcio2(llistaUsuari, llistaActividades, llistaInscripcions);
                     break;
                 case 3:
-                    opcio3(llistaActividades);
+                    opcio3(llistaActividades, avui);
                     break;
                 case 4:
-                    opcio4(llistaActividades, llistaInscripcions);
+                    opcio4(llistaActividades, llistaInscripcions, avui);
                     break;
                 case 5:
-                    opcio5(llistaActividades);
+                    opcio5(llistaActividades, avui);
                     break;
                 case 6:
                     opcio6(llistaActividades, llistaInscripcions);
@@ -108,7 +108,7 @@ public class App {
                     opcio20(llistaInscripcions, llistaUsuari);
                     break;
                 case 21:
-                    opcio21(llistaUsuari);
+                    opcio21(llistaActividades, llistaInscripcions, avui);
                     break;
             }
             try {
@@ -129,9 +129,44 @@ public class App {
         teclat.close();
     }
 
-    private static void opcio21(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio21'");
+    /**
+     * Método que elimina una actividad si no cumple con las condiciones de asistencia 
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     * @param llistaInscripcions
+     * @param avui
+     */
+    private static void opcio21(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
+        for (int i = 0; i < llistaActividades.getNumElems(); i++){
+            Actividades act = llistaActividades.getActividad(i);
+
+            if(act.getTipo().equalsIgnoreCase("dia")) {
+                ActividadesDia dia = (ActividadesDia) act;
+
+                if((!avui.esDataInferiorOigual(dia.getPeriodoFin())) && (llistaInscripcions.contarInscritos(dia.getNom()) < (0.1*dia.getLimite()))){
+                    llistaActividades.eliminarActividad(i);
+                    System.out.println("La actividad " + dia.getNom() + " se ha eliminado correctamente");
+                }
+            } else if (act.getTipo().equalsIgnoreCase("periodica")){
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
+
+                if((!avui.esDataInferiorOigual(periodica.getPeriodoFin())) && (llistaInscripcions.contarInscritos(periodica.getNom()) < (0.1*periodica.getLimite()))){
+                    llistaActividades.eliminarActividad(i);
+                    System.out.println("La actividad " + periodica.getNom() + " se ha eliminado correctamente");
+
+                }
+            } else if (act.getTipo().equalsIgnoreCase("Online")) {
+                ActividadesOnline online = (ActividadesOnline) act;
+
+                if(llistaInscripcions.contarInscritos(online.getNom()) < 20){
+                    llistaActividades.eliminarActividad(i);
+                    System.out.println("La actividad " + online.getNom() + " se ha eliminado correctamente");
+
+                }
+            }
+        }
+
     }
 
     private static void opcio20(LlistaInscripcions llistaInscripcions, LlistaUsuari llistaUsuari) {
@@ -583,8 +618,7 @@ public class App {
      * 
      * @param llistaActividades
      */
-    private static void opcio5(LlistaActividades llistaActividades) {
-        Data avui = new Data(27, 9, 2025);
+    private static void opcio5(LlistaActividades llistaActividades, Data avui) {
         boolean act = false;
         int contador = 0;
 
@@ -635,8 +669,7 @@ public class App {
      * @param llistaActividades
      * @param llistaInscripcions
      */
-    private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
-        Data avui = new Data(27, 9, 2025); // Aquí tengo que poner la fecha de la opción 1
+    private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
         boolean act = false;
         int contador = 0;
 
@@ -723,8 +756,8 @@ public class App {
         }
     }
 
-    private static void opcio3(LlistaActividades llistaActividades) {
-        Data hoy = new Data(); // Aquí tengo que poner la fecha de la opción 1
+    private static void opcio3(LlistaActividades llistaActividades, Data avui) {
+        Data hoy = avui;
         boolean actividades = false;
         int contador = 0;
 

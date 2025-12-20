@@ -98,9 +98,22 @@ public class LlistaActividades {
     }
 
     /**
+     * Método que elimina una actividad según su posición
+     * 
+     * @param pos
+     */
+    public void eliminarActividad(int pos) {
+        for (int i = pos; i < numElems - 1; i++) {
+            llista[i] = llista[i + 1];
+        }
+
+        numElems--;
+    }
+
+    /**
      * Metode que retorna una llista especifica de una subclasse
-     * Laura no te asustes de este metodo lo necesito para la opcio 2
-     * (Jordi)
+     * Autor Jordi Vivas
+     * 
      * @param opcio
      * @return
      */
@@ -146,7 +159,6 @@ public class LlistaActividades {
 
     }
 
-   
     /**
      * Metode que retorna una activitat especifica de una subclasse
      * Autor Izan Flores
@@ -155,7 +167,7 @@ public class LlistaActividades {
      * @return activitat en concreto
      */
     public Actividades buscarActividades(String activitat) throws ActivitatNoTrobadaException {
-    
+
         int i = 0;
         boolean trobat = false;
 
