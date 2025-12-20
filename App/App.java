@@ -87,10 +87,10 @@ public class App {
                     opcio13(llistaActividades);
                     break;
                 case 14:
-                    opcio14(llistaUsuari);
+                    opcio14(llistaActividades);
                     break;
                 case 15:
-                    opcio15(llistaUsuari);
+                    opcio15(llistaActividades);
                     break;
                 case 16:
                     opcio16(llistaUsuari);
@@ -173,14 +173,151 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio16'");
     }
 
-    private static void opcio15(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio15'");
+    /**
+     * Método que añade una actividad online
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     */
+    private static void opcio15(LlistaActividades llistaActividades) {
+        ActividadesOnline online = new ActividadesOnline();
+        online.setTipo("Online");
+
+        System.out.println("Escribe el nombre de la actividad");
+        String nom = teclat.nextLine();
+        online.setNom(nom);
+
+        System.out.println("Introduce el inicio del periodo de inscripción ");
+        String periodoInText = teclat.nextLine();
+        String[] partesPeriodoIn = periodoInText.split("/");
+        Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
+                Integer.parseInt(partesPeriodoIn[1]),
+                Integer.parseInt(partesPeriodoIn[2]));
+        online.setPeriodoIn(periodoIn);
+
+        System.out.println("Introduce el final del periodo de inscripción ");
+        String periodoFinText = teclat.nextLine();
+        String[] partesPeriodoFin = periodoFinText.split("/");
+        Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
+                Integer.parseInt(partesPeriodoFin[1]),
+                Integer.parseInt(partesPeriodoFin[2]));
+        online.setPeriodoFin(periodoFin);
+
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        String colectivos = teclat.nextLine();
+        online.setColectivos(colectivos);
+
+        System.out.println("Introduce la fecha de inicio de la actividad ");
+        String fechaInText = teclat.nextLine();
+        String[] partesFecha = fechaInText.split("/");
+        Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
+                Integer.parseInt(partesFecha[1]),
+                Integer.parseInt(partesFecha[2]));
+        online.setFechaIn(fechaIn);
+
+        System.out.println("Introduce el periodo de visualización de la actividad");
+        String periodoVisText = teclat.nextLine();
+        int periodoVis = Integer.parseInt(periodoVisText);
+        online.setPeriodoVis(periodoVis);
+
+        System.out.println("Introduce el enlace de la actividad");
+        String enlace = teclat.nextLine();
+        online.setEnlace(enlace);
+
+        try {
+            llistaActividades.afegir(online);
+            System.out.println("La actividad se ha guardado correctamente");
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Ya existe una actividad con el nombre: " + online.getNom());
+        }
+
     }
 
-    private static void opcio14(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio14'");
+    /**
+     * Método que añade una nueva actividad periodíca
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     */
+    private static void opcio14(LlistaActividades llistaActividades) {
+        ActividadesPeriodicas periodica = new ActividadesPeriodicas();
+
+        periodica.setTipo("Periodica");
+
+        System.out.println("Escribe el nombre de la actividad");
+        String nom = teclat.nextLine();
+        periodica.setNom(nom);
+
+        System.out.println("Introduce el inicio del periodo de inscripción ");
+        String periodoInText = teclat.nextLine();
+        String[] partesPeriodoIn = periodoInText.split("/");
+        Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
+                Integer.parseInt(partesPeriodoIn[1]),
+                Integer.parseInt(partesPeriodoIn[2]));
+        periodica.setPeriodoIn(periodoIn);
+
+        System.out.println("Introduce el final del periodo de inscripción ");
+        String periodoFinText = teclat.nextLine();
+        String[] partesPeriodoFin = periodoFinText.split("/");
+        Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
+                Integer.parseInt(partesPeriodoFin[1]),
+                Integer.parseInt(partesPeriodoFin[2]));
+        periodica.setPeriodoFin(periodoFin);
+
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        String colectivos = teclat.nextLine();
+        periodica.setColectivos(colectivos);
+
+        System.out.println("Introduce el dia de la semana en el que se realizará la actividad");
+        String diaSemana = teclat.nextLine();
+        periodica.setDiaSemana(diaSemana);
+
+        System.out.println("Introduce el horario de la actividad ");
+        String horarioText = teclat.nextLine();
+        String[] PartesHorario = horarioText.split(":");
+        int[] horario = new int[2];
+        horario[0] = Integer.parseInt(PartesHorario[0]);
+        horario[1] = Integer.parseInt(PartesHorario[1]);
+        periodica.setHorario(horario[0], horario[1]);
+
+        System.out.println("Introduce la fecha de inicio de la actividad ");
+        String fechaInText = teclat.nextLine();
+        String[] partesFecha = fechaInText.split("/");
+        Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
+                Integer.parseInt(partesFecha[1]),
+                Integer.parseInt(partesFecha[2]));
+        periodica.setFechaIn(fechaIn);
+
+        System.out.println("Introduce el número de semanas que se repetirá la actividad");
+        String numSemanasText = teclat.nextLine();
+        int numSemanas = Integer.parseInt(numSemanasText);
+        periodica.setNumSemanas(numSemanas);
+
+        System.out.println("Introduce el límite de plazas que hay en la actividad");
+        String límiteText = teclat.nextLine();
+        int limite = Integer.parseInt(límiteText);
+        periodica.setLimite(limite);
+
+        System.out.println("Introduce el precio de la actividad ");
+        String precioText = teclat.nextLine();
+        double precio = Double.parseDouble(precioText);
+        periodica.setPrecio(precio);
+
+        System.out.println("Introduce el centro donde se realizará la actividad");
+        String centro = teclat.nextLine();
+        periodica.setCiudad(centro);
+
+        System.out.println("Introduce la ciudad donde se realizará la actividad");
+        String ciudad = teclat.nextLine();
+        periodica.setCiudad(ciudad);
+
+        try {
+            llistaActividades.afegir(periodica);
+            System.out.println("La actividad se ha guardado correctamente");
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Ya existe una actividad con el nombre: " + periodica.getNom());
+        }
+
     }
 
     /**

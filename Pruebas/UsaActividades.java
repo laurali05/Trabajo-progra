@@ -52,7 +52,7 @@ public class UsaActividades {
 
                 Actividades b = new Actividades("Curso de especialización", new Data(4, 10, 2025),
                                 new Data(31, 10, 2025),
-                                new String("PDI, Estudiants" ));
+                                new String("PDI, Estudiants"));
                 System.out.println(b);
                 System.out.println();
 
@@ -61,7 +61,7 @@ public class UsaActividades {
 
                 Actividades c = new Actividades("Curso de especialización", new Data(1, 6, 2025),
                                 new Data(31, 10, 2025),
-                                new String("PTGAS" ));
+                                new String("PTGAS"));
                 System.out.println(c);
                 System.out.println();
         }
@@ -191,7 +191,7 @@ public class UsaActividades {
                 System.out.println();
 
                 ActividadesDia a = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
+                                "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
                 System.out.println(a);
                 System.out.println();
@@ -200,7 +200,7 @@ public class UsaActividades {
                                 "------ Comprueba el constructor con parámetros con fecha y horario incorrecto ------");
                 System.out.println();
                 ActividadesDia b = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 3, 2025), new int[] { 24, 60 }, 20, 0,
+                                "Estudiants" , new Data(6, 3, 2025), new int[] { 24, 60 }, 20, 0,
                                 "Tarragona");
                 System.out.println(b);
                 System.out.println();
@@ -212,7 +212,7 @@ public class UsaActividades {
                 System.out.println();
 
                 ActividadesDia a = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
+                                "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
                 System.out.println("------ COMPRUEBA LA FECHA ------");
                 System.out.println("------ Fecha correcta ------");
@@ -265,7 +265,7 @@ public class UsaActividades {
         private static void compruebaCopiaEIgualsActividadesDia() {
                 System.out.println("------ COMPRUEBA COPIA ------");
                 ActividadesDia a = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
+                                "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
                 ActividadesDia b = a.copia();
                 System.out.println(b);
@@ -308,7 +308,7 @@ public class UsaActividades {
                 System.out.println();
 
                 ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7,
+                                "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println(a);
                 System.out.println();
@@ -316,7 +316,7 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor con parámetros con fecha incorrecta ------");
                 System.out.println();
                 ActividadesOnline b = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 3, 2025), 7,
+                                "Estudiants" , new Data(6, 3, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println(b);
                 System.out.println();
@@ -328,7 +328,7 @@ public class UsaActividades {
                 System.out.println();
 
                 ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7,
+                                 "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println("------ COMPRUEBA LA FECHA ------");
                 System.out.println("------ Fecha de inicio correcta ------");
@@ -355,7 +355,7 @@ public class UsaActividades {
         private static void compruebaCopiaEIgualsActividadesOnline() {
                 System.out.println("------ COMPRUEBA COPIA ------");
                 ActividadesOnline a = new ActividadesOnline("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, new Data(6, 10, 2025), 7,
+                                 "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 ActividadesOnline b = a.copia();
                 System.out.println(b);
@@ -391,7 +391,7 @@ public class UsaActividades {
 
                 ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
+                                 "Estudiants" , "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
                 System.out.println(a);
                 System.out.println();
@@ -401,7 +401,7 @@ public class UsaActividades {
                 System.out.println();
                 ActividadesPeriodicas b = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, "Lunes", new int[] { 40, 00 }, new Data(6, 5, 2025), 4,
+                                 "Estudiants" , "Lunes", new int[] { 40, 00 }, new Data(6, 5, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
                 System.out.println(b);
                 System.out.println();
@@ -414,7 +414,7 @@ public class UsaActividades {
 
                 ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
+                                 "Estudiants" , "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
 
                 System.out.println("------ COMPRUEBA DIA SEMANA ------");
@@ -489,8 +489,8 @@ public class UsaActividades {
         private static void compruebaCopiaEIgualsActividadesPeriodicas() {
                 System.out.println("------ COMPRUEBA COPIA ------");
                 ActividadesPeriodicas a = new ActividadesPeriodicas("Premios", new Data(29, 9, 2925),
-                                new Data(5, 10, 2025),
-                                new String[] { "Estudiants" }, "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
+                                new Data(5, 10, 2025), "Estudiants", "Lunes", new int[] { 18, 00 },
+                                new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
                 ActividadesPeriodicas b = a.copia();
                 System.out.println(b);

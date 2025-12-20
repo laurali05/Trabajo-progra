@@ -35,15 +35,15 @@ public class UsaLlistaActividades {
         LlistaActividades lista = new LlistaActividades(5);
 
         ActividadesPeriodicas a = new ActividadesPeriodicas("Curso", new Data(14, 10, 2925), new Data(31, 10, 2025),
-                new String[] { "Estudiants" }, "Viernes", new int[] { 18, 00 }, new Data(5, 11, 2025), 4, 50, 0,
+                 "Estudiants" , "Viernes", new int[] { 18, 00 }, new Data(5, 11, 2025), 4, 50, 0,
                 "Sescelades", "Tarragona");
 
         ActividadesDia b = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                new String[] { "PDI", "PGTAS", "Estudiants" }, new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
+                 "PDI, PGTAS, Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                 "Tarragona");
 
         ActividadesOnline c = new ActividadesOnline("Entrevista", new Data(15, 11, 2925), new Data(20, 11, 2025),
-                new String[] { "PDI", "Estudiants" }, new Data(22, 11, 2025), 7,
+                 "PDI, Estudiants" , new Data(22, 11, 2025), 7,
                 "https://www.universitat.cat/actividades/java2025");
 
         lista.afegir(a);
@@ -60,7 +60,7 @@ public class UsaLlistaActividades {
         LlistaActividades lista = new LlistaActividades(5);
 
         Actividades a = new Actividades("Curso de especialización", new Data(4, 9, 2025), new Data(31, 10, 2025),
-                new String[] { "PTGAS" });
+                 "PTGAS" );
         lista.afegir(a);
 
         LlistaActividades copia = lista.copia();
@@ -76,10 +76,10 @@ public class UsaLlistaActividades {
         LlistaActividades lista2 = new LlistaActividades(5);
 
         Actividades a = new Actividades("Curso de especialización", new Data(4, 10, 2025), new Data(31, 10, 2025),
-                new String[] { "PDI", "Estudiants" });
+               "PDI, Estudiants" );
 
         ActividadesDia b = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
-                new String[] { "Estudiants" }, new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0, "Tarragona");
+                "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0, "Tarragona");
 
         lista1.afegir(a);
         lista2.afegir(a);
@@ -97,10 +97,10 @@ public class UsaLlistaActividades {
         LlistaActividades lista = new LlistaActividades(200);
 
         Actividades a = new Actividades("Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
-                new String[] { "Estudiants" });
+                "Estudiants" );
 
         Actividades b = new Actividades("Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
-                new String[] { "PDI" });
+                 "PDI" );
 
         try {
             lista.afegir(a);
