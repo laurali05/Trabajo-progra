@@ -224,7 +224,7 @@ public class App {
         String nom = teclat.nextLine();
         online.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -232,7 +232,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         online.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -240,11 +240,11 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         online.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         online.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -252,7 +252,7 @@ public class App {
                 Integer.parseInt(partesFecha[2]));
         online.setFechaIn(fechaIn);
 
-        System.out.println("Introduce el periodo de visualización de la actividad");
+        System.out.println("Introduce el periodo de visualización de la actividad (días)");
         String periodoVisText = teclat.nextLine();
         int periodoVis = Integer.parseInt(periodoVisText);
         online.setPeriodoVis(periodoVis);
@@ -285,7 +285,7 @@ public class App {
         String nom = teclat.nextLine();
         periodica.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -293,7 +293,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         periodica.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -301,7 +301,7 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         periodica.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         periodica.setColectivos(colectivos);
 
@@ -309,7 +309,7 @@ public class App {
         String diaSemana = teclat.nextLine();
         periodica.setDiaSemana(diaSemana);
 
-        System.out.println("Introduce el horario de la actividad ");
+        System.out.println("Introduce el horario de la actividad (hh:mm)");
         String horarioText = teclat.nextLine();
         String[] PartesHorario = horarioText.split(":");
         int[] horario = new int[2];
@@ -317,7 +317,7 @@ public class App {
         horario[1] = Integer.parseInt(PartesHorario[1]);
         periodica.setHorario(horario[0], horario[1]);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -335,7 +335,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         periodica.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad ");
+        System.out.println("Introduce el precio de la actividad (€.cte)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         periodica.setPrecio(precio);
@@ -364,6 +364,7 @@ public class App {
      * @param llistaActividades
      */
     private static void opcio13(LlistaActividades llistaActividades) {
+        System.out.println(llistaActividades.toString());
         ActividadesDia dia = new ActividadesDia();
 
         dia.setTipo("Dia");
@@ -372,7 +373,7 @@ public class App {
         String nom = teclat.nextLine();
         dia.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -380,7 +381,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         dia.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -388,11 +389,11 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         dia.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         dia.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fecha = new Data(Integer.parseInt(partesFecha[0]),
@@ -400,7 +401,7 @@ public class App {
                 Integer.parseInt(partesFecha[2]));
         dia.setFecha(fecha);
 
-        System.out.println("Introduce el horario de la actividad ");
+        System.out.println("Introduce el horario de la actividad (hh:mm)");
         String horarioText = teclat.nextLine();
         String[] PartesHorario = horarioText.split(":");
         int[] horario = new int[2];
@@ -413,7 +414,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         dia.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad ");
+        System.out.println("Introduce el precio de la actividad (€.cte)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         dia.setPrecio(precio);
@@ -425,6 +426,7 @@ public class App {
         try {
             llistaActividades.afegir(dia);
             System.out.println("La actividad se ha guardado correctamente");
+            System.out.println(llistaActividades.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
         }
@@ -847,7 +849,7 @@ public class App {
                     }
             }
         } catch (NumberFormatException e) {
-            System.err.println(e + "   Es necessari introduir un numero.");
+            System.err.println(e + " Es necessari introduir un numero.");
         }
     }
 
