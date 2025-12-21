@@ -34,6 +34,7 @@ public class App {
         }
 
         try {
+            llistaInscripcions.assignarLlistaEspera(llistaEspera);
             mostrarMenu();
             opcio = Integer.parseInt(teclat.nextLine());
         } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
@@ -75,7 +76,7 @@ public class App {
                     opcio9(llistaUsuari, llistaInscripcions);
                     break;
                 case 10:
-                    opcio10(llistaUsuari, llistaActividades, avui, llistaInscripcions);
+                    opcio10(llistaUsuari, llistaActividades, avui, llistaInscripcions, llistaEspera);
                     break;
                 case 11:
                     opcio11(llistaUsuari);
@@ -112,6 +113,7 @@ public class App {
                     break;
             }
             try {
+                llistaInscripcions.assignarLlistaEspera(llistaEspera);
                 mostrarMenu();
                 opcio = Integer.parseInt(teclat.nextLine());
             } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
@@ -477,7 +479,7 @@ public class App {
      * @param llistaInscripcions
      */
     private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui,
-            LlistaInscripcions llistaInscripcions) {
+            LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera) {
         Inscripcions ins = new Inscripcions();
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();

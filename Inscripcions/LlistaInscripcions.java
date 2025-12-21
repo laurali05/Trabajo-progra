@@ -1,6 +1,9 @@
 package Inscripcions;
 
 import Actividades.Actividades;
+import Actividades.ActividadesDia;
+import Actividades.ActividadesOnline;
+import Actividades.ActividadesPeriodicas;
 import Actividades.LlistaActividades;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
@@ -11,13 +14,15 @@ import Usuari.UsuariPDI;
 import Usuari.UsuariPTGAS;
 
 public class LlistaInscripcions {
+
     private static int limit;
     private int numElem;
     private Inscripcions[] llista;
+    private LlistaEspera llistaEspera;
 
     /**
      * Constructor de la llista d'inscripcions
-     * 
+     *
      * @param mida tamany de la llista
      */
     public LlistaInscripcions(int mida) {
@@ -28,7 +33,7 @@ public class LlistaInscripcions {
 
     /**
      * Métode cópia de la llista
-     * 
+     *
      * @return llista copiada
      */
     public LlistaInscripcions copia() {
@@ -45,7 +50,7 @@ public class LlistaInscripcions {
 
     /**
      * Métode per afegir noves inscripcions a la llista
-     * 
+     *
      * @param ins inscripcio a afegir
      */
     public void afegir(Inscripcions ins) throws UsuariJaInscritException {
@@ -59,13 +64,32 @@ public class LlistaInscripcions {
             }
         }
 
-        if (!trobat && numElem < limit) {
+        if (!trobat && numElem < limit && ins.getActivitat() instanceof ActividadesOnline) {
             llista[numElem] = ins.copia();
             numElem++;
+        } else if (!trobat && numElem < limit && (ins.getActivitat() instanceof ActividadesDia || ins.getActivitat() instanceof ActividadesPeriodicas)) {
+            if (ins.getActivitat() instanceof ActividadesDia) {
+                ActividadesDia act = (ActividadesDia) ins.getActivitat();
+                if (this.contarInscritos(act.getNom()) < act.getLimite()) {
+                    llista[numElem] = ins.copia();
+                    numElem++;
+                } else {
+                    llistaEspera.afegir(ins);
+                    System.out.println("S'ha afegit a la llista d'espera perque la activitat esta plena");
+                }
+            } else if (ins.getActivitat() instanceof ActividadesPeriodicas) {
+                ActividadesPeriodicas act = (ActividadesPeriodicas) ins.getActivitat();
+                if (this.contarInscritos(act.getNom()) < act.getLimite()) {
+                    llista[numElem] = ins.copia();
+                    numElem++;
+                } else {
+                    llistaEspera.afegir(ins);
+                    System.out.println("S'ha afegit a la llista d'espera perque la activitat esta plena");
+                }
+            }
         } else if (trobat) {
             throw new UsuariJaInscritException(ins.getUsuari().getNom());
         }
-
     }
 
     // Métode toString
@@ -79,9 +103,8 @@ public class LlistaInscripcions {
     }
 
     /**
-     * Metode que retorna un llista d'activitats d'un usuari concret
-     * (Jordi)
-     * 
+     * Metode que retorna un llista d'activitats d'un usuari concret (Jordi)
+     *
      * @param nom
      * @return
      */
@@ -102,10 +125,9 @@ public class LlistaInscripcions {
     }
 
     /**
-     * Método que devuelve el número de personas inscritas
-     * Izan no te asustes lo necesito para el método 4 y 6
-     * Autor Laura Lope
-     * 
+     * Método que devuelve el número de personas inscritas Izan no te asustes lo
+     * necesito para el método 4 y 6 Autor Laura Lope
+     *
      * @param nomActividad
      * @return
      */
@@ -122,9 +144,8 @@ public class LlistaInscripcions {
     }
 
     /**
-     * Metode necesari per la opcio 12
-     * (Jordi)
-     * 
+     * Metode necesari per la opcio 12 (Jordi)
+     *
      * @param usuari
      * @param act
      */
@@ -139,8 +160,9 @@ public class LlistaInscripcions {
                     numElem--;
                 }
                 trobat = true;
-            } else
+            } else {
                 i++;
+            }
         }
         if (!trobat) {
             System.out.println("L'usuari no està apuntat en aquesta activitat");
@@ -159,10 +181,9 @@ public class LlistaInscripcions {
     }
 
     /**
-     * Metode que compara cuantes activitats fa cada usuari d'un tipus especific i
-     * retorna el mes actiu
-     * (Jordi)
-     * 
+     * Metode que compara cuantes activitats fa cada usuari d'un tipus especific
+     * i retorna el mes actiu (Jordi)
+     *
      * @param opcio
      * @param llistaUsuari
      * @return
@@ -191,8 +212,9 @@ public class LlistaInscripcions {
 
                 System.out.println("No hi ha ningun usuari amb cap activitat");
                 return null;
-            } else
+            } else {
                 return llistaUsuari.buscarUsuariPerPos(pos);
+            }
         }
         if (opcio == 2) {
             for (int i = 0; i < llistaUsuari.getNumElems(); i++) {
@@ -210,8 +232,9 @@ public class LlistaInscripcions {
             if (actiu == false) {
                 System.out.println("No hi ha ningun usuari amb cap activitat");
                 return null;
-            } else
+            } else {
                 return llistaUsuari.buscarUsuariPerPos(pos);
+            }
         }
         if (opcio == 3) {
             for (int i = 0; i < llistaUsuari.getNumElems(); i++) {
@@ -229,12 +252,17 @@ public class LlistaInscripcions {
             if (actiu == false) {
                 System.out.println("No hi ha ningun usuari amb cap activitat");
                 return null;
-            } else
+            } else {
                 return llistaUsuari.buscarUsuariPerPos(pos);
+            }
         } else {
             System.err.println("Opció seleccionada incorrecta");
             return null;
         }
 
+    }
+
+    public void assignarLlistaEspera(LlistaEspera llistaEspera){
+        this.llistaEspera=llistaEspera;
     }
 }
