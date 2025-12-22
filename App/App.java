@@ -240,6 +240,7 @@ public class App {
         try {
             llistaActividades.afegir(online);
             System.out.println("La actividad se ha guardado correctamente");
+            System.out.println(online.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + online.getNom());
         }
@@ -327,6 +328,7 @@ public class App {
         try {
             llistaActividades.afegir(periodica);
             System.out.println("La actividad se ha guardado correctamente");
+            System.out.println(periodica.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + periodica.getNom());
         }
@@ -401,6 +403,7 @@ public class App {
         try {
             llistaActividades.afegir(dia);
             System.out.println("La actividad se ha añadido correctamente");
+            System.out.println(dia.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
         }
