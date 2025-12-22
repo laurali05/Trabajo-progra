@@ -838,7 +838,7 @@ public class App {
                             break;
                         case 2:
 
-                            System.err.println("Quin tipus especific de la llista d'usuaris vols mostrar:");
+                            System.err.println("Quin tipus especific de la llista d'activitats vols mostrar:");
                             System.out.println("1. Mostrar llista de activitats de un dia específic");
                             System.out.println("2. Mostrar llista de activitats online");
                             System.out.println("3. Mostrar llista de activitats periodiques");
