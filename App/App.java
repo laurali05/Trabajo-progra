@@ -112,6 +112,9 @@ public class App {
                     opcio21(llistaActividades, llistaInscripcions, avui);
                     break;
             }
+            System.out.println("\nPresiona ENTER para continuar");
+            teclat.nextLine();
+            
             try {
                 llistaInscripcions.assignarLlistaEspera(llistaEspera);
                 mostrarMenu();
@@ -148,14 +151,14 @@ public class App {
 
                 if((!avui.esDataInferiorOigual(dia.getPeriodoFin())) && (llistaInscripcions.contarInscritos(dia.getNom()) < (0.1*dia.getLimite()))){
                     llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + dia.getNom() + " se ha eliminado correctamente");
+                    System.out.println("La actividad '" + dia.getNom() + "' se ha eliminado correctamente");
                 }
             } else if (act.getTipo().equalsIgnoreCase("periodica")){
                 ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
 
                 if((!avui.esDataInferiorOigual(periodica.getPeriodoFin())) && (llistaInscripcions.contarInscritos(periodica.getNom()) < (0.1*periodica.getLimite()))){
                     llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + periodica.getNom() + " se ha eliminado correctamente");
+                    System.out.println("La actividad '" + periodica.getNom() + "' se ha eliminado correctamente");
 
                 }
             } else if (act.getTipo().equalsIgnoreCase("Online")) {
@@ -163,7 +166,7 @@ public class App {
 
                 if(llistaInscripcions.contarInscritos(online.getNom()) < 20){
                     llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + online.getNom() + " se ha eliminado correctamente");
+                    System.out.println("La actividad '" + online.getNom() + "' se ha eliminado correctamente");
 
                 }
             }
@@ -224,7 +227,7 @@ public class App {
         String nom = teclat.nextLine();
         online.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -232,7 +235,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         online.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -244,7 +247,7 @@ public class App {
         String colectivos = teclat.nextLine();
         online.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -285,7 +288,7 @@ public class App {
         String nom = teclat.nextLine();
         periodica.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -293,7 +296,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         periodica.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -317,7 +320,7 @@ public class App {
         horario[1] = Integer.parseInt(PartesHorario[1]);
         periodica.setHorario(horario[0], horario[1]);
 
-        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -335,7 +338,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         periodica.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad (€.cte)");
+        System.out.println("Introduce el precio de la actividad (EUR.cent)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         periodica.setPrecio(precio);
@@ -364,7 +367,6 @@ public class App {
      * @param llistaActividades
      */
     private static void opcio13(LlistaActividades llistaActividades) {
-        System.out.println(llistaActividades.toString());
         ActividadesDia dia = new ActividadesDia();
 
         dia.setTipo("Dia");
@@ -373,7 +375,7 @@ public class App {
         String nom = teclat.nextLine();
         dia.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -381,7 +383,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         dia.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción (dd/mm/aa)");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -393,7 +395,7 @@ public class App {
         String colectivos = teclat.nextLine();
         dia.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad (dd/mm/aa)");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fecha = new Data(Integer.parseInt(partesFecha[0]),
@@ -414,7 +416,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         dia.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad (€.cte)");
+        System.out.println("Introduce el precio de la actividad (EUR.cent)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         dia.setPrecio(precio);
@@ -426,7 +428,6 @@ public class App {
         try {
             llistaActividades.afegir(dia);
             System.out.println("La actividad se ha guardado correctamente");
-            System.out.println(llistaActividades.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
         }
@@ -570,13 +571,20 @@ public class App {
      * @param Actividades
      */
     private static void opcio7(LlistaActividades llistaActividades) {
-        System.out.println("Introduce el nombre de la actividad");
+        String nomActividades = " ";
+
+        for(int i = 0; i < llistaActividades.getNumElems(); i++){
+            Actividades a = llistaActividades.getActividad(i);
+            nomActividades += "\n\t - " + a.getNom();
+        }
+
+        System.out.println("Introduce el nombre de la actividad : " + nomActividades);
         String actividad = teclat.nextLine();
 
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades a = llistaActividades.getActividad(i);
-            if (a.getNom().equalsIgnoreCase(actividad)) {
-                System.out.println("\n" + a.toString());
+        for (int j = 0; j < llistaActividades.getNumElems(); j++) {
+            Actividades b = llistaActividades.getActividad(j);
+            if (b.getNom().equalsIgnoreCase(actividad)) {
+                System.out.println("\n" + b.toString());
             }
         }
     }
@@ -599,7 +607,7 @@ public class App {
                 int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
 
                 if (numInscritos <= dia.getLimite()) {
-                    System.out.println("En la actividad '" + dia.getNom() + "'' hay plazas disponibles");
+                    System.out.println("En la actividad '" + dia.getNom() + "' hay plazas disponibles");
                 }
             } else if (a.getTipo().equalsIgnoreCase("Periodica")) {
                 ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
@@ -607,11 +615,11 @@ public class App {
                 int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
 
                 if (numInscritos <= periodica.getLimite()) {
-                    System.out.println("En la actividad '" + periodica.getNom() + "'' hay plazas diposnibles");
+                    System.out.println("En la actividad '" + periodica.getNom() + "' hay plazas diposnibles");
                 }
             } else if (a.getTipo().equalsIgnoreCase("Online")) {
                 ActividadesOnline online = (ActividadesOnline) a;
-                System.out.println("En la actividad '" + online.getNom() + "'' hay plazas disponibles");
+                System.out.println("En la actividad '" + online.getNom() + "' hay plazas disponibles");
             }
         }
     }
