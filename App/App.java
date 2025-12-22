@@ -597,16 +597,9 @@ public class App {
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
 
         try {
-            LlistaActividades act = llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
-
-            if (act.getNumElems() == 0) {
-                System.out.println("No hay clases hoy");
-            }
+         llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Está actividad ya está añadida");
-        } catch (ActivitatNoTrobadaException e) {
-            System.err.println("No se ha encontrado una actividad con ese nombre");
-
         }
     }
 

@@ -216,14 +216,14 @@ public class LlistaActividades {
      * @param a
      * @return
      * @throws NomActivitatDuplicatException
-     * @throws ActivitatNoTrobadaException
      */
     public LlistaActividades llistaClasseAvui(Data avui, LlistaInscripcions a)
-            throws NomActivitatDuplicatException, ActivitatNoTrobadaException {
+            throws NomActivitatDuplicatException {
         LlistaActividades lista = new LlistaActividades(numElems);
         boolean plazas;
         boolean listEspera;
         int contador = 0;
+
         for (int i = 0; i < this.getNumElems(); i++) {
             if (llista[i] instanceof ActividadesDia) {
                 ActividadesDia dia = (ActividadesDia) llista[i];
