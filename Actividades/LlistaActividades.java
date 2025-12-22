@@ -219,13 +219,20 @@ public class LlistaActividades {
      * @param a
      * @return
      */
-    public LlistaActividades llistaClasseAvui(Data avui) throws NomActivitatDuplicatException {
+    public LlistaActividades llistaClasseAvui(Data avui, LlistaInscripcions a) throws NomActivitatDuplicatException {
         LlistaActividades lista = new LlistaActividades(numElems);
+        boolean plazas;
+        int contador = 0;
         for (int i = 0; i < this.getNumElems(); i++) {
             if (llista[i] instanceof ActividadesDia) {
                 ActividadesDia dia = (ActividadesDia) llista[i];
                 if (avui.esIgual(dia.getFechaIn())) {
-                    lista.afegir(dia);    
+                    contador++;
+                    lista.afegir(dia);
+                    plazas = this.plazasDisponibles(dia.getNom(), a);
+                    System.out.println("\nActividad " + contador + ": \n\n" + dia.toString() + "\nPlazas disponibles: " + plazas + "\nLista de espera: ");
+                   
+    
                 }
 
             } else if (llista[i] instanceof ActividadesPeriodicas) {
@@ -238,7 +245,10 @@ public class LlistaActividades {
                     int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
 
                     if (diasDesdeInicio % 7 == 0) {
+                        contador++;
                         lista.afegir(periodica);
+                        plazas = this.plazasDisponibles(periodica.getNom(), a);
+                        System.out.println("\nActividad " + contador + ": \n\n" + periodica.toString()+ "\nPlazas disponibles: " + plazas);
                     }
                 }
 
@@ -248,7 +258,11 @@ public class LlistaActividades {
                 Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
 
                 if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
+                    contador++;
                     lista.afegir(online);
+                    plazas = this.plazasDisponibles(online.getNom(), a);
+
+                    System.out.println("\nActividad " + contador + ": \n\n" + online.toString()+ "\nPlazas disponibles: " + plazas);
                 }
             }
         }
@@ -260,23 +274,22 @@ public class LlistaActividades {
      * @param nom
      * @return
      */
-    public boolean plazasDisponibles(LlistaActividades b, LlistaInscripcions a){
+    public boolean plazasDisponibles(String nom, LlistaInscripcions a){
         boolean resultado = false;
         int i = 0;
-        while((!resultado) && (llista[i].getNom().equalsIgnoreCase(b.getActividad(i).getNom()))){
+        while((!resultado) && (llista[i].getNom().equalsIgnoreCase(nom))){
             if(llista[i] instanceof ActividadesDia){
                 ActividadesDia dia = (ActividadesDia) llista[i];
-                if(dia.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                if(dia.getLimite() > a.contarInscritos(nom)) {
                     resultado = true;                    
                 }
             } else if(llista[i] instanceof ActividadesPeriodicas){
-                ActividadesDia periodica = (ActividadesDia) llista[i];
-                if(periodica.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+                if(periodica.getLimite() > a.contarInscritos(nom)) {
                     resultado = true;         
                 }
             } else if(llista[i] instanceof ActividadesOnline){
-                ActividadesDia online = (ActividadesDia) llista[i];
-                if(online.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                if(20 > a.contarInscritos(nom)) {
                     resultado = true;
                 }
             }
@@ -284,7 +297,7 @@ public class LlistaActividades {
         }
 
         return resultado;
-    }
-
+    }   
+    
     
 }

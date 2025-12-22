@@ -16,6 +16,16 @@ public class LlistaEspera {
     }
 
     /**
+     * Devuelve el número de elementos
+     * Autor Laura Lope
+     * 
+     * @return
+     */
+    public int getNumElems(){
+        return numElem;
+    }
+
+    /**
      * Métode cópia de la llista
      * 
      * @return llista copiada

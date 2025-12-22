@@ -497,14 +497,7 @@ public class App {
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();
 
-        String nomActividades = " ";
-
-        for (int i = 0; i < llistaActivitat.getNumElems(); i++) {
-            Actividades a = llistaActivitat.getActividad(i);
-            nomActividades += "\n\t - " + a.getNom();
-        }
-
-        System.out.println("Introdueix l'activitat que vol fer:" + nomActividades);
+        System.out.println("Introdueix l'activitat que vol fer:");
         String activitat = teclat.nextLine();
 
         Usuari nouUsuari = null;
@@ -701,7 +694,11 @@ public class App {
      */
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
 
-
+        try {
+            llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Está actividad ya está añadida");
+        }
     }
 
     /**
