@@ -67,7 +67,8 @@ public class LlistaInscripcions {
         if (!trobat && numElem < limit && ins.getActivitat() instanceof ActividadesOnline) {
             llista[numElem] = ins.copia();
             numElem++;
-        } else if (!trobat && numElem < limit && (ins.getActivitat() instanceof ActividadesDia || ins.getActivitat() instanceof ActividadesPeriodicas)) {
+        } else if (!trobat && numElem < limit && (ins.getActivitat() instanceof ActividadesDia
+                || ins.getActivitat() instanceof ActividadesPeriodicas)) {
             if (ins.getActivitat() instanceof ActividadesDia) {
                 ActividadesDia act = (ActividadesDia) ins.getActivitat();
                 if (this.contarInscritos(act.getNom()) < act.getLimite()) {
@@ -141,6 +142,34 @@ public class LlistaInscripcions {
         }
 
         return contador;
+    }
+
+    /**
+     * Método que indica si una actividad tiene lista de espera o no
+     * 
+     * @param act
+     * @return
+     */
+    public boolean teLlistaEspera(Actividades act) {
+        boolean resultado = false;
+
+        if (act instanceof ActividadesDia) {
+            ActividadesDia dia = (ActividadesDia) act;
+            if (dia.getLimite() > this.contarInscritos(dia.getNom())) {
+                resultado = true;
+            }
+        } else if (act instanceof ActividadesPeriodicas) {
+            ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
+            if (periodica.getLimite() > this.contarInscritos(periodica.getNom())) {
+                resultado = true;
+            }
+        } else if (act instanceof ActividadesOnline) {
+            ActividadesOnline online = (ActividadesOnline) act;
+            if (20 > this.contarInscritos(online.getNom())) {
+                resultado = true;
+            }
+        }
+        return resultado;
     }
 
     /**
@@ -262,7 +291,7 @@ public class LlistaInscripcions {
 
     }
 
-    public void assignarLlistaEspera(LlistaEspera llistaEspera){
-        this.llistaEspera=llistaEspera;
+    public void assignarLlistaEspera(LlistaEspera llistaEspera) {
+        this.llistaEspera = llistaEspera;
     }
 }
