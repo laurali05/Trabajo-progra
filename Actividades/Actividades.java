@@ -13,6 +13,7 @@ public class Actividades {
     public Data periodoFin;
     public String colectivos;
 
+
     /**
      * Constructor sin parámetros
      */

@@ -144,37 +144,7 @@ public class App {
      * @param avui
      */
     private static void opcio21(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades act = llistaActividades.getActividad(i);
-
-            if (act.getTipo().equalsIgnoreCase("dia")) {
-                ActividadesDia dia = (ActividadesDia) act;
-
-                if ((!avui.esDataInferiorOigual(dia.getPeriodoFin()))
-                        && (llistaInscripcions.contarInscritos(dia.getNom()) < (0.1 * dia.getLimite()))) {
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad '" + dia.getNom() + "' se ha eliminado correctamente");
-                }
-            } else if (act.getTipo().equalsIgnoreCase("periodica")) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
-
-                if ((!avui.esDataInferiorOigual(periodica.getPeriodoFin()))
-                        && (llistaInscripcions.contarInscritos(periodica.getNom()) < (0.1 * periodica.getLimite()))) {
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad '" + periodica.getNom() + "' se ha eliminado correctamente");
-
-                }
-            } else if (act.getTipo().equalsIgnoreCase("Online")) {
-                ActividadesOnline online = (ActividadesOnline) act;
-
-                if (llistaInscripcions.contarInscritos(online.getNom()) < 20) {
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad '" + online.getNom() + "' se ha eliminado correctamente");
-
-                }
-            }
-        }
-
+        llistaActividades.elActNoCondiciones(llistaInscripcions, avui);
     }
 
     private static void opcio20(LlistaInscripcions llistaInscripcions, LlistaUsuari llistaUsuari) {
@@ -446,17 +416,10 @@ public class App {
     private static void opcio12(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions,
             LlistaActividades llistaActivitat, LlistaEspera llistaEspera) {
 
-        System.out.println("Introdueix nom de l'Usuari");
+        System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
 
-        String nomActividades = " ";
-
-        for (int i = 0; i < llistaActivitat.getNumElems(); i++) {
-            Actividades a = llistaActivitat.getActividad(i);
-            nomActividades += "\n\t - " + a.getNom();
-        }
-
-        System.out.println("Introdueix l'activitat que vol eliminar-se:" + nomActividades);
+        System.out.println("Introdueix l'activitat que vol eliminar-se:" + llistaActivitat.nomActividades());
         String activitat = teclat.nextLine();
 
         Usuari usuari = null;
@@ -494,10 +457,10 @@ public class App {
     private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui,
             LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera) {
         Inscripcions ins = new Inscripcions();
-        System.out.println("Introdueix nom de l'Usuari");
+        System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
 
-        System.out.println("Introdueix l'activitat que vol fer:");
+        System.out.println("Introdueix l'activitat que vol fer: " + llistaActivitat.nomActividades());
         String activitat = teclat.nextLine();
 
         Usuari nouUsuari = null;
@@ -539,7 +502,7 @@ public class App {
      * @param llistaInscripcions
      */
     private static void opcio9(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions) {
-        System.out.println("Introduiu el nom del usuari:");
+        System.out.println("Introduiu el nom del usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         Usuari usu = null;
         try {
@@ -562,7 +525,7 @@ public class App {
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
-        System.out.println("introdueix el nom de l'usuari");
+        System.out.println("Introdueix el nom de l'usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         Usuari usu = null;
         try {
@@ -601,7 +564,12 @@ public class App {
      */
     private static void opcio6(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
         try {
-            System.out.println(llistaActividades.actPlazasDisponibles(llistaInscripcions).toString());
+            LlistaActividades actConPlazas = llistaActividades.actPlazasDisponibles(llistaInscripcions);
+            if (actConPlazas.getNumElems() == 0) {
+                System.out.println("No hay actividades con plazas disponnibles");
+            } else {
+                System.out.println(actConPlazas.toString());
+            }
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Está actividad ya está añadida");
         } catch (ActivitatNoTrobadaException e) {
@@ -615,7 +583,7 @@ public class App {
      * @param llistaActividades
      */
     private static void opcio5(LlistaActividades llistaActividades, Data avui) {
-           System.out.println(llistaActividades.actActivas(avui));
+        System.out.println(llistaActividades.actActivas(avui));
     }
 
     /**
@@ -631,7 +599,7 @@ public class App {
         try {
             LlistaActividades act = llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
 
-            if(act.getNumElems() == 0){
+            if (act.getNumElems() == 0) {
                 System.out.println("No hay clases hoy");
             }
         } catch (NomActivitatDuplicatException e) {

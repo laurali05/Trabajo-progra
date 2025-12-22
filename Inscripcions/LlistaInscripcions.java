@@ -146,6 +146,7 @@ public class LlistaInscripcions {
 
     /**
      * Método que indica si una actividad tiene lista de espera o no
+     * Autor Laura Lope 
      * 
      * @param act
      * @return
@@ -155,17 +156,17 @@ public class LlistaInscripcions {
 
         if (act instanceof ActividadesDia) {
             ActividadesDia dia = (ActividadesDia) act;
-            if (dia.getLimite() > this.contarInscritos(dia.getNom())) {
+            if (dia.getLimite() <= this.contarInscritos(dia.getNom())) {
                 resultado = true;
             }
         } else if (act instanceof ActividadesPeriodicas) {
             ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
-            if (periodica.getLimite() > this.contarInscritos(periodica.getNom())) {
+            if (periodica.getLimite() <= this.contarInscritos(periodica.getNom())) {
                 resultado = true;
             }
         } else if (act instanceof ActividadesOnline) {
             ActividadesOnline online = (ActividadesOnline) act;
-            if (20 > this.contarInscritos(online.getNom())) {
+            if (20 <= this.contarInscritos(online.getNom())) {
                 resultado = true;
             }
         }
@@ -184,10 +185,10 @@ public class LlistaInscripcions {
         Inscripcions insEspera = null;
         while (!trobat && i < numElem) {
             if (llista[i].getUsuari().equals(usuari) && llista[i].getActivitat().equals(act)) {
-                for (int j = 0; j < numElem; j++) {
+                for (int j = i; j < numElem-1; j++) {
                     llista[j] = llista[j + 1];
-                    numElem--;
                 }
+                numElem--;
                 trobat = true;
             } else {
                 i++;

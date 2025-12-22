@@ -89,14 +89,12 @@ public class LlistaUsuari {
         return llista[i];
     }
 
-
-    
     /**
      * Metode que retorna una llista especifica de una subclasse
      * 
      * @param opcio
      * @return
-     */ 
+     */
     public LlistaUsuari llistaTipus(int opcio) {
         LlistaUsuari llistaEsp = new LlistaUsuari(nElem);
         if (opcio == 1) {
@@ -124,15 +122,16 @@ public class LlistaUsuari {
 
         }
         return llistaEsp;
-        
+
     }
 
-    /** Metode que retorna el numero d'elements de la llista
+    /**
+     * Metode que retorna el numero d'elements de la llista
      * 
      * @return
      */
     public int getNumElems() {
-       return nElem;
+        return nElem;
     }
 
     /**
@@ -142,7 +141,23 @@ public class LlistaUsuari {
      * @return
      */
     public Usuari buscarUsuariPerPos(int i) {
-       return llista[i];
+        return llista[i];
+    }
+
+    /**
+     * Lista de nombres de los usuarios
+     * Autor Laura Lope
+     * 
+     * @return
+     */
+    public String nomUsuarios() {
+        String nomUsuarios = " ";
+
+        for (int i = 0; i < this.getNumElems(); i++) {
+            nomUsuarios += "\n\t - " + llista[i].getNom();
+        }
+
+        return nomUsuarios;
     }
 
 }

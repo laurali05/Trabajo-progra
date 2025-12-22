@@ -1,10 +1,8 @@
 package Actividades;
 
 import Data.*;
-import Excepcions.ActivitatNoTrobadaException;
-import Excepcions.NomActivitatDuplicatException;
-import Inscripcions.LlistaEspera;
-import Inscripcions.LlistaInscripcions;
+import Excepcions.*;
+import Inscripcions.*;
 
 /**
  * Clase: Lista de actividades
@@ -109,7 +107,6 @@ public class LlistaActividades {
         for (int i = pos; i < numElems - 1; i++) {
             llista[i] = llista[i + 1];
         }
-
         numElems--;
     }
 
@@ -297,8 +294,11 @@ public class LlistaActividades {
      */
     public boolean plazasDisponibles(String nom, LlistaInscripcions a) throws ActivitatNoTrobadaException {
         boolean resultado = false;
+        boolean trobat = false;
+
         for (int i = 0; i < numElems; i++) {
             if (llista[i].getNom().equalsIgnoreCase(nom)) {
+                trobat = true;
                 if (llista[i] instanceof ActividadesDia) {
                     ActividadesDia dia = (ActividadesDia) llista[i];
                     if (dia.getLimite() > a.contarInscritos(nom)) {
@@ -316,7 +316,7 @@ public class LlistaActividades {
                 }
             }
         }
-        if (!resultado) {
+        if (!trobat) {
             throw new ActivitatNoTrobadaException(nom);
         }
         return resultado;
@@ -393,5 +393,42 @@ public class LlistaActividades {
         }
 
         return nomActividades;
+    }
+
+    /**
+     * Elimina las actividades que están fuera del periodo de inscripción y que no han llegado a un mínimo de inscritos
+     * @param a
+     * @param avui
+     */
+    public void elActNoCondiciones(LlistaInscripcions a, Data avui){
+        for (int i = 0; i < this.getNumElems(); i++) {
+
+            if (llista[i] instanceof ActividadesDia) {
+                ActividadesDia dia = (ActividadesDia) llista[i];
+
+                if ((!avui.esDataInferiorOigual(dia.getPeriodoFin()))
+                        && (a.contarInscritos(dia.getNom()) < (0.1 * dia.getLimite()))) {
+                    this.eliminarActividad(i);
+                    System.out.println("La actividad '" + dia.getNom() + "' se ha eliminado correctamente");
+                }
+            } else if (llista[i] instanceof ActividadesPeriodicas) {
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+
+                if ((!avui.esDataInferiorOigual(periodica.getPeriodoFin()))
+                        && (a.contarInscritos(periodica.getNom()) < (0.1 * periodica.getLimite()))) {
+                    this.eliminarActividad(i);
+                    System.out.println("La actividad '" + periodica.getNom() + "' se ha eliminado correctamente");
+
+                }
+            } else if (llista[i] instanceof ActividadesOnline) {
+                ActividadesOnline online = (ActividadesOnline) llista[i];
+
+                if (a.contarInscritos(online.getNom()) < 20) {
+                    this.eliminarActividad(i);
+                    System.out.println("La actividad '" + online.getNom() + "' se ha eliminado correctamente");
+
+                }
+            }
+        }
     }
 }
