@@ -446,7 +446,15 @@ public class App {
 
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();
-        System.out.println("Introdueix l'activitat que vol eliminar-se:");
+
+        String nomActividades = " ";
+
+        for(int i = 0; i < llistaActivitat.getNumElems(); i++){
+            Actividades a = llistaActivitat.getActividad(i);
+            nomActividades += "\n\t - " + a.getNom();
+        }
+        
+        System.out.println("Introdueix l'activitat que vol eliminar-se:" + nomActividades);
         String activitat = teclat.nextLine();
 
         Usuari usuari = null;
@@ -486,7 +494,15 @@ public class App {
         Inscripcions ins = new Inscripcions();
         System.out.println("Introdueix nom de l'Usuari");
         String nom = teclat.nextLine();
-        System.out.println("Introdueix l'activitat que vol fer:");
+
+        String nomActividades = " ";
+
+        for(int i = 0; i < llistaActivitat.getNumElems(); i++){
+            Actividades a = llistaActivitat.getActividad(i);
+            nomActividades += "\n\t - " + a.getNom();
+        }
+
+        System.out.println("Introdueix l'activitat que vol fer:" +nomActividades);
         String activitat = teclat.nextLine();
 
         Usuari nouUsuari = null;
