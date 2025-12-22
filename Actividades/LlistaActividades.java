@@ -1,7 +1,10 @@
 package Actividades;
 
+import Data.*;
 import Excepcions.ActivitatNoTrobadaException;
 import Excepcions.NomActivitatDuplicatException;
+import Inscripcions.LlistaEspera;
+import Inscripcions.LlistaInscripcions;
 
 /**
  * Clase: Lista de actividades
@@ -186,4 +189,102 @@ public class LlistaActividades {
         return llista[i];
     }
 
+    /**
+     * Método que devuelve la lista de actividades en periodo de inscripción
+     * Autor Laura Lope
+     * 
+     * @param avui
+     * @return
+     * @throws NomActivitatDuplicatException
+     */
+    public LlistaActividades llistaPeriodo(Data avui) throws NomActivitatDuplicatException {
+        LlistaActividades lista = new LlistaActividades(numElems);
+        for (int i = 0; i < numElems; i++) {
+            Actividades a = this.getActividad(i);
+
+            if ((a.getPeriodoIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(a.getPeriodoFin()))) {
+                lista.afegir(a);
+            }
+        }
+
+        return lista;
+
+    }
+
+    /**
+     * Método que indica las actividades que tienen clase hoy
+     * Autor Laura Lope
+     * 
+     * @param avui
+     * @param a
+     * @return
+     */
+    public LlistaActividades llistaClasseAvui(Data avui) throws NomActivitatDuplicatException {
+        LlistaActividades lista = new LlistaActividades(numElems);
+        for (int i = 0; i < this.getNumElems(); i++) {
+            if (llista[i] instanceof ActividadesDia) {
+                ActividadesDia dia = (ActividadesDia) llista[i];
+                if (avui.esIgual(dia.getFechaIn())) {
+                    lista.afegir(dia);    
+                }
+
+            } else if (llista[i] instanceof ActividadesPeriodicas) {
+                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+
+                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
+
+                if ((periodica.getFechaIn().esDataInferiorOigual(avui)) && ((avui.esDataInferiorOigual(fechaFin)))) {
+
+                    int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
+
+                    if (diasDesdeInicio % 7 == 0) {
+                        lista.afegir(periodica);
+                    }
+                }
+
+            } else if (llista[i] instanceof ActividadesOnline) {
+                ActividadesOnline online = (ActividadesOnline) llista[i];
+
+                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
+
+                if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
+                    lista.afegir(online);
+                }
+            }
+        }
+         return lista;
+    }
+
+    /**
+     * Método que indica si hay plazas disponibles en una actividad
+     * @param nom
+     * @return
+     */
+    public boolean plazasDisponibles(LlistaActividades b, LlistaInscripcions a){
+        boolean resultado = false;
+        int i = 0;
+        while((!resultado) && (llista[i].getNom().equalsIgnoreCase(b.getActividad(i).getNom()))){
+            if(llista[i] instanceof ActividadesDia){
+                ActividadesDia dia = (ActividadesDia) llista[i];
+                if(dia.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                    resultado = true;                    
+                }
+            } else if(llista[i] instanceof ActividadesPeriodicas){
+                ActividadesDia periodica = (ActividadesDia) llista[i];
+                if(periodica.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                    resultado = true;         
+                }
+            } else if(llista[i] instanceof ActividadesOnline){
+                ActividadesDia online = (ActividadesDia) llista[i];
+                if(online.getLimite() > a.contarInscritos(b.getActividad(i).getNom())) {
+                    resultado = true;
+                }
+            }
+            i++;
+        }
+
+        return resultado;
+    }
+
+    
 }
