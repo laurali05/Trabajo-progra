@@ -295,4 +295,14 @@ public class LlistaInscripcions {
     public void assignarLlistaEspera(LlistaEspera llistaEspera) {
         this.llistaEspera = llistaEspera;
     }
+
+    public LlistaUsuari usuarisApuntats(Actividades act){
+        LlistaUsuari aux = new LlistaUsuari(100);
+        for (int i=0;i<numElem;i++){
+            if (llista[i].getActivitat().iguals(act)){
+                aux.afegir(llista[i].getUsuari());
+            }
+        }
+        return aux;
+    }
 }

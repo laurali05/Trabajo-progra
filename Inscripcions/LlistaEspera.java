@@ -1,6 +1,7 @@
 package Inscripcions;
 
 import Actividades.Actividades;
+import Usuari.LlistaUsuari;
 
 public class LlistaEspera {
     private final int maxPersones = 10;
@@ -91,6 +92,16 @@ public class LlistaEspera {
             System.out.println("L'usuari en espera " + insPrimer.getUsuari().getNom() + " Substituirà l'anterior");
             return insPrimer;
         }
+    }
+
+    public LlistaUsuari usuarisApuntats(Actividades act){
+        LlistaUsuari aux = new LlistaUsuari(100);
+        for (int i=0;i<numElem;i++){
+            if (llista[i].getActivitat().iguals(act)){
+                aux.afegir(llista[i].getUsuari());
+            }
+        }
+        return aux;
     }
 
 }
