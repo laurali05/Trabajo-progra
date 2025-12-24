@@ -79,7 +79,7 @@ public class App1 {
                     opcio10(llistaUsuari, llistaActividades, avui, llistaInscripcions, llistaEspera);
                     break;
                 case 11:
-                    opcio11(llistaUsuari);
+                    opcio11(llistaInscripcions, llistaEspera, llistaActividades);
                     break;
                 case 12:
                     opcio12(llistaUsuari, llistaInscripcions, llistaActividades, llistaEspera);
@@ -444,9 +444,17 @@ public class App1 {
         llistaInscripcions.eliminarInscripcio(usuari, act, llistaEspera);
     }
 
-    private static void opcio11(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio11'");
+    private static void opcio11(LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera, LlistaActividades llistaActividades) {
+System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
+      String act = teclat.nextLine();
+      Actividades novaAct = null;
+        try {
+            novaAct = llistaActividades.buscarActividades(act);
+        } catch (ActivitatNoTrobadaException e) {
+            System.err.println("No s'ha trobat l'activitat" + e);
+
+        }
+      System.out.println("La quantitat d'usuaris a l'activitat es de " +llistaInscripcions.contarInscritos(act)+"\n Els usuaris son: "+llistaInscripcions.usuarisApuntats(novaAct)+"\n Els següents es troben en llista d'espera: "+llistaEspera.usuarisApuntats(novaAct));
     }
 
     /**
