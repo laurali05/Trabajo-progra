@@ -5,8 +5,10 @@ import Actividades.ActividadesDia;
 import Actividades.ActividadesOnline;
 import Actividades.ActividadesPeriodicas;
 import Actividades.LlistaActividades;
+import Data.*;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
+import Excepcions.UsuariNoTrobatException;
 import Usuari.LlistaUsuari;
 import Usuari.Usuari;
 import Usuari.UsuariEstudiant;
@@ -145,9 +147,9 @@ public class LlistaInscripcions {
     }
 
     /**
-     * Método que indica si una actividad tiene lista de espera o no
-     * Autor Laura Lope 
-     * 
+     * Método que indica si una actividad tiene lista de espera o no Autor Laura
+     * Lope
+     *
      * @param act
      * @return
      */
@@ -185,7 +187,7 @@ public class LlistaInscripcions {
         Inscripcions insEspera = null;
         while (!trobat && i < numElem) {
             if (llista[i].getUsuari().equals(usuari) && llista[i].getActivitat().equals(act)) {
-                for (int j = i; j < numElem-1; j++) {
+                for (int j = i; j < numElem - 1; j++) {
                     llista[j] = llista[j + 1];
                 }
                 numElem--;
@@ -296,13 +298,47 @@ public class LlistaInscripcions {
         this.llistaEspera = llistaEspera;
     }
 
-    public LlistaUsuari usuarisApuntats(Actividades act){
+    public LlistaUsuari usuarisApuntats(Actividades act) {
         LlistaUsuari aux = new LlistaUsuari(100);
-        for (int i=0;i<numElem;i++){
-            if (llista[i].getActivitat().iguals(act)){
+        for (int i = 0; i < numElem; i++) {
+            if (llista[i].getActivitat().iguals(act)) {
                 aux.afegir(llista[i].getUsuari());
             }
         }
         return aux;
+    }
+
+    public void valorarActivitat(LlistaActividades llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
+        int i = 0;
+        boolean trobat = false;
+        try {
+            while (!trobat && i < numElem) {
+
+                if (llista[i].getUsuari().esIgual(llistaUsuaris.buscarUsuari(nom))) {
+                    trobat = true;
+                } else {
+                    i++;
+                }
+            }
+        } catch (UsuariNoTrobatException e) {
+            System.err.println("l'usuari " + e + "no s'ha trobat.");
+        }
+        Data fechaFin = new Data();
+        if (llista[i].getActivitat() instanceof ActividadesDia) {
+            ActividadesDia dia = (ActividadesDia) llista[i].getActivitat();
+            fechaFin = dia.getFechaIn();
+        } else if (llista[i].getActivitat() instanceof ActividadesPeriodicas) {
+            ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i].getActivitat();
+            fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
+        } else if (llista[i].getActivitat() instanceof ActividadesOnline) {
+            ActividadesOnline online = (ActividadesOnline) llista[i].getActivitat();
+            fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
+        }
+        if(fechaFin.esDataInferiorOigual(avui)){
+            llista[i].setValoracio(valoracio);
+            System.out.println("S'ha guardat la valoració");
+        } else {
+            System.out.println("L'activitat encara no ha finalitzat.");
+        }
     }
 }

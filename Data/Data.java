@@ -9,7 +9,7 @@ public class Data {
 	 * Constructor sin parámetros
 	 */
 	public Data() {
-		this.dia = 20;
+		this.dia = 21;
 		this.mes = 9;
 		this.any = 2025;
 	}

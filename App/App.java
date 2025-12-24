@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class App {
 
     static Scanner teclat = new Scanner(System.in, "UTF-8");// Ens permetrà llegir el número que el usuari introdueixi
-                                                            // per teclat
+    // per teclat
 
     public static void main(String[] args) {
         LlistaUsuari llistaUsuari = new LlistaUsuari(1000);
@@ -38,7 +38,7 @@ public class App {
             mostrarMenu();
             opcio = Integer.parseInt(teclat.nextLine());
         } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
-                                           // mostra aquesta excepciò.
+            // mostra aquesta excepciò.
             System.out.println(e + "   Es necessari introduir un numero.");
         }
         if (opcio > 22) {
@@ -94,7 +94,7 @@ public class App {
                     opcio15(llistaActividades);
                     break;
                 case 16:
-                    opcio16(llistaUsuari);
+                    opcio16(llistaUsuari, llistaActividades, llistaInscripcions, avui);
                     break;
                 case 17:
                     opcio17(llistaUsuari);
@@ -120,7 +120,7 @@ public class App {
                 mostrarMenu();
                 opcio = Integer.parseInt(teclat.nextLine());
             } catch (NumberFormatException e) {// En cas de introdüir per exemple lletres en lloc d'un nùmero es
-                                               // mostra aquesta excepciò.
+                // mostra aquesta excepciò.
                 System.out.println(e + "   Es necessari introduir un numero.");
             }
             if (opcio > 22) {
@@ -136,9 +136,8 @@ public class App {
 
     /**
      * Método que elimina una actividad si no cumple con las condiciones de
-     * asistencia
-     * Autor Laura Lope
-     * 
+     * asistencia Autor Laura Lope
+     *
      * @param llistaActividades
      * @param llistaInscripcions
      * @param avui
@@ -181,15 +180,28 @@ public class App {
         throw new UnsupportedOperationException("Unimplemented method 'opcio17'");
     }
 
-    private static void opcio16(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio16'");
+    /**
+     * Autor Izan
+     * 
+     * @param llistaUsuari
+     * @param llistaActividades
+     * @param llistaInscripcions
+     * @param avui
+     */
+    private static void opcio16(LlistaUsuari llistaUsuari, LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
+        System.out.println("Introdueix el nom de l'usuari:" + llistaUsuari.nomUsuarios());
+        String nom = teclat.nextLine();
+        System.out.println("Introdueix el nom de l'usuari:" + llistaActividades.nomActividades());
+        String act = teclat.nextLine();
+        System.out.println("Introdueix la valoració que vols donar si es posible (1-10):");
+        String valoraciotext = teclat.nextLine();
+        int valoracio = Integer.parseInt(valoraciotext);
+        llistaInscripcions.valorarActivitat(llistaActividades, llistaUsuari, act, nom, avui, valoracio);
     }
 
     /**
-     * Método que añade una actividad online
-     * Autor Laura Lope
-     * 
+     * Método que añade una actividad online Autor Laura Lope
+     *
      * @param llistaActividades
      */
     private static void opcio15(LlistaActividades llistaActividades) {
@@ -248,9 +260,8 @@ public class App {
     }
 
     /**
-     * Método que añade una nueva actividad periodíca
-     * Autor Laura Lope
-     * 
+     * Método que añade una nueva actividad periodíca Autor Laura Lope
+     *
      * @param llistaActividades
      */
     private static void opcio14(LlistaActividades llistaActividades) {
@@ -336,9 +347,8 @@ public class App {
     }
 
     /**
-     * Método que añade una nueva actividad de tipo día
-     * Autor Laura Lope
-     * 
+     * Método que añade una nueva actividad de tipo día Autor Laura Lope
+     *
      * @param llistaActividades
      */
     private static void opcio13(LlistaActividades llistaActividades) {
@@ -411,7 +421,7 @@ public class App {
 
     /**
      * Autor Jordi
-     * 
+     *
      * @param llistaUsuari
      * @param llistaInscripcions
      * @param llistaActivitat
@@ -444,22 +454,29 @@ public class App {
         llistaInscripcions.eliminarInscripcio(usuari, act, llistaEspera);
     }
 
+    /**
+     * Autor Izan
+     *
+     * @param llistaInscripcions
+     * @param llistaEspera
+     * @param llistaActividades
+     */
     private static void opcio11(LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera, LlistaActividades llistaActividades) {
-System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
-      String act = teclat.nextLine();
-      Actividades novaAct = null;
+        System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
+        String act = teclat.nextLine();
+        Actividades novaAct = null;
         try {
             novaAct = llistaActividades.buscarActividades(act);
         } catch (ActivitatNoTrobadaException e) {
             System.err.println("No s'ha trobat l'activitat" + e);
 
         }
-      System.out.println("La quantitat d'usuaris a l'activitat es de " +llistaInscripcions.contarInscritos(act)+"\n Els usuaris son: "+llistaInscripcions.usuarisApuntats(novaAct)+"\n Els següents es troben en llista d'espera: "+llistaEspera.usuarisApuntats(novaAct));
+        System.out.println("La quantitat d'usuaris a l'activitat es de " + llistaInscripcions.contarInscritos(act) + "\n Els usuaris son: " + llistaInscripcions.usuarisApuntats(novaAct) + "\n Els següents es troben en llista d'espera: " + llistaEspera.usuarisApuntats(novaAct));
     }
 
     /**
      * Autor Izan
-     * 
+     *
      * @param llistaUsuari
      * @param llistaActivitat
      * @param avui
@@ -508,7 +525,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Jordi
-     * 
+     *
      * @param llistaUsuari
      * @param llistaInscripcions
      */
@@ -532,7 +549,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Jordi
-     * 
+     *
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
@@ -549,9 +566,9 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
     }
 
     /**
-     * Método que devuelve la información de una actividad en concreto
-     * Autor Laura Lope
-     * 
+     * Método que devuelve la información de una actividad en concreto Autor
+     * Laura Lope
+     *
      * @param llistaActividades
      * @param Actividades
      */
@@ -567,9 +584,8 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
     }
 
     /**
-     * Método que indica las actividades con plazas disponibles
-     * Autor Laura Lope
-     * 
+     * Método que indica las actividades con plazas disponibles Autor Laura Lope
+     *
      * @param llistaActividades
      * @param llistaInscripcions
      */
@@ -590,7 +606,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Laura Lope
-     * 
+     *
      * @param llistaActividades
      */
     private static void opcio5(LlistaActividades llistaActividades, Data avui) {
@@ -598,17 +614,16 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
     }
 
     /**
-     * Método que comprueba que actividades tiene clase hoy y si hay plazas y lista
-     * de espera
-     * Autor Laura Lope
-     * 
+     * Método que comprueba que actividades tiene clase hoy y si hay plazas y
+     * lista de espera Autor Laura Lope
+     *
      * @param llistaActividades
      * @param llistaInscripcions
      */
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
 
         try {
-         llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
+            llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Está actividad ya está añadida");
         }
@@ -616,7 +631,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Laura Lope
-     * 
+     *
      * @param llistaActividades
      * @param avui
      */
@@ -630,7 +645,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Jordi
-     * 
+     *
      * @param llistaUsuari
      * @param llistaActividades
      * @param llistaInscripcions
@@ -703,7 +718,7 @@ System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:")
 
     /**
      * Autor Izan
-     * 
+     *
      * @param avui
      */
     private static void opcio1(Data avui) {
