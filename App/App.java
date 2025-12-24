@@ -111,10 +111,10 @@ public class App {
                 case 21:
                     opcio21(llistaActividades, llistaInscripcions, avui);
                     break;
-            } 
+            }
             System.out.println("\nPresiona ENTER para continuar");
             teclat.nextLine();
-            
+
             try {
                 llistaInscripcions.assignarLlistaEspera(llistaEspera);
                 mostrarMenu();
@@ -130,11 +130,13 @@ public class App {
         }
 
         System.out.println("Has sortit del programa");
+
         teclat.close();
     }
 
     /**
-     * Método que elimina una actividad si no cumple con las condiciones de asistencia 
+     * Método que elimina una actividad si no cumple con las condiciones de
+     * asistencia
      * Autor Laura Lope
      * 
      * @param llistaActividades
@@ -142,35 +144,7 @@ public class App {
      * @param avui
      */
     private static void opcio21(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
-        for (int i = 0; i < llistaActividades.getNumElems(); i++){
-            Actividades act = llistaActividades.getActividad(i);
-
-            if(act.getTipo().equalsIgnoreCase("dia")) {
-                ActividadesDia dia = (ActividadesDia) act;
-
-                if((!avui.esDataInferiorOigual(dia.getPeriodoFin())) && (llistaInscripcions.contarInscritos(dia.getNom()) < (0.1*dia.getLimite()))){
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + dia.getNom() + " se ha eliminado correctamente");
-                }
-            } else if (act.getTipo().equalsIgnoreCase("periodica")){
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
-
-                if((!avui.esDataInferiorOigual(periodica.getPeriodoFin())) && (llistaInscripcions.contarInscritos(periodica.getNom()) < (0.1*periodica.getLimite()))){
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + periodica.getNom() + " se ha eliminado correctamente");
-
-                }
-            } else if (act.getTipo().equalsIgnoreCase("Online")) {
-                ActividadesOnline online = (ActividadesOnline) act;
-
-                if(llistaInscripcions.contarInscritos(online.getNom()) < 20){
-                    llistaActividades.eliminarActividad(i);
-                    System.out.println("La actividad " + online.getNom() + " se ha eliminado correctamente");
-
-                }
-            }
-        }
-
+        llistaActividades.elActNoCondiciones(llistaInscripcions, avui);
     }
 
     private static void opcio20(LlistaInscripcions llistaInscripcions, LlistaUsuari llistaUsuari) {
@@ -226,7 +200,7 @@ public class App {
         String nom = teclat.nextLine();
         online.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -234,7 +208,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         online.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -242,11 +216,11 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         online.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         online.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -254,7 +228,7 @@ public class App {
                 Integer.parseInt(partesFecha[2]));
         online.setFechaIn(fechaIn);
 
-        System.out.println("Introduce el periodo de visualización de la actividad");
+        System.out.println("Introduce el periodo de visualización de la actividad (días)");
         String periodoVisText = teclat.nextLine();
         int periodoVis = Integer.parseInt(periodoVisText);
         online.setPeriodoVis(periodoVis);
@@ -266,6 +240,7 @@ public class App {
         try {
             llistaActividades.afegir(online);
             System.out.println("La actividad se ha guardado correctamente");
+            System.out.println(online.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + online.getNom());
         }
@@ -287,7 +262,7 @@ public class App {
         String nom = teclat.nextLine();
         periodica.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -295,7 +270,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         periodica.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -303,7 +278,7 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         periodica.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         periodica.setColectivos(colectivos);
 
@@ -311,7 +286,7 @@ public class App {
         String diaSemana = teclat.nextLine();
         periodica.setDiaSemana(diaSemana);
 
-        System.out.println("Introduce el horario de la actividad ");
+        System.out.println("Introduce el horario de la actividad (hh:mm)");
         String horarioText = teclat.nextLine();
         String[] PartesHorario = horarioText.split(":");
         int[] horario = new int[2];
@@ -319,7 +294,7 @@ public class App {
         horario[1] = Integer.parseInt(PartesHorario[1]);
         periodica.setHorario(horario[0], horario[1]);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fechaIn = new Data(Integer.parseInt(partesFecha[0]),
@@ -337,7 +312,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         periodica.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad ");
+        System.out.println("Introduce el precio de la actividad (EUR.cent)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         periodica.setPrecio(precio);
@@ -353,6 +328,7 @@ public class App {
         try {
             llistaActividades.afegir(periodica);
             System.out.println("La actividad se ha guardado correctamente");
+            System.out.println(periodica.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + periodica.getNom());
         }
@@ -374,7 +350,7 @@ public class App {
         String nom = teclat.nextLine();
         dia.setNom(nom);
 
-        System.out.println("Introduce el inicio del periodo de inscripción ");
+        System.out.println("Introduce el inicio del periodo de inscripción (dd/09-12/aaaa)");
         String periodoInText = teclat.nextLine();
         String[] partesPeriodoIn = periodoInText.split("/");
         Data periodoIn = new Data(Integer.parseInt(partesPeriodoIn[0]),
@@ -382,7 +358,7 @@ public class App {
                 Integer.parseInt(partesPeriodoIn[2]));
         dia.setPeriodoIn(periodoIn);
 
-        System.out.println("Introduce el final del periodo de inscripción ");
+        System.out.println("Introduce el final del periodo de inscripción (dd/09-12/aaaa)");
         String periodoFinText = teclat.nextLine();
         String[] partesPeriodoFin = periodoFinText.split("/");
         Data periodoFin = new Data(Integer.parseInt(partesPeriodoFin[0]),
@@ -390,11 +366,11 @@ public class App {
                 Integer.parseInt(partesPeriodoFin[2]));
         dia.setPeriodoFin(periodoFin);
 
-        System.out.println("Introduce los colectivos que pueden asistir a esta actividad ");
+        System.out.println("Introduce los colectivos que pueden asistir a esta actividad (Estudiants, PGI o PTGAS)");
         String colectivos = teclat.nextLine();
         dia.setColectivos(colectivos);
 
-        System.out.println("Introduce la fecha de inicio de la actividad ");
+        System.out.println("Introduce la fecha de inicio de la actividad (dd/09-12/aaaa)");
         String fechaInText = teclat.nextLine();
         String[] partesFecha = fechaInText.split("/");
         Data fecha = new Data(Integer.parseInt(partesFecha[0]),
@@ -402,7 +378,7 @@ public class App {
                 Integer.parseInt(partesFecha[2]));
         dia.setFecha(fecha);
 
-        System.out.println("Introduce el horario de la actividad ");
+        System.out.println("Introduce el horario de la actividad (hh:mm)");
         String horarioText = teclat.nextLine();
         String[] PartesHorario = horarioText.split(":");
         int[] horario = new int[2];
@@ -415,7 +391,7 @@ public class App {
         int limite = Integer.parseInt(límiteText);
         dia.setLimite(limite);
 
-        System.out.println("Introduce el precio de la actividad ");
+        System.out.println("Introduce el precio de la actividad (EUR.cent)");
         String precioText = teclat.nextLine();
         double precio = Double.parseDouble(precioText);
         dia.setPrecio(precio);
@@ -426,11 +402,11 @@ public class App {
 
         try {
             llistaActividades.afegir(dia);
-            System.out.println("La actividad se ha guardado correctamente");
+            System.out.println("La actividad se ha añadido correctamente");
+            System.out.println(dia.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
         }
-
     }
 
     /**
@@ -443,9 +419,10 @@ public class App {
     private static void opcio12(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions,
             LlistaActividades llistaActivitat, LlistaEspera llistaEspera) {
 
-        System.out.println("Introdueix nom de l'Usuari");
+        System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
-        System.out.println("Introdueix l'activitat que vol eliminar-se:");
+
+        System.out.println("Introdueix l'activitat que vol eliminar-se:" + llistaActivitat.nomActividades());
         String activitat = teclat.nextLine();
 
         Usuari usuari = null;
@@ -468,7 +445,7 @@ public class App {
     }
 
     private static void opcio11(LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera, LlistaActividades llistaActividades) {
-      System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
+System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
       String act = teclat.nextLine();
       Actividades novaAct = null;
         try {
@@ -491,9 +468,10 @@ public class App {
     private static void opcio10(LlistaUsuari llistaUsuari, LlistaActividades llistaActivitat, Data avui,
             LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera) {
         Inscripcions ins = new Inscripcions();
-        System.out.println("Introdueix nom de l'Usuari");
+        System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
-        System.out.println("Introdueix l'activitat que vol fer:");
+
+        System.out.println("Introdueix l'activitat que vol fer: " + llistaActivitat.nomActividades());
         String activitat = teclat.nextLine();
 
         Usuari nouUsuari = null;
@@ -535,7 +513,7 @@ public class App {
      * @param llistaInscripcions
      */
     private static void opcio9(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions) {
-        System.out.println("Introduiu el nom del usuari:");
+        System.out.println("Introduiu el nom del usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         Usuari usu = null;
         try {
@@ -558,7 +536,7 @@ public class App {
      * @param llistaUsuari
      */
     private static void opcio8(LlistaUsuari llistaUsuari) {
-        System.out.println("introdueix el nom de l'usuari");
+        System.out.println("Introdueix el nom de l'usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         Usuari usu = null;
         try {
@@ -578,14 +556,13 @@ public class App {
      * @param Actividades
      */
     private static void opcio7(LlistaActividades llistaActividades) {
-        System.out.println("Introduce el nombre de la actividad");
+        System.out.println("Introduce el nombre de la actividad : " + llistaActividades.nomActividades());
         String actividad = teclat.nextLine();
 
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades a = llistaActividades.getActividad(i);
-            if (a.getNom().equalsIgnoreCase(actividad)) {
-                System.out.println("\n" + a.toString());
-            }
+        try {
+            System.out.println(llistaActividades.buscarActividades(actividad));
+        } catch (ActivitatNoTrobadaException e) {
+            System.err.println("No se ha encontrado una actividad con ese nombre");
         }
     }
 
@@ -597,80 +574,27 @@ public class App {
      * @param llistaInscripcions
      */
     private static void opcio6(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
-
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades a = llistaActividades.getActividad(i);
-
-            if (a.getTipo().equalsIgnoreCase("Dia")) {
-                ActividadesDia dia = (ActividadesDia) a;
-
-                int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
-
-                if (numInscritos <= dia.getLimite()) {
-                    System.out.println("En la actividad '" + dia.getNom() + "'' hay plazas disponibles");
-                }
-            } else if (a.getTipo().equalsIgnoreCase("Periodica")) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
-
-                int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
-
-                if (numInscritos <= periodica.getLimite()) {
-                    System.out.println("En la actividad '" + periodica.getNom() + "'' hay plazas diposnibles");
-                }
-            } else if (a.getTipo().equalsIgnoreCase("Online")) {
-                ActividadesOnline online = (ActividadesOnline) a;
-                System.out.println("En la actividad '" + online.getNom() + "'' hay plazas disponibles");
+        try {
+            LlistaActividades actConPlazas = llistaActividades.actPlazasDisponibles(llistaInscripcions);
+            if (actConPlazas.getNumElems() == 0) {
+                System.out.println("No hay actividades con plazas disponnibles");
+            } else {
+                System.out.println(actConPlazas.toString());
             }
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Está actividad ya está añadida");
+        } catch (ActivitatNoTrobadaException e) {
+            System.err.println("No se ha encontrado una actividad con ese nombre");
         }
     }
 
     /**
-     * Método que te devuelve el nombre de las actividades que están activas
      * Autor Laura Lope
      * 
      * @param llistaActividades
      */
     private static void opcio5(LlistaActividades llistaActividades, Data avui) {
-        boolean act = false;
-        int contador = 0;
-
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades a = llistaActividades.getActividad(i);
-
-            if (a.tipo.equalsIgnoreCase("Dia")) {
-                ActividadesDia dia = (ActividadesDia) a;
-                if (avui.esIgual(dia.getFechaIn())) {
-                    contador++;
-                    System.out.println(contador + ". " + dia.getNom());
-                    act = true;
-                }
-
-            } else if (a.tipo.equalsIgnoreCase("Periodica")) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) a;
-
-                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
-
-                if (periodica.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))) {
-                    contador++;
-                    System.out.println(contador + ". " + periodica.getNom());
-                    act = true;
-                }
-            } else if (a.tipo.equalsIgnoreCase("Online")) {
-                ActividadesOnline online = (ActividadesOnline) a;
-
-                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
-
-                if (online.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))) {
-                    contador++;
-                    System.out.println(contador + ". " + online.getNom());
-                    act = true;
-                }
-            }
-        }
-
-        if (!act) {
-            System.out.println("No hay actividades activas");
-        }
+        System.out.println(llistaActividades.actActivas(avui));
     }
 
     /**
@@ -682,109 +606,25 @@ public class App {
      * @param llistaInscripcions
      */
     private static void opcio4(LlistaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
-        boolean act = false;
-        int contador = 0;
 
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades b = llistaActividades.getActividad(i);
-
-            if (b.tipo.equalsIgnoreCase("Dia")) {
-                ActividadesDia dia = (ActividadesDia) b;
-                if (avui.esIgual(dia.getFechaIn())) {
-                    contador++;
-
-                    System.out.println("\nActividad " + contador + ": \n\n" + dia.toString());
-
-                    int numInscritos = llistaInscripcions.contarInscritos(dia.getNom());
-
-                    int aforoMaximo = dia.getLimite();
-
-                    if (numInscritos >= aforoMaximo) {
-                        System.out.println("Plazas llenas: SÍ");
-                    } else {
-                        System.out.println("Plazas llenas: NO");
-                    }
-
-                    if (numInscritos > aforoMaximo) {
-                        System.out.println("Lista de espera: SÍ");
-                    } else {
-                        System.out.println("Lista de espera: NO");
-                    }
-
-                    act = true;
-
-                }
-
-            } else if (b.tipo.equalsIgnoreCase("Periodica")) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) b;
-
-                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
-
-                if ((periodica.getFechaIn().esDataInferiorOigual(avui)) && ((avui.esDataInferiorOigual(fechaFin)))) {
-
-                    int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
-
-                    if (diasDesdeInicio % 7 == 0) {
-                        contador++;
-                        System.out.println("\nActividad " + contador + ": \n\n" + periodica.toString());
-
-                        int numInscritos = llistaInscripcions.contarInscritos(periodica.getNom());
-
-                        int aforoMaximo = periodica.getLimite();
-
-                        if (numInscritos >= aforoMaximo) {
-                            System.out.println("Plazas llenas: SÍ");
-                        } else {
-                            System.out.println("Plazas llenas: NO");
-                        }
-
-                        if (numInscritos > aforoMaximo) {
-                            System.out.println("Lista de espera: SÍ");
-                        } else {
-                            System.out.println("Lista de espera: NO");
-                        }
-                        act = true;
-                    }
-                }
-
-            } else if (b.tipo.equalsIgnoreCase("Online")) {
-                ActividadesOnline online = (ActividadesOnline) b;
-
-                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
-
-                if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
-                    contador++;
-
-                    System.out.println("\nActividad " + contador + ": \n\n" + online.toString());
-                    System.out.println("Plazas llenas: NO");
-                    System.out.println("Lista de espera: NO");
-                    act = true;
-                }
-            }
-        }
-
-        if (!act) {
-            System.out.println("Hoy no hay actividades");
+        try {
+         llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Está actividad ya está añadida");
         }
     }
 
+    /**
+     * Autor Laura Lope
+     * 
+     * @param llistaActividades
+     * @param avui
+     */
     private static void opcio3(LlistaActividades llistaActividades, Data avui) {
-        Data hoy = avui;
-        boolean actividades = false;
-        int contador = 0;
-
-        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades a = llistaActividades.getActividad(i);
-
-            if ((a.getPeriodoIn().esDataInferiorOigual(hoy)) && (hoy.esDataInferiorOigual(a.getPeriodoFin()))) {
-                contador++;
-                System.out.println("\nActividad " + contador + ":\n\n" + a.toString());
-                actividades = true;
-            }
-        }
-
-        if (!actividades) {
-            System.out.println("No hay actividades en periodo de inscripción");
+        try {
+            System.out.println(llistaActividades.llistaPeriodo(avui).toString());
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Está actividad ya está añadida");
         }
     }
 
@@ -838,7 +678,7 @@ public class App {
                             break;
                         case 2:
 
-                            System.err.println("Quin tipus especific de la llista d'usuaris vols mostrar:");
+                            System.err.println("Quin tipus especific de la llista d'activitats vols mostrar:");
                             System.out.println("1. Mostrar llista de activitats de un dia específic");
                             System.out.println("2. Mostrar llista de activitats online");
                             System.out.println("3. Mostrar llista de activitats periodiques");
@@ -857,7 +697,7 @@ public class App {
                     }
             }
         } catch (NumberFormatException e) {
-            System.err.println(e + "   Es necessari introduir un numero.");
+            System.err.println(e + " Es necessari introduir un numero.");
         }
     }
 
@@ -867,7 +707,7 @@ public class App {
      * @param avui
      */
     private static void opcio1(Data avui) {
-        System.out.println("La data d'avui es " + avui);
+        System.out.println("La data d'avui es" + avui);
     }
 
     private static void mostrarMenu() {
