@@ -334,11 +334,92 @@ public class LlistaInscripcions {
             ActividadesOnline online = (ActividadesOnline) llista[i].getActivitat();
             fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
         }
-        if(fechaFin.esDataInferiorOigual(avui)){
+        if (fechaFin.esDataInferiorOigual(avui)) {
             llista[i].setValoracio(valoracio);
             System.out.println("S'ha guardat la valoració");
         } else {
             System.out.println("L'activitat encara no ha finalitzat.");
         }
+    }
+
+    public String mostrarValoracions() {
+        String llistaval = "Llista de Valoracions: \n";
+        for (int i = 0; i < numElem; i++) {
+            if (llista[i].getValoracio() != 0) {
+                llistaval = llistaval + "\tNom Activitat: " + llista[i].getActivitat().getNom() + "Valoracio:" + llista[i].getValoracio() + "\n";
+            }
+        }
+        return llistaval;
+    }
+
+    public String valoracionsUsuari(String nom, LlistaUsuari llistaUsuari) {
+        int i = 0;
+        boolean trobat = false;
+        String llistaval = "Llista valoracions de " + nom + "\n";
+        try {
+            while (!trobat && i < numElem) {
+
+                if (llista[i].getUsuari().esIgual(llistaUsuari.buscarUsuari(nom))) {
+                    trobat = true;
+                } else {
+                    i++;
+                }
+            }
+        } catch (UsuariNoTrobatException e) {
+            System.err.println("l'usuari " + e + "no s'ha trobat.");
+        }
+        Usuari usu = llista[i].getUsuari();
+        for (int j = 0; j < numElem; j++) {
+            if (llista[j].getUsuari().esIgual(usu)) {
+                llistaval = llistaval + "\tNom Activitat: " + llista[j].getActivitat().getNom() + "Valoracio:" + llista[j].getValoracio() + "\n";
+            }
+        }
+        return llistaval;
+    }
+
+    public void mitjanaColectius(LlistaActividades llistaActivitat) {
+        int[] dia=new int[numElem];
+        int[] periodicas= new int[numElem];
+        int[] online= new int[numElem];
+        int x = 0;
+        int y = 0;
+        int z = 0;
+        int valdies = 0;
+        int valperi = 0;
+        int valon = 0;
+        int acumdia;
+        int acumperi;
+        int acumon;
+        double mitjdia;
+        double mitjperi;
+        double mitjon;
+        for (int i = 0; i < numElem; i++) {
+            if (llista[i].getActivitat() instanceof ActividadesDia) {
+                dia[x] = llista[i].getValoracio();
+                x++;
+            } else if (llista[i].getActivitat() instanceof ActividadesPeriodicas) {
+                periodicas[y] = llista[i].getValoracio();
+                y++;
+            } else if (llista[i].getActivitat() instanceof ActividadesOnline) {
+                online[z] = llista[i].getValoracio();
+                z++;
+            }
+        }
+        acumdia = x;
+        acumperi = y;
+        acumon = z;
+        for (x = 0; x < acumdia; x++) {
+            valdies = valdies + dia[x];
+        }
+        for (y = 0; y < acumperi; y++) {
+            valperi = valperi + periodicas[y];
+        }
+        for (z = 0; z < acumon; z++) {
+            valon = valon + online[z];
+        }
+        mitjdia = valdies / acumdia;
+        mitjperi = valperi / acumperi;
+        mitjon = valon / acumon;
+        System.out.println("Les mitjanes de valoracio dels diferents colectius son: \n \tActivitats dia: " + mitjdia + "\n \tActivitats Periodiques: " + mitjperi + "\n \tActivitats Online: " + mitjon);
     }
 }

@@ -16,7 +16,7 @@ public class Inscripcions{
     public Inscripcions (){
         this.persona=new Usuari();
         this.activitat=new Actividades();
-        this.valoracio=7;
+        this.valoracio=0;
         this.data= new Data(4,10,2025);
     }
     

@@ -97,13 +97,13 @@ public class App {
                     opcio16(llistaUsuari, llistaActividades, llistaInscripcions, avui);
                     break;
                 case 17:
-                    opcio17(llistaUsuari);
+                    opcio17(llistaInscripcions);
                     break;
                 case 18:
-                    opcio18(llistaUsuari);
+                    opcio18(llistaUsuari, llistaInscripcions);
                     break;
                 case 19:
-                    opcio19(llistaUsuari);
+                    opcio19(llistaInscripcions, llistaActividades);
                     break;
                 case 20:
                     opcio20(llistaInscripcions, llistaUsuari);
@@ -165,19 +165,36 @@ public class App {
 
     }
 
-    private static void opcio19(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio19'");
+    /**
+     * Autor Izan
+     * 
+     * @param llistaInscripcions
+     * @param llistaActividades
+     */
+    private static void opcio19(LlistaInscripcions llistaInscripcions,LlistaActividades llistaActividades) {
+        llistaInscripcions.mitjanaColectius(llistaActividades);
     }
 
-    private static void opcio18(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio18'");
+    /**
+     * Autor Izan
+     * 
+     * @param llistaUsuari
+     * @param llistaInscripcions
+     */
+    private static void opcio18(LlistaUsuari llistaUsuari,LlistaInscripcions llistaInscripcions) {
+        System.out.println("Introdueix el nom de l'usuari que vols veure les valoracions: "+llistaUsuari.nomUsuarios());
+        String nom = teclat.nextLine();
+        llistaInscripcions.valoracionsUsuari(nom, llistaUsuari);
     }
 
-    private static void opcio17(LlistaUsuari llistaUsuari) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'opcio17'");
+    /**
+     * Autor Izan
+     * 
+     * @param llistaInscripcions
+     */
+    private static void opcio17(LlistaInscripcions llistaInscripcions) {
+        System.out.println("Es mostraran les valoracions de les activitats acabades:\n");
+        llistaInscripcions.mostrarValoracions();
     }
 
     /**
