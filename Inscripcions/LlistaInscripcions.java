@@ -365,22 +365,25 @@ public class LlistaInscripcions {
                     i++;
                 }
             }
+            if (!trobat) {
+                return "L'usuari " + nom + " no té cap inscripció feta.";
+            }
         } catch (UsuariNoTrobatException e) {
-            System.err.println("l'usuari " + e + "no s'ha trobat.");
+            System.err.println("L'usuari " + nom + " no existeix a la llista d'usuaris.");
         }
         Usuari usu = llista[i].getUsuari();
         for (int j = 0; j < numElem; j++) {
             if (llista[j].getUsuari().esIgual(usu)) {
-                llistaval = llistaval + "\tNom Activitat: " + llista[j].getActivitat().getNom() + "Valoracio:" + llista[j].getValoracio() + "\n";
+                llistaval = llistaval + "\tNom Activitat: " + llista[j].getActivitat().getNom() + " Valoracio: " + llista[j].getValoracio() + "\n";
             }
         }
         return llistaval;
     }
 
     public void mitjanaColectius(LlistaActividades llistaActivitat) {
-        int[] dia=new int[numElem];
-        int[] periodicas= new int[numElem];
-        int[] online= new int[numElem];
+        int[] dia = new int[numElem];
+        int[] periodicas = new int[numElem];
+        int[] online = new int[numElem];
         int x = 0;
         int y = 0;
         int z = 0;
@@ -417,9 +420,21 @@ public class LlistaInscripcions {
         for (z = 0; z < acumon; z++) {
             valon = valon + online[z];
         }
-        mitjdia = valdies / acumdia;
-        mitjperi = valperi / acumperi;
-        mitjon = valon / acumon;
+        if (acumdia > 0) {
+            mitjdia = (double) valdies / acumdia;
+        } else {
+            mitjdia = 0.0;
+        }
+        if (acumperi > 0) {
+            mitjperi = (double) valperi / acumperi;
+        } else {
+            mitjperi = 0.0;
+        }
+        if (acumon > 0) {
+            mitjon = (double) valon / acumon;
+        } else {
+            mitjon = 0.0;
+        }
         System.out.println("Les mitjanes de valoracio dels diferents colectius son: \n \tActivitats dia: " + mitjdia + "\n \tActivitats Periodiques: " + mitjperi + "\n \tActivitats Online: " + mitjon);
     }
 }

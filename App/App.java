@@ -184,7 +184,7 @@ public class App {
     private static void opcio18(LlistaUsuari llistaUsuari,LlistaInscripcions llistaInscripcions) {
         System.out.println("Introdueix el nom de l'usuari que vols veure les valoracions: "+llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
-        llistaInscripcions.valoracionsUsuari(nom, llistaUsuari);
+        System.out.println(llistaInscripcions.valoracionsUsuari(nom, llistaUsuari));
     }
 
     /**
@@ -194,7 +194,7 @@ public class App {
      */
     private static void opcio17(LlistaInscripcions llistaInscripcions) {
         System.out.println("Es mostraran les valoracions de les activitats acabades:\n");
-        llistaInscripcions.mostrarValoracions();
+        System.out.println(llistaInscripcions.mostrarValoracions());
     }
 
     /**
