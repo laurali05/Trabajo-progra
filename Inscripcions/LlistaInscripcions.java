@@ -6,6 +6,7 @@ import Actividades.ActividadesOnline;
 import Actividades.ActividadesPeriodicas;
 import Actividades.LlistaActividades;
 import Data.*;
+import Excepcions.ActivitatNoTrobadaException;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
 import Excepcions.UsuariNoTrobatException;
@@ -294,10 +295,19 @@ public class LlistaInscripcions {
 
     }
 
+    /**
+     * Métode que asigna una llista d'espera
+     * @param llistaEspera
+     */
     public void assignarLlistaEspera(LlistaEspera llistaEspera) {
         this.llistaEspera = llistaEspera;
     }
 
+    /**
+     * Métode que serveix per veure els usuaris apuntats a una activitat
+     * @param act
+     * @return llista d'usuaris apuntats
+     */
     public LlistaUsuari usuarisApuntats(Actividades act) {
         LlistaUsuari aux = new LlistaUsuari(100);
         for (int i = 0; i < numElem; i++) {
@@ -308,8 +318,18 @@ public class LlistaInscripcions {
         return aux;
     }
 
+    /**
+     * Métode per valorar una activitat
+     * @param llistaActivitat
+     * @param llistaUsuaris
+     * @param act
+     * @param nom
+     * @param avui
+     * @param valoracio
+     */
     public void valorarActivitat(LlistaActividades llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
         int i = 0;
+        int indexVal=0;
         boolean trobat = false;
         try {
             while (!trobat && i < numElem) {
@@ -334,14 +354,19 @@ public class LlistaInscripcions {
             ActividadesOnline online = (ActividadesOnline) llista[i].getActivitat();
             fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
         }
+        indexVal = posicioValoracio(llista[i], llistaActivitat, act);
         if (fechaFin.esDataInferiorOigual(avui)) {
-            llista[i].setValoracio(valoracio);
+            llista[indexVal].setValoracio(valoracio);
             System.out.println("S'ha guardat la valoració");
         } else {
             System.out.println("L'activitat encara no ha finalitzat.");
         }
     }
 
+    /**
+     * Métode que mostra les valoracions
+     * @return
+     */
     public String mostrarValoracions() {
         String llistaval = "Llista de Valoracions: \n";
         for (int i = 0; i < numElem; i++) {
@@ -352,6 +377,12 @@ public class LlistaInscripcions {
         return llistaval;
     }
 
+    /**
+     * Métode que mostra les valoracions realitzades per l'usuari
+     * @param nom
+     * @param llistaUsuari
+     * @return
+     */
     public String valoracionsUsuari(String nom, LlistaUsuari llistaUsuari) {
         int i = 0;
         boolean trobat = false;
@@ -372,6 +403,7 @@ public class LlistaInscripcions {
             System.err.println("L'usuari " + nom + " no existeix a la llista d'usuaris.");
         }
         Usuari usu = llista[i].getUsuari();
+
         for (int j = 0; j < numElem; j++) {
             if (llista[j].getUsuari().esIgual(usu)) {
                 llistaval = llistaval + "\tNom Activitat: " + llista[j].getActivitat().getNom() + " Valoracio: " + llista[j].getValoracio() + "\n";
@@ -380,6 +412,10 @@ public class LlistaInscripcions {
         return llistaval;
     }
 
+    /**
+     * Metode que calcula i mostra per pantalla la mitjana dels col·lectius
+     * @param llistaActivitat
+     */
     public void mitjanaColectius(LlistaActividades llistaActivitat) {
         int[] dia = new int[numElem];
         int[] periodicas = new int[numElem];
@@ -436,5 +472,31 @@ public class LlistaInscripcions {
             mitjon = 0.0;
         }
         System.out.println("Les mitjanes de valoracio dels diferents colectius son: \n \tActivitats dia: " + mitjdia + "\n \tActivitats Periodiques: " + mitjperi + "\n \tActivitats Online: " + mitjon);
+    }
+
+    /**
+     * Métode que diu la posicio on s'asigna la valoració
+     * @param ins
+     * @param llistaActivitat
+     * @param act
+     * @return
+     */
+    public int posicioValoracio(Inscripcions ins, LlistaActividades llistaActivitat, String act){
+        int aux=0;
+        boolean trobat = false;
+        int i=0;
+        while(i<numElem && !trobat){
+            try {
+                if(llistaActivitat.buscarActividades(act).iguals(llista[i].getActivitat())){
+                    aux = i;
+                    trobat = true;
+                } else {
+                    i++;
+                }
+            } catch (ActivitatNoTrobadaException e) {
+                System.err.println("L'activitat "+ e + "no s'ha trobat.");
+            }
+        }
+        return aux;
     }
 }
