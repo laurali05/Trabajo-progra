@@ -371,7 +371,7 @@ public class LlistaInscripcions {
         String llistaval = "Llista de Valoracions: \n";
         for (int i = 0; i < numElem; i++) {
             if (llista[i].getValoracio() != 0) {
-                llistaval = llistaval + "\tNom Activitat: " + llista[i].getActivitat().getNom() + "Valoracio:" + llista[i].getValoracio() + "\n";
+                llistaval = llistaval + "\tNom Activitat: " + llista[i].getActivitat().getNom() + " Valoracio: " + llista[i].getValoracio() + "\n";
             }
         }
         return llistaval;
