@@ -2,7 +2,6 @@ package App;
 
 import Data.*;
 import Excepcions.*;
-import Fitxers.*;
 import Inscripcions.*;
 import Lector.*;
 import Usuari.*;
