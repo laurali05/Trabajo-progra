@@ -50,17 +50,15 @@ public class Pantalla extends JFrame implements ActionListener {
     }
 
     private void inicializar() {
-        setTitle("Programa Benestar URV - Gestión de Actividades");
+        setTitle("Programa Bienestar URV - Gestión de Actividades");
         setSize(1400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout(10, 10));
 
         add(crearPanelFiltro(), BorderLayout.NORTH);
         add(crearPanelTabla(), BorderLayout.CENTER);
         add(crearPanelDetalle(), BorderLayout.EAST);
 
         actualizarTabla();
-        setLocationRelativeTo(null); // Centra la ventana en la pantalla
         setVisible(true);
     }
 
@@ -70,15 +68,14 @@ public class Pantalla extends JFrame implements ActionListener {
      * @return
      */
     private JPanel crearPanelFiltro() {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 10));
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panel.setBorder(BorderFactory.createTitledBorder("Buscar Actividades"));
-        panel.setBackground(new Color(240, 248, 255));
 
         JLabel lblFiltro = new JLabel("Filtrar por nombre o tipo");
         lblFiltro.setFont(new Font("Arial", Font.BOLD, 14));
         panel.add(lblFiltro);
 
-        txtFiltro = new JTextField(35);
+        txtFiltro = new JTextField(100); // Longitud de la barra de busqueda
         txtFiltro.setFont(new Font("Arial", Font.PLAIN, 14));
         panel.add(txtFiltro);
 
@@ -202,13 +199,13 @@ public class Pantalla extends JFrame implements ActionListener {
         panelCampos.add(txtEnlace);
 
         // Notas adicionales
-        panelCampos.add(new JLabel("Notes:"));
+        panelCampos.add(new JLabel("Notas:"));
         txtNotas = new JTextArea(3, 20);
         txtNotas.setLineWrap(true);
         txtNotas.setWrapStyleWord(true);
+
         JScrollPane scrollNotas = new JScrollPane(txtNotas);
         panelCampos.add(scrollNotas);
-
         JScrollPane scrollPanel = new JScrollPane(panelCampos);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         panelPrincipal.add(scrollPanel, BorderLayout.CENTER);
@@ -547,5 +544,59 @@ public class Pantalla extends JFrame implements ActionListener {
         txtNumSemanas.setEnabled(true);
         txtPeriodoVis.setEnabled(true);
         txtEnlace.setEnabled(true);
+    }
+
+    public static void main(String[] args) {
+        // Crear datos de prueba
+        LlistaActividades lista = new LlistaActividades(10);
+        LlistaUsuari usuarios = new LlistaUsuari(5);
+        LlistaInscripcions inscripciones = new LlistaInscripcions(20);
+
+        try {
+            // Actividad 1: Yoga
+            ActividadesDia yoga = new ActividadesDia(
+                    "Yoga para principiantes",
+                    new Data(1, 9, 2025),
+                    new Data(15, 9, 2025),
+                    "PDI, PTGAS, Estudiants",
+                    new Data(20, 9, 2025),
+                    new int[] { 18, 30 },
+                    30,
+                    5.0,
+                    "Tarragona");
+            lista.afegir(yoga);
+
+            // Actividad 2: Pilates
+            ActividadesDia pilates = new ActividadesDia(
+                    "Pilates avanzado",
+                    new Data(1, 9, 2025),
+                    new Data(20, 9, 2025),
+                    "Estudiants",
+                    new Data(25, 9, 2025),
+                    new int[] { 19, 0 },
+                    20,
+                    8.0,
+                    "Reus");
+            lista.afegir(pilates);
+
+            // Actividad 3: Meditación online
+            ActividadesOnline meditacion = new ActividadesOnline(
+                    "Meditación online",
+                    new Data(1, 10, 2025),
+                    new Data(15, 10, 2025),
+                    "PDI, PTGAS, Estudiants",
+                    new Data(20, 10, 2025),
+                    30,
+                    "https://meet.google.com/abc-defg");
+            lista.afegir(meditacion);
+
+        } catch (NomActivitatDuplicatException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
+        // Crear y mostrar la ventana
+        SwingUtilities.invokeLater(() -> {
+            new Pantalla(lista, usuarios, inscripciones);
+        });
     }
 }
