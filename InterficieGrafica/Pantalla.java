@@ -70,8 +70,6 @@ public class Pantalla extends JFrame implements ActionListener {
 
         add(pestanyes, BorderLayout.CENTER);
 
-        add(crearPanelDetalle(), BorderLayout.EAST);
-
         actualizarTabla(); 
         setVisible(true);
     }
@@ -137,6 +135,7 @@ public class Pantalla extends JFrame implements ActionListener {
 
         JScrollPane scrollPane = new JScrollPane(tablaActividades);
         panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(crearPanelDetalle(), BorderLayout.EAST);
 
         return panel;
     }
@@ -659,7 +658,10 @@ public class Pantalla extends JFrame implements ActionListener {
             }
 
             int d = dia;
+            
             btn.addActionListener(evt -> mostrarDetallsDia(d));
+            
+           
             panelCalendariDies.add(btn);
         }
 
@@ -744,9 +746,15 @@ public class Pantalla extends JFrame implements ActionListener {
             }
         }
 
+        
+
         if (!hiHaActivitat) missatge += "No hi ha activitats programades.";
+        else{
+            
+        }
         
         JOptionPane.showMessageDialog(this, missatge, "Agenda", JOptionPane.INFORMATION_MESSAGE);
+        
     }
 
     public static void main(String[] args) {
