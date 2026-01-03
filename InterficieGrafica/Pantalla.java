@@ -4,6 +4,9 @@ import Actividades.*; // Se encarga de las ventanas
 import Data.Data; // Para manejar tablas
 import Excepcions.*; // Para filtrar tablas
 import Inscripcions.*;
+import Lector.FitxerActividades;
+import Lector.FitxerSerialitzat;
+import Lector.FitxerUsuari;
 import Usuari.*; // Para organizar componente
 import java.awt.*; // Para clicks y reclas
 import java.awt.event.*;
@@ -61,8 +64,9 @@ public class Pantalla extends JFrame implements ActionListener {
         add(crearPanelFiltro(), BorderLayout.NORTH);
 
         JTabbedPane pestanyes = new JTabbedPane();
-        pestanyes.addTab("Lista Actividades", crearPanelTabla());
         pestanyes.addTab("Calendari Mensual", crearPanelCalendari());
+        pestanyes.addTab("Lista Actividades", crearPanelTabla());
+        
 
         add(pestanyes, BorderLayout.CENTER);
 
@@ -747,10 +751,19 @@ public class Pantalla extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         // Crear datos de prueba
-        LlistaActividades lista = new LlistaActividades(10);
-        LlistaUsuari usuarios = new LlistaUsuari(5);
-        LlistaInscripcions inscripciones = new LlistaInscripcions(20);
+        LlistaActividades listaTmp = new LlistaActividades(1000);
+        LlistaUsuari usuariosTmp = new LlistaUsuari(1000);
+        LlistaInscripcions inscripcionesTmp = new LlistaInscripcions(1000);
 
+        try {
+            usuariosTmp = FitxerUsuari.carregarFitxeUsuari();
+            listaTmp = FitxerActividades.carregarFitxerActividades();
+            inscripcionesTmp = FitxerSerialitzat.carregarInscripcions();
+
+        } catch (CarregarFitxersException e) {
+            System.out.println(e + "Error al cargar els fitxers");
+
+        }
         try {
             // Actividad 1: Yoga
             ActividadesDia yoga = new ActividadesDia(
@@ -759,11 +772,11 @@ public class Pantalla extends JFrame implements ActionListener {
                     new Data(15, 9, 2025),
                     "PDI, PTGAS, Estudiants",
                     new Data(20, 9, 2025),
-                    new int[]{18, 30},
+                    new int[] { 18, 30 },
                     30,
                     5.0,
                     "Tarragona");
-            lista.afegir(yoga);
+            listaTmp.afegir(yoga);
 
             // Actividad 2: Pilates
             ActividadesDia pilates = new ActividadesDia(
@@ -772,11 +785,11 @@ public class Pantalla extends JFrame implements ActionListener {
                     new Data(20, 9, 2025),
                     "Estudiants",
                     new Data(25, 9, 2025),
-                    new int[]{19, 0},
+                    new int[] { 19, 0 },
                     20,
                     8.0,
                     "Reus");
-            lista.afegir(pilates);
+            listaTmp.afegir(pilates);
 
             // Actividad 3: Meditación online
             ActividadesOnline meditacion = new ActividadesOnline(
@@ -787,15 +800,18 @@ public class Pantalla extends JFrame implements ActionListener {
                     new Data(20, 10, 2025),
                     30,
                     "https://meet.google.com/abc-defg");
-            lista.afegir(meditacion);
+            listaTmp.afegir(meditacion);
 
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Error: " + e.getMessage());
         }
 
-        // Crear y mostrar la ventana
-        SwingUtilities.invokeLater(() -> {
-            new Pantalla(lista, usuarios, inscripciones);
-        });
+       final LlistaActividades lista = listaTmp;
+       final LlistaUsuari usuarios = usuariosTmp;
+       final LlistaInscripcions inscripciones = inscripcionesTmp;
+
+    SwingUtilities.invokeLater(() -> {
+        new Pantalla(lista, usuarios, inscripciones);
+    });
     }
 }
