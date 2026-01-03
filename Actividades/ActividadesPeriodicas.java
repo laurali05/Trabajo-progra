@@ -24,7 +24,7 @@ public class ActividadesPeriodicas extends Actividades {
         super();
         this.diaSemana = "Lunes";
         this.horario = new int[] { 18, 0 };
-        this.fechaIn = new Data(2, 2, 2020);
+        this.fechaIn = new Data(2, 9, 2025);
         this.numSemanas = 4;
         this.limite = 40;
         this.precio = 0.0;

@@ -1,25 +1,29 @@
 package InterficieGrafica;
 
-import javax.swing.*; // Se encarga de las ventanas 
-import javax.swing.table.DefaultTableModel; // Para manejar tablas
-import javax.swing.table.TableRowSorter; // Para filtrar tablas
-import javax.swing.text.TableView.TableRow;
-
-import java.awt.*; // Para organizar componente
-import java.awt.event.*; // Para clicks y reclas
-
-import Actividades.*;
-import Data.Data;
-import Excepcions.*;
-import Usuari.*;
-import netscape.javascript.JSException;
+import Actividades.*; // Se encarga de las ventanas
+import Data.Data; // Para manejar tablas
+import Excepcions.*; // Para filtrar tablas
 import Inscripcions.*;
+import Usuari.*; // Para organizar componente
+import java.awt.*; // Para clicks y reclas
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Pantalla extends JFrame implements ActionListener {
+
     private JTable tablaActividades; // La tabla donde se ven las actividades
     private DefaultTableModel modeloTabla; // Los datos de la tabla
     private TableRowSorter<DefaultTableModel> sorter; // Para filtrar la tabla
     private JTextField txtFiltro; // Donde escribimos para buscar
+
+    // VARIABLES DEL CALENDARI
+    private JPanel panelCalendariDies; // Panell per als dies
+    private JLabel lblTitolMes;        // Etiqueta del mes i any
+    // Comencem per defecte al Setembre 2025 (segons les dades de prova)
+    private int mesActual = 9;
+    private int anyActual = 2025;
 
     // Campos relacionados con el paquete Actividades
     private JTextField txtNomActividad, txtPeriodoIn, txtPeriodoFin, txtColectivos, txtFecha, txtHorario, txtLimite,
@@ -34,7 +38,7 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Constructor con parámetros
-     * 
+     *
      * @param llistaActividades
      * @param llistaUsuari
      * @param llistaInscripcions
@@ -50,21 +54,27 @@ public class Pantalla extends JFrame implements ActionListener {
     }
 
     private void inicializar() {
-        setTitle("Programa Bienestar URV - Gestión de Actividades");
+        setTitle("Programa Benestar URV - Gestió d'Activitats");
         setSize(1400, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         add(crearPanelFiltro(), BorderLayout.NORTH);
-        add(crearPanelTabla(), BorderLayout.CENTER);
+
+        JTabbedPane pestanyes = new JTabbedPane();
+        pestanyes.addTab("Lista Actividades", crearPanelTabla());
+        pestanyes.addTab("Calendari Mensual", crearPanelCalendari());
+
+        add(pestanyes, BorderLayout.CENTER);
+
         add(crearPanelDetalle(), BorderLayout.EAST);
 
-        actualizarTabla();
+        actualizarTabla(); 
         setVisible(true);
     }
 
     /**
      * Panel del filtro
-     * 
+     *
      * @return
      */
     private JPanel crearPanelFiltro() {
@@ -90,14 +100,14 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Panel de la tabla
-     * 
+     *
      * @return
      */
     private JPanel crearPanelTabla() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder("Lista Actividades"));
 
-        String[] columnas = { "Tipo", "Nombre Actividad", "Inicio Inscripción", "Fin Inscripción", "Colectivos" };
+        String[] columnas = {"Tipo", "Nombre Actividad", "Inicio Inscripción", "Fin Inscripción", "Colectivos"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int colum) {
@@ -129,7 +139,7 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Panel de los detalles
-     * 
+     *
      * @return
      */
     private JPanel crearPanelDetalle() {
@@ -146,7 +156,7 @@ public class Pantalla extends JFrame implements ActionListener {
         panelCampos.add(txtNomActividad);
 
         panelCampos.add(new JLabel("Tipo: "));
-        String[] tipos = { "Dia", "Periodica", "Online" };
+        String[] tipos = {"Dia", "Periodica", "Online"};
         comboTipos = new JComboBox<>(tipos);
         comboTipos.setEnabled(false);
         panelCampos.add(comboTipos);
@@ -231,7 +241,7 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Método de filtrado
-     * 
+     *
      */
     private void filtrarTabla() {
         String texto = txtFiltro.getText().trim();
@@ -442,12 +452,12 @@ public class Pantalla extends JFrame implements ActionListener {
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividades act = llistaActividades.getActividad(i);
             if (act != null) {
-                modeloTabla.addRow(new Object[] {
-                        act.getTipo(),
-                        act.getNom(),
-                        formatearData(act.getPeriodoIn()),
-                        formatearData(act.getPeriodoFin()),
-                        act.getColectivos()
+                modeloTabla.addRow(new Object[]{
+                    act.getTipo(),
+                    act.getNom(),
+                    formatearData(act.getPeriodoIn()),
+                    formatearData(act.getPeriodoFin()),
+                    act.getColectivos()
                 });
             }
         }
@@ -455,13 +465,14 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Borra los datos que nos oson correctos
-     * 
+     *
      * @param data
      * @return
      */
     private String formatearData(Data data) {
-        if (data == null)
+        if (data == null) {
             return "";
+        }
         return String.format("%02d/%02d/%04d", data.getDia(), data.getMes(), data.getAny());
     }
 
@@ -482,7 +493,7 @@ public class Pantalla extends JFrame implements ActionListener {
 
     /**
      * Comprueba los datos de la actividad
-     * 
+     *
      * @return
      */
     private boolean validarDadesActivitat() {
@@ -546,6 +557,194 @@ public class Pantalla extends JFrame implements ActionListener {
         txtEnlace.setEnabled(true);
     }
 
+    private JPanel crearPanelCalendari() {
+        JPanel panel = new JPanel(new BorderLayout());
+
+        // Capçalera
+        JPanel capçalera = new JPanel(new FlowLayout());
+        JButton btnAnt = new JButton("<");
+        JButton btnSeg = new JButton(">");
+        lblTitolMes = new JLabel("", SwingConstants.CENTER);
+        lblTitolMes.setFont(new Font("Arial", Font.BOLD, 16));
+        lblTitolMes.setPreferredSize(new Dimension(200, 30));
+
+        btnAnt.addActionListener(this::accioMesAnterior);
+        btnSeg.addActionListener(this::accioMesSeguent);
+
+        capçalera.add(btnAnt);
+        capçalera.add(lblTitolMes);
+        capçalera.add(btnSeg);
+        panel.add(capçalera, BorderLayout.NORTH);
+
+        // Graella de dies 
+        panelCalendariDies = new JPanel(new GridLayout(0, 7, 2, 2));
+        panelCalendariDies.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        
+        JScrollPane scroll = new JScrollPane(panelCalendariDies);
+        panel.add(scroll, BorderLayout.CENTER);
+
+        dibuixarCalendari();
+        return panel;
+    }
+
+    /**
+     * Retrocedeix un mes
+     */
+    private void accioMesAnterior(ActionEvent e) {
+        mesActual--;
+        if (mesActual < 1) {
+            mesActual = 12;
+            anyActual--;
+        }
+        dibuixarCalendari();
+    }
+
+    /**
+     * Avança un mes
+     */
+    private void accioMesSeguent(ActionEvent e) {
+        mesActual++;
+        if (mesActual > 12) {
+            mesActual = 1;
+            anyActual++;
+        }
+        dibuixarCalendari();
+    }
+
+    /**
+     * Dibuixa els botons dels dies a la pantalla
+     */
+    private void dibuixarCalendari() {
+        panelCalendariDies.removeAll();
+
+        // Noms de mesos i dies en català
+        String[] nomsMesos = {"", "Gener", "Febrer", "Març", "Abril", "Maig", "Juny", 
+                                  "Juliol", "Agost", "Setembre", "Octubre", "Novembre", "Desembre"};
+        String[] diesSetmana = {"Dll", "Dm", "Dc", "Dj", "Dv", "Ds", "Dg"};
+
+        lblTitolMes.setText(nomsMesos[mesActual] + " " + anyActual);
+
+        // Capçaleres de la setmana
+        for (String d : diesSetmana) {
+            JLabel l = new JLabel(d, SwingConstants.CENTER);
+            l.setOpaque(true);
+            l.setBackground(Color.LIGHT_GRAY);
+            panelCalendariDies.add(l);
+        }
+
+    
+        int totalDies = calcularDiesDelMes(mesActual, anyActual);
+        int diaSetmanaInici = calcularDiaSetmana(1, mesActual, anyActual); // 0=Dilluns
+
+   
+        for (int i = 0; i < diaSetmanaInici; i++) {
+            panelCalendariDies.add(new JLabel(""));
+        }
+
+      
+        for (int dia = 1; dia <= totalDies; dia++) {
+            JButton btn = new JButton(String.valueOf(dia));
+            
+          
+            if (existeixActivitat(dia, mesActual, anyActual)) {
+                btn.setBackground(new Color(100, 200, 255)); // Color Blau 
+                btn.setFont(new Font("Arial", Font.BOLD, 12));
+                btn.setToolTipText("Hi ha activitats programades");
+            } else {
+                btn.setBackground(Color.WHITE);
+            }
+
+            int d = dia;
+            btn.addActionListener(evt -> mostrarDetallsDia(d));
+            panelCalendariDies.add(btn);
+        }
+
+        panelCalendariDies.revalidate();
+        panelCalendariDies.repaint();
+    }
+
+   
+    private boolean esDeTraspas(int any) {
+        return (any % 4 == 0 && any % 100 != 0) || (any % 400 == 0);
+    }
+
+    
+    private int calcularDiesDelMes(int mes, int any) {
+        if (mes == 4 || mes == 6 || mes == 9 || mes == 11) return 30;
+        if (mes == 2) return esDeTraspas(any) ? 29 : 28;
+        return 31;
+    }
+
+
+    private int calcularDiaSetmana(int dia, int mes, int any) {
+        int m = mes;
+        int y = any;
+        
+        if (m < 3) {
+            m += 12;
+            y -= 1;
+        }
+        
+        int K = y % 100; 
+        int J = y / 100; 
+        
+        int h = (dia + 13 * (m + 1) / 5 + K + K / 4 + J / 4 + 5 * J) % 7;
+        
+        int resultat = ((h + 5) % 7) + 1; 
+        
+        return resultat - 1; 
+    }
+
+    private boolean existeixActivitat(int dia, int mes, int any) {
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+            Actividades act = llistaActividades.getActividad(i);
+            
+            Data d = null;
+            if (act instanceof ActividadesDia) {
+                d = ((ActividadesDia) act).getFechaIn();
+            } else if (act instanceof ActividadesPeriodicas) {
+                d = ((ActividadesPeriodicas) act).getFechaIn();
+            } else {
+                d = ((ActividadesOnline) act).getFechaIn();
+            }
+            if (d != null && d.getDia() == dia && d.getMes() == mes && d.getAny() == any) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void mostrarDetallsDia(int dia) {
+        String missatge = "Activitats del " + dia + "/" + mesActual + "/" + anyActual + ":\n\n";
+        boolean hiHaActivitat = false;
+
+        for (int i = 0; i < llistaActividades.getNumElems(); i++) {
+            Actividades act = llistaActividades.getActividad(i);
+            Data d = null;
+            String extra = "";
+
+            if (act instanceof ActividadesDia) {
+                d = ((ActividadesDia) act).getFechaIn();
+                extra = " (" + ((ActividadesDia) act).getHorario() + ")";
+            } else if (act instanceof ActividadesPeriodicas) {
+                 d = ((ActividadesPeriodicas) act).getFechaIn(); 
+                 extra = " (Periòdica)";
+            } else if (act instanceof ActividadesOnline) {
+                 d = ((ActividadesOnline) act).getFechaIn();
+                 extra = " (Online)";
+            }
+
+            if (d != null && d.getDia() == dia && d.getMes() == mesActual && d.getAny() == anyActual) {
+                missatge += "- " + act.getNom() + extra + "\n";
+                hiHaActivitat = true;
+            }
+        }
+
+        if (!hiHaActivitat) missatge += "No hi ha activitats programades.";
+        
+        JOptionPane.showMessageDialog(this, missatge, "Agenda", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static void main(String[] args) {
         // Crear datos de prueba
         LlistaActividades lista = new LlistaActividades(10);
@@ -560,7 +759,7 @@ public class Pantalla extends JFrame implements ActionListener {
                     new Data(15, 9, 2025),
                     "PDI, PTGAS, Estudiants",
                     new Data(20, 9, 2025),
-                    new int[] { 18, 30 },
+                    new int[]{18, 30},
                     30,
                     5.0,
                     "Tarragona");
@@ -573,7 +772,7 @@ public class Pantalla extends JFrame implements ActionListener {
                     new Data(20, 9, 2025),
                     "Estudiants",
                     new Data(25, 9, 2025),
-                    new int[] { 19, 0 },
+                    new int[]{19, 0},
                     20,
                     8.0,
                     "Reus");
