@@ -28,6 +28,11 @@ public class Pantalla extends JFrame {
     private int mesActual = 9;
     private int anyActual = 2025;
 
+    // Campos relacionados con el paquete Actividades
+    private JTextField txtNomActividad, txtPeriodoIn, txtPeriodoFin, txtColectivos, txtFecha, txtHorario, txtLimite,
+            txtPrecio, txtCiudad, txtNumSemanas, txtPeriodoVis, txtEnlace; // Campos donde podemos escribir
+    private JComboBox<String> comboTipos;
+
     private ListaActividad llistaActividades;
     private LlistaInscripcio llistaInscripcions;
     private LlistaUsuari llistaUsuari;
@@ -118,10 +123,166 @@ public class Pantalla extends JFrame {
         sorter = new TableRowSorter<>(modeloTabla);
         tablaActividades.setRowSorter(sorter);
 
+        tablaActividades.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting() && tablaActividades.getSelectedRow() != -1) {
+                cargarDetalleActividad();
+            }
+        });
+
         JScrollPane scrollPane = new JScrollPane(tablaActividades);
         panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(crearPanelDetalle(), BorderLayout.EAST);
 
         return panel;
+    }
+
+    /**
+     * Panel de los detalles
+     *
+     * @return
+     */
+    private JPanel crearPanelDetalle() {
+        JPanel panelPrincipal = new JPanel(new BorderLayout());
+        panelPrincipal.setBorder(BorderFactory.createTitledBorder("Detalles Actividad"));
+        panelPrincipal.setPreferredSize(new Dimension(450, 0));
+
+        JPanel panelCampos = new JPanel();
+        panelCampos.setLayout(new GridLayout(0, 2, 10, 10));
+        panelCampos.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        panelCampos.add(new JLabel("Nombre Actividad: "));
+        txtNomActividad = new JTextField();
+        panelCampos.add(txtNomActividad);
+
+        panelCampos.add(new JLabel("Tipo: "));
+        String[] tipos = { "Dia", "Periodica", "Online" };
+        comboTipos = new JComboBox<>(tipos);
+        comboTipos.setEnabled(false);
+        panelCampos.add(comboTipos);
+
+        panelCampos.add(new JLabel("Inicio Inscripción (DD/09-12/AAAA9: "));
+        txtPeriodoIn = new JTextField();
+        panelCampos.add(txtPeriodoIn);
+
+        panelCampos.add(new JLabel("Fin Inscripción (DD/09-12/AAAA): "));
+        txtPeriodoFin = new JTextField();
+        panelCampos.add(txtPeriodoFin);
+
+        panelCampos.add(new JLabel("Colectivos: "));
+        txtColectivos = new JTextField();
+        panelCampos.add(txtColectivos);
+
+        panelCampos.add(new JSeparator());
+        panelCampos.add(new JSeparator());
+
+        panelCampos.add(new JLabel("Fecha Actividad (DD/09-12/AAAA): "));
+        txtFecha = new JTextField();
+        panelCampos.add(txtFecha);
+
+        panelCampos.add(new JLabel("Horario (HH:MM): "));
+        txtHorario = new JTextField();
+        panelCampos.add(txtHorario);
+
+        panelCampos.add(new JLabel("Límite Asistentes: "));
+        txtLimite = new JTextField();
+        panelCampos.add(txtLimite);
+
+        panelCampos.add(new JLabel("Precio (€.cte): "));
+        txtPrecio = new JTextField();
+        panelCampos.add(txtPrecio);
+
+        panelCampos.add(new JLabel("Ciudad: "));
+        txtCiudad = new JTextField();
+        panelCampos.add(txtCiudad);
+
+        panelCampos.add(new JLabel("Num Semanas: "));
+        txtNumSemanas = new JTextField();
+        panelCampos.add(txtNumSemanas);
+
+        panelCampos.add(new JLabel("Periodo Visualización (días): "));
+        txtPeriodoVis = new JTextField();
+        panelCampos.add(txtPeriodoVis);
+
+        panelCampos.add(new JLabel("Enlace: "));
+        txtEnlace = new JTextField();
+        panelCampos.add(txtEnlace);
+
+        JScrollPane scrollPanel = new JScrollPane(panelCampos);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        panelPrincipal.add(scrollPanel, BorderLayout.CENTER);
+
+        return panelPrincipal;
+    }
+
+    /**
+     * Cargar detalle desde la tabla
+     */
+    private void cargarDetalleActividad() {
+        int fila = tablaActividades.getSelectedRow();
+
+        if (fila == -1) {
+            return;
+        }
+
+        int filaModelo = tablaActividades.convertRowIndexToModel(fila);
+        String nomActividad = modeloTabla.getValueAt(filaModelo, 1).toString();
+
+        try {
+            Actividad act = llistaActividades.buscarActividades(nomActividad);
+
+            habilitarTodosCampos();
+            limpiarCamposEspecificos();
+
+            txtNomActividad.setText(act.getNom());
+            comboTipos.setSelectedItem(act.getTipo());
+            txtPeriodoIn.setText(formatearData(act.getPeriodoIn()));
+            txtPeriodoFin.setText(formatearData(act.getPeriodoFin()));
+            txtColectivos.setText(act.getColectivos());
+
+            if (act instanceof ActividadDia) {
+                ActividadDia dia = (ActividadDia) act;
+
+                txtFecha.setText(formatearData(dia.getFechaIn()));
+                txtHorario.setText(dia.getHorario());
+                txtLimite.setText(String.valueOf(dia.getLimite()));
+                txtPrecio.setText(String.valueOf(dia.getPrecio()));
+                txtCiudad.setText(dia.getCiudad());
+
+                txtNumSemanas.setEnabled(false);
+                txtPeriodoVis.setEnabled(false);
+                txtEnlace.setEnabled(false);
+
+            } else if (act instanceof ActividadPeriodicas) {
+                ActividadPeriodicas periodica = (ActividadPeriodicas) act;
+
+                txtFecha.setText(formatearData(periodica.getFechaIn()));
+                txtLimite.setText(String.valueOf(periodica.getLimite()));
+
+                txtHorario.setEnabled(false);
+                txtPrecio.setEnabled(false);
+                txtCiudad.setEnabled(false);
+                txtPeriodoVis.setEnabled(false);
+                txtEnlace.setEnabled(false);
+
+            } else if (act instanceof ActividadOnline) {
+                ActividadOnline online = (ActividadOnline) act;
+
+                txtFecha.setText(formatearData(online.getFechaIn()));
+                txtPeriodoVis.setText(String.valueOf(online.getPeriodoVis()));
+                txtEnlace.setText(online.getEnlace());
+
+                txtHorario.setEnabled(false);
+                txtLimite.setEnabled(false);
+                txtPrecio.setEnabled(false);
+                txtCiudad.setEnabled(false);
+                txtNumSemanas.setEnabled(false);
+
+            }
+
+        } catch (ActivitatNoTrobadaException ex) {
+            JOptionPane.showMessageDialog(this, "No se ha encontrado la actividad: " + ex.getMessage(), "ERROR",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -136,6 +297,28 @@ public class Pantalla extends JFrame {
         } else {
             sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto));
         }
+    }
+
+    private void limpiarCamposEspecificos() {
+        txtFecha.setText("");
+        txtHorario.setText("");
+        txtLimite.setText("");
+        txtPrecio.setText("");
+        txtCiudad.setText("");
+        txtNumSemanas.setText("");
+        txtPeriodoVis.setText("");
+        txtEnlace.setText("");
+    }
+
+    private void habilitarTodosCampos() {
+        txtFecha.setEnabled(true);
+        txtHorario.setEnabled(true);
+        txtLimite.setEnabled(true);
+        txtPrecio.setEnabled(true);
+        txtCiudad.setEnabled(true);
+        txtNumSemanas.setEnabled(true);
+        txtPeriodoVis.setEnabled(true);
+        txtEnlace.setEnabled(true);
     }
 
     /**
@@ -159,7 +342,8 @@ public class Pantalla extends JFrame {
     }
 
     /**
-     *Formatea la fecha
+     * Formatea la fecha
+     * 
      * @param data
      * @return
      */
@@ -279,6 +463,7 @@ public class Pantalla extends JFrame {
 
     /**
      * Métode que mira si existeix una activitat en el data o no
+     * 
      * @param dia
      * @param mes
      * @param any
@@ -329,10 +514,8 @@ public class Pantalla extends JFrame {
             }
         }
 
-        if (!hiHaActivitat)
+        if (!hiHaActivitat) {
             missatge += "No hi ha activitats programades.";
-        else {
-
         }
 
         JOptionPane.showMessageDialog(this, missatge, "Agenda", JOptionPane.INFORMATION_MESSAGE);
@@ -394,7 +577,7 @@ public class Pantalla extends JFrame {
 
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Error: " + e.getMessage());
-        } catch (NoHayEspacioException e){
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         } catch (FechaIncorrectaExcepcion e) {
             System.err.println(e.getMessage());
