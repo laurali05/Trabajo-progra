@@ -73,6 +73,13 @@ public class LlistaUsuari {
         return true;
     }
 
+    /**
+     * Metode que retorna un usuari per un nom concret
+     * 
+     * @param nom
+     * @return
+     * @throws UsuariNoTrobatException
+     */
     public Usuari buscarUsuari(String nom) throws UsuariNoTrobatException {
 
         int i = 0;
