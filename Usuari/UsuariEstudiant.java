@@ -5,7 +5,8 @@ public class UsuariEstudiant extends Usuari {
    private int anyIni;
 
    /**
-    * constructor subclasse amb parametres
+    * constructor subclasse amb parametres, del correu nomes guardem el nom i el
+    * cognom ja que l'@ el crea el propi programa depenent del colectiu
     * 
     * @param nom
     * @param correu
@@ -15,7 +16,19 @@ public class UsuariEstudiant extends Usuari {
    public UsuariEstudiant(String nom, String correu, String grau, int anyIni) {
       super(nom, correu);
       this.grau = grau;
+      if(anyIni>1950 && anyIni<=2025)
       this.anyIni = anyIni;
+      else this.anyIni=2000;
+   }
+
+   /**
+    * metode copia de la subclasse
+    * 
+    * @return
+    */
+   public UsuariEstudiant copia() {
+      UsuariEstudiant usu = new UsuariEstudiant(grau, grau, grau, anyIni);
+      return usu;
    }
 
    /**

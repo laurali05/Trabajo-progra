@@ -180,6 +180,7 @@ public class LlistaInscripcions {
     }
 
     /**
+     * Metode que elimina la inscripcio d'un usuari d'una activitat previament inscrita
      * Metode necesari per la opcio 12 (Jordi)
      *
      * @param usuari

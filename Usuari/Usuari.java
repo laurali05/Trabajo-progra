@@ -14,7 +14,7 @@ public class Usuari {
     }
 
     /**
-     * Contructor per parametres
+     * Contructor per parametres, del correu nomes guardem el nom i el cognom ja que l'@ el crea el propi programa depenent del colectiu
      * 
      * @param nom
      * @param correu
@@ -84,7 +84,10 @@ public class Usuari {
      * @return
      */
     public boolean esIgual(Usuari usu){
-        if(this.getNom().equals(usu.getNom()) && this.getCorreu().equals(usu.getCorreu())){
+        if(usu==null){
+            return false;
+        }
+        else if(this.getNom().equals(usu.getNom()) && this.getCorreu().equals(usu.getCorreu())){
 
             return true;
         }
