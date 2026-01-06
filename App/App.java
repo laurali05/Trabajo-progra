@@ -134,7 +134,7 @@ public class App {
     }
 
     /**
-     * Método que elimina una actividad si no cumple con las condiciones de
+     * Método que elimina una actividad si no cumple con las condiciones
      * asistencia Autor Laura Lope
      *
      * @param llistaActividades
@@ -216,7 +216,8 @@ public class App {
     }
 
     /**
-     * Método que añade una actividad online Autor Laura Lope
+     * Método que añade una actividad online 
+     * Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -286,7 +287,8 @@ public class App {
     }
 
     /**
-     * Método que añade una nueva actividad periodíca Autor Laura Lope
+     * Método que añade una nueva actividad periodíca 
+     * Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -383,7 +385,8 @@ public class App {
     }
 
     /**
-     * Método que añade una nueva actividad de tipo día Autor Laura Lope
+     * Método que añade una nueva actividad de tipo día 
+     * Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -630,7 +633,8 @@ public class App {
     }
 
     /**
-     * Método que indica las actividades con plazas disponibles Autor Laura Lope
+     * Método que indica las actividades con plazas disponibles 
+     * Autor Laura Lope
      *
      * @param llistaActividades
      * @param llistaInscripcions
@@ -653,6 +657,7 @@ public class App {
     }
 
     /**
+     * Método que devuelve una lista con las actividades que están activas en una fecha en concreto
      * Autor Laura Lope
      *
      * @param llistaActividades
@@ -663,7 +668,8 @@ public class App {
 
     /**
      * Método que comprueba que actividades tiene clase hoy y si hay plazas y
-     * lista de espera Autor Laura Lope
+     * lista de espera
+     *  Autor Laura Lope
      *
      * @param llistaActividades
      * @param llistaInscripcions
@@ -680,6 +686,7 @@ public class App {
     }
 
     /**
+     * Método que devuelve una lista con las actividades que aún se encuentran en periodo de inscripción
      * Autor Laura Lope
      *
      * @param llistaActividades
