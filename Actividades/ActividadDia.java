@@ -7,7 +7,7 @@ import Excepcions.FechaIncorrectaExcepcion;
  * Clase: Actividades día
  * Autor: Laura Lope
  */
-public class ActividadesDia extends Actividades {
+public class ActividadDia extends Actividad {
     private Data fechaIn;
     private int[] horario = new int[2];
     private int limite;
@@ -18,7 +18,7 @@ public class ActividadesDia extends Actividades {
      * Constructor sin parámetros.
      * 
      */
-    public ActividadesDia() {
+    public ActividadDia() {
         super();
         this.fechaIn = new Data(20, 2, 2020);
         this.horario = new int[] { 18, 0 };
@@ -41,7 +41,7 @@ public class ActividadesDia extends Actividades {
      * @param precio     Precio de la actividdd
      * @param ciudad     En que ciudad es la actividad
      */
-    public ActividadesDia(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fecha,
+    public ActividadDia(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fecha,
             int[] horario, int limite, double precio, String ciudad) throws FechaIncorrectaExcepcion {
         super(tipo, nom, periodoIn, periodoFin, colectivos);
 
@@ -193,8 +193,8 @@ public class ActividadesDia extends Actividades {
      * @return
      * @throws FechaIncorrectaExcepcion
      */
-    public ActividadesDia copia() throws FechaIncorrectaExcepcion {
-        ActividadesDia a = new ActividadesDia(this.getTipo(), this.getNom(), this.getPeriodoIn(), this.getPeriodoFin(),
+    public ActividadDia copia() throws FechaIncorrectaExcepcion {
+        ActividadDia a = new ActividadDia(this.getTipo(), this.getNom(), this.getPeriodoIn(), this.getPeriodoFin(),
                 this.getColectivos(), this.fechaIn,
                 this.horario, this.limite, this.precio, this.ciudad);
         return a;
@@ -206,7 +206,7 @@ public class ActividadesDia extends Actividades {
      * @param a
      * @return
      */
-    public boolean iguals(ActividadesDia a) {
+    public boolean iguals(ActividadDia a) {
         if (super.iguals(a) == false) {
             return false;
         }

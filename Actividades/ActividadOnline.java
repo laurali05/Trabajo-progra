@@ -7,7 +7,7 @@ import Excepcions.FechaIncorrectaExcepcion;
  * Clase: Actividades online
  * Autor: Laura Lope
  */
-public class ActividadesOnline extends Actividades {
+public class ActividadOnline extends Actividad {
     private Data fechaIn;
     private int periodoVis; // Periodo de visualización
     private String enlace;
@@ -16,7 +16,7 @@ public class ActividadesOnline extends Actividades {
      * Constructor sin parámetros
      * 
      */
-    public ActividadesOnline() {
+    public ActividadOnline() {
         super();
         this.fechaIn = new Data(2, 2, 2020);
         this.periodoVis = 30;
@@ -35,7 +35,7 @@ public class ActividadesOnline extends Actividades {
      * @param periodoVis
      * @param enlace
      */
-    public ActividadesOnline(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fechaIn,
+    public ActividadOnline(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fechaIn,
             int periodoVis, String enlace) throws FechaIncorrectaExcepcion {
         super(tipo, nom, periodoIn, periodoFin, colectivos);
 
@@ -122,8 +122,8 @@ public class ActividadesOnline extends Actividades {
      * 
      * @return
      */
-    public ActividadesOnline copia() throws FechaIncorrectaExcepcion {
-        ActividadesOnline a = new ActividadesOnline(this.getTipo(), this.getNom(), this.getPeriodoIn(),
+    public ActividadOnline copia() throws FechaIncorrectaExcepcion {
+        ActividadOnline a = new ActividadOnline(this.getTipo(), this.getNom(), this.getPeriodoIn(),
                 this.getPeriodoFin(),
                 this.getColectivos(),
                 this.fechaIn,
@@ -137,7 +137,7 @@ public class ActividadesOnline extends Actividades {
      * @param a
      * @return
      */
-    public boolean iguals(ActividadesOnline a) {
+    public boolean iguals(ActividadOnline a) {
         if (super.iguals(a) == false) {
             return false;
         }

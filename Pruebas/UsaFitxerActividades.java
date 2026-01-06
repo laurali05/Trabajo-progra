@@ -14,7 +14,7 @@ public class UsaFitxerActividades {
         System.out.println(" ------ PRUEBA CARGAR FICHERO DE ACTIVIDADES ------");
 
         try {
-            ListaActividades lista = FitxerActividades.carregarFitxerActividades();
+            ListaActividad lista = FitxerActividades.carregarFitxerActividades();
 
             System.out.println("Fichero cargado correctamente");
             System.out.println();

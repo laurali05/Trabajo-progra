@@ -29,7 +29,7 @@ public class Pantalla extends JFrame {
     private int mesActual = 9;
     private int anyActual = 2025;
 
-    private ListaActividades llistaActividades;
+    private ListaActividad llistaActividades;
     private LlistaInscripcions llistaInscripcions;
     private LlistaUsuari llistaUsuari;
 
@@ -40,7 +40,7 @@ public class Pantalla extends JFrame {
      * @param llistaUsuari
      * @param llistaInscripcions
      */
-    public Pantalla(ListaActividades llistaActividades, LlistaUsuari llistaUsuari,
+    public Pantalla(ListaActividad llistaActividades, LlistaUsuari llistaUsuari,
             LlistaInscripcions llistaInscripcions) {
 
         this.llistaActividades = llistaActividades;
@@ -146,7 +146,7 @@ public class Pantalla extends JFrame {
         modeloTabla.setRowCount(0);
 
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades act = llistaActividades.getActividad(i);
+            Actividad act = llistaActividades.getActividad(i);
             if (act != null) {
                 modeloTabla.addRow(new Object[] {
                         act.getTipo(),
@@ -311,15 +311,15 @@ public class Pantalla extends JFrame {
 
     private boolean existeixActivitat(int dia, int mes, int any) {
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades act = llistaActividades.getActividad(i);
+            Actividad act = llistaActividades.getActividad(i);
 
             Data d = null;
-            if (act instanceof ActividadesDia) {
-                d = ((ActividadesDia) act).getFechaIn();
-            } else if (act instanceof ActividadesPeriodicas) {
-                d = ((ActividadesPeriodicas) act).getFechaIn();
+            if (act instanceof ActividadDia) {
+                d = ((ActividadDia) act).getFechaIn();
+            } else if (act instanceof ActividadPeriodicas) {
+                d = ((ActividadPeriodicas) act).getFechaIn();
             } else {
-                d = ((ActividadesOnline) act).getFechaIn();
+                d = ((ActividadOnline) act).getFechaIn();
             }
             if (d != null && d.getDia() == dia && d.getMes() == mes && d.getAny() == any) {
                 return true;
@@ -333,18 +333,18 @@ public class Pantalla extends JFrame {
         boolean hiHaActivitat = false;
 
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
-            Actividades act = llistaActividades.getActividad(i);
+            Actividad act = llistaActividades.getActividad(i);
             Data d = null;
             String extra = "";
 
-            if (act instanceof ActividadesDia) {
-                d = ((ActividadesDia) act).getFechaIn();
-                extra = " (" + ((ActividadesDia) act).getHorario() + ")";
-            } else if (act instanceof ActividadesPeriodicas) {
-                d = ((ActividadesPeriodicas) act).getFechaIn();
+            if (act instanceof ActividadDia) {
+                d = ((ActividadDia) act).getFechaIn();
+                extra = " (" + ((ActividadDia) act).getHorario() + ")";
+            } else if (act instanceof ActividadPeriodicas) {
+                d = ((ActividadPeriodicas) act).getFechaIn();
                 extra = " (Periòdica)";
-            } else if (act instanceof ActividadesOnline) {
-                d = ((ActividadesOnline) act).getFechaIn();
+            } else if (act instanceof ActividadOnline) {
+                d = ((ActividadOnline) act).getFechaIn();
                 extra = " (Online)";
             }
 
@@ -366,7 +366,7 @@ public class Pantalla extends JFrame {
 
     public static void main(String[] args) {
         // Crear datos de prueba
-        ListaActividades listaTmp = new ListaActividades(1000);
+        ListaActividad listaTmp = new ListaActividad(1000);
         LlistaUsuari usuariosTmp = new LlistaUsuari(1000);
         LlistaInscripcions inscripcionesTmp = new LlistaInscripcions(1000);
 
@@ -381,7 +381,7 @@ public class Pantalla extends JFrame {
         }
         try {
             // Actividad 1: Yoga
-            ActividadesDia yoga = new ActividadesDia("Dia",
+            ActividadDia yoga = new ActividadDia("Dia",
                     "Yoga para principiantes",
                     new Data(1, 9, 2025),
                     new Data(15, 9, 2025),
@@ -394,7 +394,7 @@ public class Pantalla extends JFrame {
             listaTmp.afegir(yoga);
 
             // Actividad 2: Pilates
-            ActividadesDia pilates = new ActividadesDia("Dia",
+            ActividadDia pilates = new ActividadDia("Dia",
                     "Pilates avanzado",
                     new Data(1, 9, 2025),
                     new Data(20, 9, 2025),
@@ -407,7 +407,7 @@ public class Pantalla extends JFrame {
             listaTmp.afegir(pilates);
 
             // Actividad 3: Meditación online
-            ActividadesOnline meditacion = new ActividadesOnline("Dia",
+            ActividadOnline meditacion = new ActividadOnline("Dia",
                     "Meditación online",
                     new Data(1, 10, 2025),
                     new Data(15, 10, 2025),
@@ -425,7 +425,7 @@ public class Pantalla extends JFrame {
             System.err.println(e.getMessage());
         }
 
-        final ListaActividades lista = listaTmp;
+        final ListaActividad lista = listaTmp;
         final LlistaUsuari usuarios = usuariosTmp;
         final LlistaInscripcions inscripciones = inscripcionesTmp;
 

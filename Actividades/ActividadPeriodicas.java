@@ -7,7 +7,7 @@ import Excepcions.FechaIncorrectaExcepcion;
  * Clase: Actividades periódicas
  * Autor: Laura Lope
  */
-public class ActividadesPeriodicas extends Actividades {
+public class ActividadPeriodicas extends Actividad {
     private String diaSemana;
     private int[] horario = new int[2];
     private Data fechaIn;
@@ -21,7 +21,7 @@ public class ActividadesPeriodicas extends Actividades {
      * Constructor sin parámetros
      * 
      */
-    public ActividadesPeriodicas() {
+    public ActividadPeriodicas() {
         super();
         this.diaSemana = "Lunes";
         this.horario = new int[] { 18, 0 };
@@ -49,7 +49,7 @@ public class ActividadesPeriodicas extends Actividades {
      * @param centro
      * @param ciudad
      */
-    public ActividadesPeriodicas(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos,
+    public ActividadPeriodicas(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos,
             String diaSemana,
             int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad)
             throws FechaIncorrectaExcepcion {
@@ -277,8 +277,8 @@ public class ActividadesPeriodicas extends Actividades {
      * 
      * @return
      */
-    public ActividadesPeriodicas copia() throws FechaIncorrectaExcepcion {
-        ActividadesPeriodicas a = new ActividadesPeriodicas(this.getTipo(), this.getNom(), this.getPeriodoIn(),
+    public ActividadPeriodicas copia() throws FechaIncorrectaExcepcion {
+        ActividadPeriodicas a = new ActividadPeriodicas(this.getTipo(), this.getNom(), this.getPeriodoIn(),
                 this.getPeriodoFin(), this.getColectivos(),
                 this.diaSemana,
                 this.horario, this.fechaIn, this.numSemanas, this.limite, this.precio, this.centro, this.ciudad);
@@ -291,7 +291,7 @@ public class ActividadesPeriodicas extends Actividades {
      * @param a
      * @return
      */
-    public boolean iguals(ActividadesPeriodicas a) {
+    public boolean iguals(ActividadPeriodicas a) {
         if (super.iguals(a) == false) {
             return false;
         }

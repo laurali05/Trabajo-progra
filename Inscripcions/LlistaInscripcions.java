@@ -1,10 +1,10 @@
 package Inscripcions;
 
-import Actividades.Actividades;
-import Actividades.ActividadesDia;
-import Actividades.ActividadesOnline;
-import Actividades.ActividadesPeriodicas;
-import Actividades.ListaActividades;
+import Actividades.Actividad;
+import Actividades.ActividadDia;
+import Actividades.ActividadOnline;
+import Actividades.ActividadPeriodicas;
+import Actividades.ListaActividad;
 import Data.*;
 import Excepcions.ActivitatNoTrobadaException;
 import Excepcions.NoHayEspacioException;
@@ -68,13 +68,13 @@ public class LlistaInscripcions {
             }
         }
 
-        if (!trobat && numElem < limit && ins.getActivitat() instanceof ActividadesOnline) {
+        if (!trobat && numElem < limit && ins.getActivitat() instanceof ActividadOnline) {
             llista[numElem] = ins.copia();
             numElem++;
-        } else if (!trobat && numElem < limit && (ins.getActivitat() instanceof ActividadesDia
-                || ins.getActivitat() instanceof ActividadesPeriodicas)) {
-            if (ins.getActivitat() instanceof ActividadesDia) {
-                ActividadesDia act = (ActividadesDia) ins.getActivitat();
+        } else if (!trobat && numElem < limit && (ins.getActivitat() instanceof ActividadDia
+                || ins.getActivitat() instanceof ActividadPeriodicas)) {
+            if (ins.getActivitat() instanceof ActividadDia) {
+                ActividadDia act = (ActividadDia) ins.getActivitat();
                 if (this.contarInscritos(act.getNom()) < act.getLimite()) {
                     llista[numElem] = ins.copia();
                     numElem++;
@@ -82,8 +82,8 @@ public class LlistaInscripcions {
                     llistaEspera.afegir(ins);
                     System.out.println("S'ha afegit a la llista d'espera perque la activitat esta plena");
                 }
-            } else if (ins.getActivitat() instanceof ActividadesPeriodicas) {
-                ActividadesPeriodicas act = (ActividadesPeriodicas) ins.getActivitat();
+            } else if (ins.getActivitat() instanceof ActividadPeriodicas) {
+                ActividadPeriodicas act = (ActividadPeriodicas) ins.getActivitat();
                 if (this.contarInscritos(act.getNom()) < act.getLimite()) {
                     llista[numElem] = ins.copia();
                     numElem++;
@@ -113,8 +113,8 @@ public class LlistaInscripcions {
      * @param nom
      * @return
      */
-    public ListaActividades ActivitatsUsuari(Usuari nom) {
-        ListaActividades aux = new ListaActividades(limit);
+    public ListaActividad ActivitatsUsuari(Usuari nom) {
+        ListaActividad aux = new ListaActividad(limit);
         try {
             for (int i = 0; i < numElem; i++) {
 
@@ -157,21 +157,21 @@ public class LlistaInscripcions {
      * @param act
      * @return
      */
-    public boolean teLlistaEspera(Actividades act) {
+    public boolean teLlistaEspera(Actividad act) {
         boolean resultado = false;
 
-        if (act instanceof ActividadesDia) {
-            ActividadesDia dia = (ActividadesDia) act;
+        if (act instanceof ActividadDia) {
+            ActividadDia dia = (ActividadDia) act;
             if (dia.getLimite() <= this.contarInscritos(dia.getNom())) {
                 resultado = true;
             }
-        } else if (act instanceof ActividadesPeriodicas) {
-            ActividadesPeriodicas periodica = (ActividadesPeriodicas) act;
+        } else if (act instanceof ActividadPeriodicas) {
+            ActividadPeriodicas periodica = (ActividadPeriodicas) act;
             if (periodica.getLimite() <= this.contarInscritos(periodica.getNom())) {
                 resultado = true;
             }
-        } else if (act instanceof ActividadesOnline) {
-            ActividadesOnline online = (ActividadesOnline) act;
+        } else if (act instanceof ActividadOnline) {
+            ActividadOnline online = (ActividadOnline) act;
             if (20 <= this.contarInscritos(online.getNom())) {
                 resultado = true;
             }
@@ -185,7 +185,7 @@ public class LlistaInscripcions {
      * @param usuari
      * @param act
      */
-    public void eliminarInscripcio(Usuari usuari, Actividades act, LlistaEspera llistaEspera) {
+    public void eliminarInscripcio(Usuari usuari, Actividad act, LlistaEspera llistaEspera) {
         boolean trobat = false;
         int i = 0;
         Inscripcions insEspera = null;
@@ -311,7 +311,7 @@ public class LlistaInscripcions {
      * @param act
      * @return llista d'usuaris apuntats
      */
-    public LlistaUsuari usuarisApuntats(Actividades act) {
+    public LlistaUsuari usuarisApuntats(Actividad act) {
         LlistaUsuari aux = new LlistaUsuari(100);
         for (int i = 0; i < numElem; i++) {
             if (llista[i].getActivitat().iguals(act)) {
@@ -330,7 +330,7 @@ public class LlistaInscripcions {
      * @param avui
      * @param valoracio
      */
-    public void valorarActivitat(ListaActividades llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
+    public void valorarActivitat(ListaActividad llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
         int i = 0;
         int indexVal=0;
         boolean trobat = false;
@@ -347,14 +347,14 @@ public class LlistaInscripcions {
             System.err.println("l'usuari " + e + "no s'ha trobat.");
         }
         Data fechaFin = new Data();
-        if (llista[i].getActivitat() instanceof ActividadesDia) {
-            ActividadesDia dia = (ActividadesDia) llista[i].getActivitat();
+        if (llista[i].getActivitat() instanceof ActividadDia) {
+            ActividadDia dia = (ActividadDia) llista[i].getActivitat();
             fechaFin = dia.getFechaIn();
-        } else if (llista[i].getActivitat() instanceof ActividadesPeriodicas) {
-            ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i].getActivitat();
+        } else if (llista[i].getActivitat() instanceof ActividadPeriodicas) {
+            ActividadPeriodicas periodica = (ActividadPeriodicas) llista[i].getActivitat();
             fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
-        } else if (llista[i].getActivitat() instanceof ActividadesOnline) {
-            ActividadesOnline online = (ActividadesOnline) llista[i].getActivitat();
+        } else if (llista[i].getActivitat() instanceof ActividadOnline) {
+            ActividadOnline online = (ActividadOnline) llista[i].getActivitat();
             fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
         }
         indexVal = posicioValoracio(llista[i], llistaActivitat, act);
@@ -419,7 +419,7 @@ public class LlistaInscripcions {
      * Metode que calcula i mostra per pantalla la mitjana dels col·lectius
      * @param llistaActivitat
      */
-    public void mitjanaColectius(ListaActividades llistaActivitat) {
+    public void mitjanaColectius(ListaActividad llistaActivitat) {
         int[] dia = new int[numElem];
         int[] periodicas = new int[numElem];
         int[] online = new int[numElem];
@@ -436,13 +436,13 @@ public class LlistaInscripcions {
         double mitjperi;
         double mitjon;
         for (int i = 0; i < numElem; i++) {
-            if (llista[i].getActivitat() instanceof ActividadesDia) {
+            if (llista[i].getActivitat() instanceof ActividadDia) {
                 dia[x] = llista[i].getValoracio();
                 x++;
-            } else if (llista[i].getActivitat() instanceof ActividadesPeriodicas) {
+            } else if (llista[i].getActivitat() instanceof ActividadPeriodicas) {
                 periodicas[y] = llista[i].getValoracio();
                 y++;
-            } else if (llista[i].getActivitat() instanceof ActividadesOnline) {
+            } else if (llista[i].getActivitat() instanceof ActividadOnline) {
                 online[z] = llista[i].getValoracio();
                 z++;
             }
@@ -484,7 +484,7 @@ public class LlistaInscripcions {
      * @param act
      * @return
      */
-    public int posicioValoracio(Inscripcions ins, ListaActividades llistaActivitat, String act){
+    public int posicioValoracio(Inscripcions ins, ListaActividad llistaActivitat, String act){
         int aux=0;
         boolean trobat = false;
         int i=0;

@@ -15,7 +15,7 @@ public class App {
 
     public static void main(String[] args) {
         LlistaUsuari llistaUsuari = new LlistaUsuari(1000);
-        ListaActividades llistaActividades = new ListaActividades(1000);
+        ListaActividad llistaActividades = new ListaActividad(1000);
         LlistaInscripcions llistaInscripcions = new LlistaInscripcions(1000);
         LlistaEspera llistaEspera = new LlistaEspera();
         Data avui = new Data();
@@ -141,7 +141,7 @@ public class App {
      * @param llistaInscripcions
      * @param avui
      */
-    private static void opcio21(ListaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
+    private static void opcio21(ListaActividad llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
         llistaActividades.elActNoCondiciones(llistaInscripcions, avui);
     }
 
@@ -170,7 +170,7 @@ public class App {
      * @param llistaInscripcions
      * @param llistaActividades
      */
-    private static void opcio19(LlistaInscripcions llistaInscripcions,ListaActividades llistaActividades) {
+    private static void opcio19(LlistaInscripcions llistaInscripcions,ListaActividad llistaActividades) {
         llistaInscripcions.mitjanaColectius(llistaActividades);
     }
 
@@ -204,7 +204,7 @@ public class App {
      * @param llistaInscripcions
      * @param avui
      */
-    private static void opcio16(LlistaUsuari llistaUsuari, ListaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
+    private static void opcio16(LlistaUsuari llistaUsuari, ListaActividad llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
         System.out.println("Introdueix el nom de l'usuari:" + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         System.out.println("Introdueix el nom de l'usuari:" + llistaActividades.nomActividades());
@@ -220,8 +220,8 @@ public class App {
      *
      * @param llistaActividades
      */
-    private static void opcio15(ListaActividades llistaActividades) {
-        ActividadesOnline online = new ActividadesOnline();
+    private static void opcio15(ListaActividad llistaActividades) {
+        ActividadOnline online = new ActividadOnline();
         online.setTipo("Online");
 
         System.out.println("Escribe el nombre de la actividad");
@@ -290,8 +290,8 @@ public class App {
      *
      * @param llistaActividades
      */
-    private static void opcio14(ListaActividades llistaActividades) {
-        ActividadesPeriodicas periodica = new ActividadesPeriodicas();
+    private static void opcio14(ListaActividad llistaActividades) {
+        ActividadPeriodicas periodica = new ActividadPeriodicas();
 
         periodica.setTipo("Periodica");
 
@@ -387,8 +387,8 @@ public class App {
      *
      * @param llistaActividades
      */
-    private static void opcio13(ListaActividades llistaActividades) {
-        ActividadesDia dia = new ActividadesDia();
+    private static void opcio13(ListaActividad llistaActividades) {
+        ActividadDia dia = new ActividadDia();
 
         dia.setTipo("Dia");
 
@@ -473,7 +473,7 @@ public class App {
      * @param llistaActivitat
      */
     private static void opcio12(LlistaUsuari llistaUsuari, LlistaInscripcions llistaInscripcions,
-            ListaActividades llistaActivitat, LlistaEspera llistaEspera) {
+            ListaActividad llistaActivitat, LlistaEspera llistaEspera) {
 
         System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
@@ -482,7 +482,7 @@ public class App {
         String activitat = teclat.nextLine();
 
         Usuari usuari = null;
-        Actividades act = null;
+        Actividad act = null;
 
         try {
             usuari = llistaUsuari.buscarUsuari(nom);
@@ -507,10 +507,10 @@ public class App {
      * @param llistaEspera
      * @param llistaActividades
      */
-    private static void opcio11(LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera, ListaActividades llistaActividades) {
+    private static void opcio11(LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera, ListaActividad llistaActividades) {
         System.out.println("Introdueix l'activitat per la qual vols veure els usuaris:");
         String act = teclat.nextLine();
-        Actividades novaAct = null;
+        Actividad novaAct = null;
         try {
             novaAct = llistaActividades.buscarActividades(act);
         } catch (ActivitatNoTrobadaException e) {
@@ -528,7 +528,7 @@ public class App {
      * @param avui
      * @param llistaInscripcions
      */
-    private static void opcio10(LlistaUsuari llistaUsuari, ListaActividades llistaActivitat, Data avui,
+    private static void opcio10(LlistaUsuari llistaUsuari, ListaActividad llistaActivitat, Data avui,
             LlistaInscripcions llistaInscripcions, LlistaEspera llistaEspera) {
         Inscripcions ins = new Inscripcions();
         System.out.println("Introdueix nom de l'Usuari: " + llistaUsuari.nomUsuarios());
@@ -538,7 +538,7 @@ public class App {
         String activitat = teclat.nextLine();
 
         Usuari nouUsuari = null;
-        Actividades novaActividades = null;
+        Actividad novaActividades = null;
 
         try {
             nouUsuari = llistaUsuari.buscarUsuari(nom);
@@ -584,7 +584,7 @@ public class App {
         } catch (UsuariNoTrobatException e) {
             System.out.println("No s'ha trobat el nom del usuari " + e);
         }
-        ListaActividades llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
+        ListaActividad llistaActitatsUsu = llistaInscripcions.ActivitatsUsuari(usu);
         if (llistaActitatsUsu.getNumElems() == 0) {
             System.out.println("L'usuari no està apuntat a cap activitat");
         } else {
@@ -616,9 +616,9 @@ public class App {
      * Laura Lope
      *
      * @param llistaActividades
-     * @param Actividades
+     * @param Actividad
      */
-    private static void opcio7(ListaActividades llistaActividades) {
+    private static void opcio7(ListaActividad llistaActividades) {
         System.out.println("Introduce el nombre de la actividad : " + llistaActividades.nomActividades());
         String actividad = teclat.nextLine();
 
@@ -635,9 +635,9 @@ public class App {
      * @param llistaActividades
      * @param llistaInscripcions
      */
-    private static void opcio6(ListaActividades llistaActividades, LlistaInscripcions llistaInscripcions) {
+    private static void opcio6(ListaActividad llistaActividades, LlistaInscripcions llistaInscripcions) {
         try {
-            ListaActividades actConPlazas = llistaActividades.actPlazasDisponibles(llistaInscripcions);
+            ListaActividad actConPlazas = llistaActividades.actPlazasDisponibles(llistaInscripcions);
             if (actConPlazas.getNumElems() == 0) {
                 System.out.println("No hay actividades con plazas disponnibles");
             } else {
@@ -657,7 +657,7 @@ public class App {
      *
      * @param llistaActividades
      */
-    private static void opcio5(ListaActividades llistaActividades, Data avui) {
+    private static void opcio5(ListaActividad llistaActividades, Data avui) {
         System.out.println(llistaActividades.actActivas(avui));
     }
 
@@ -668,7 +668,7 @@ public class App {
      * @param llistaActividades
      * @param llistaInscripcions
      */
-    private static void opcio4(ListaActividades llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
+    private static void opcio4(ListaActividad llistaActividades, LlistaInscripcions llistaInscripcions, Data avui) {
 
         try {
             llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
@@ -685,7 +685,7 @@ public class App {
      * @param llistaActividades
      * @param avui
      */
-    private static void opcio3(ListaActividades llistaActividades, Data avui) {
+    private static void opcio3(ListaActividad llistaActividades, Data avui) {
         try {
             System.out.println(llistaActividades.llistaPeriodo(avui).toString());
         } catch (NomActivitatDuplicatException e) {
@@ -702,7 +702,7 @@ public class App {
      * @param llistaActividades
      * @param llistaInscripcions
      */
-    private static void opcio2(LlistaUsuari llistaUsuari, ListaActividades llistaActividades,
+    private static void opcio2(LlistaUsuari llistaUsuari, ListaActividad llistaActividades,
             LlistaInscripcions llistaInscripcions) {
         int opcio = 0;
         System.out.println("Quina llista vols mostrar:");
@@ -750,7 +750,7 @@ public class App {
                             System.out.println("2. Mostrar llista de activitats online");
                             System.out.println("3. Mostrar llista de activitats periodiques");
                             opcio = Integer.parseInt(teclat.nextLine());
-                            ListaActividades llistaEsp = llistaActividades.llistaTipus(opcio);
+                            ListaActividad llistaEsp = llistaActividades.llistaTipus(opcio);
                             System.out.println(llistaEsp.toString());
                     }
                     break;

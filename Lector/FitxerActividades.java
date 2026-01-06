@@ -18,11 +18,11 @@ public class FitxerActividades {
      * @return
      * @throws CarregarFitxersException
      */
-    public static ListaActividades carregarFitxerActividades() throws CarregarFitxersException {
+    public static ListaActividad carregarFitxerActividades() throws CarregarFitxersException {
         try {
             Scanner leer = new Scanner(new File("Fitxers/fitxerActividades.txt"), "UTF-8");
 
-            ListaActividades lista = new ListaActividades(1000);
+            ListaActividad lista = new ListaActividad(1000);
 
             while (leer.hasNextLine()) {
                 String linea = leer.nextLine();
@@ -43,7 +43,7 @@ public class FitxerActividades {
 
                 String colectivos = secciones[4];
 
-                Actividades a;
+                Actividad a;
                 if (tipo.equals("Dia")) {
                     String[] partesFecha = secciones[5].split("/");
                     Data fecha = new Data(Integer.parseInt(partesFecha[0]),
@@ -61,7 +61,7 @@ public class FitxerActividades {
 
                     String ciudad = secciones[9];
 
-                    a = new ActividadesDia(tipo, nombre, periodoIn, periodoFin, colectivos, fecha, horario, limite, precio,
+                    a = new ActividadDia(tipo, nombre, periodoIn, periodoFin, colectivos, fecha, horario, limite, precio,
                             ciudad);
                     lista.afegir(a);
 
@@ -88,7 +88,7 @@ public class FitxerActividades {
 
                     String ciudad = secciones[12];
 
-                    a = new ActividadesPeriodicas(tipo, nombre, periodoIn, periodoFin, colectivos, diaSemana, horario,
+                    a = new ActividadPeriodicas(tipo, nombre, periodoIn, periodoFin, colectivos, diaSemana, horario,
                             fechaIn, numSemanas, limite, precio, centro, ciudad);
                     lista.afegir(a);
 
@@ -102,7 +102,7 @@ public class FitxerActividades {
 
                     String enlace = secciones[7];
 
-                    a = new ActividadesOnline(tipo, nombre, periodoIn, periodoFin, colectivos, fechaIn, periodoVis, enlace);
+                    a = new ActividadOnline(tipo, nombre, periodoIn, periodoFin, colectivos, fechaIn, periodoVis, enlace);
                     lista.afegir(a);
                 }
             }

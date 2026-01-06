@@ -8,17 +8,17 @@ import Inscripcions.*;
  * Clase: Lista de actividades
  * Autor: Laura Lope
  */
-public class ListaActividades {
+public class ListaActividad {
     private int numElems;
-    private Actividades[] llista;
+    private Actividad[] llista;
 
     /**
      * Constructor con parámetros
      * 
      * @param mida
      */
-    public ListaActividades(int mida) {
-        this.llista = new Actividades[mida];
+    public ListaActividad(int mida) {
+        this.llista = new Actividad[mida];
         this.numElems = 0;
     }
 
@@ -31,7 +31,7 @@ public class ListaActividades {
         return numElems;
     }
 
-    public Actividades getActividad(int index) {
+    public Actividad getActividad(int index) {
         if (index >= 0 && index < numElems) {
             return llista[index];
         }
@@ -43,7 +43,7 @@ public class ListaActividades {
      * 
      * @param a
      */
-    public void afegir(Actividades a) throws NomActivitatDuplicatException, NoHayEspacioException {
+    public void afegir(Actividad a) throws NomActivitatDuplicatException, NoHayEspacioException {
         for (int i = 0; i < numElems; i++) {
             if (llista[i].getNom().equalsIgnoreCase(a.getNom())) {
                 throw new NomActivitatDuplicatException("Ya existe una actividad con este nombre: " + a.getNom());
@@ -76,8 +76,8 @@ public class ListaActividades {
      * 
      * @return
      */
-    public ListaActividades copia() throws NomActivitatDuplicatException, NoHayEspacioException {
-        ListaActividades nueva = new ListaActividades(llista.length);
+    public ListaActividad copia() throws NomActivitatDuplicatException, NoHayEspacioException {
+        ListaActividad nueva = new ListaActividad(llista.length);
         for (int i = 0; i < numElems; i++) {
             nueva.afegir(llista[i]); // Si quieres copia profunda: implementar método copia en Actividades
         }
@@ -90,7 +90,7 @@ public class ListaActividades {
      * @param otra
      * @return
      */
-    public boolean iguals(ListaActividades otra) {
+    public boolean iguals(ListaActividad otra) {
         if (this.numElems != otra.numElems)
             return false;
         for (int i = 0; i < numElems; i++) {
@@ -120,11 +120,11 @@ public class ListaActividades {
      * @param opcio
      * @return
      */
-    public ListaActividades llistaTipus(int opcio) throws NoHayEspacioException {
-        ListaActividades llistaEsp = new ListaActividades(numElems);
+    public ListaActividad llistaTipus(int opcio) throws NoHayEspacioException {
+        ListaActividad llistaEsp = new ListaActividad(numElems);
         if (opcio == 1) {
             for (int i = 0; i < numElems; i++) {
-                if (llista[i] instanceof ActividadesDia) {
+                if (llista[i] instanceof ActividadDia) {
                     try {
                         llistaEsp.afegir(llista[i]);
                     } catch (NomActivitatDuplicatException e) {
@@ -136,7 +136,7 @@ public class ListaActividades {
         }
         if (opcio == 2) {
             for (int i = 0; i < numElems; i++) {
-                if (llista[i] instanceof ActividadesOnline) {
+                if (llista[i] instanceof ActividadOnline) {
                     try {
                         llistaEsp.afegir(llista[i]);
                     } catch (NomActivitatDuplicatException e) {
@@ -148,7 +148,7 @@ public class ListaActividades {
         }
         if (opcio == 3) {
             for (int i = 0; i < numElems; i++) {
-                if (llista[i] instanceof ActividadesPeriodicas) {
+                if (llista[i] instanceof ActividadPeriodicas) {
                     try {
                         llistaEsp.afegir(llista[i]);
                     } catch (NomActivitatDuplicatException e) {
@@ -169,7 +169,7 @@ public class ListaActividades {
      * @param activitat
      * @return activitat en concreto
      */
-    public Actividades buscarActividades(String activitat) throws ActivitatNoTrobadaException {
+    public Actividad buscarActividades(String activitat) throws ActivitatNoTrobadaException {
 
         int i = 0;
         boolean trobat = false;
@@ -197,11 +197,11 @@ public class ListaActividades {
      * @return
      * @throws NomActivitatDuplicatException
      */
-    public ListaActividades llistaPeriodo(Data avui) throws NomActivitatDuplicatException, NoHayEspacioException {
-        ListaActividades lista = new ListaActividades(numElems);
+    public ListaActividad llistaPeriodo(Data avui) throws NomActivitatDuplicatException, NoHayEspacioException {
+        ListaActividad lista = new ListaActividad(numElems);
         for (int i = 0; i < numElems; i++) {
 
-            Actividades a = this.getActividad(i);
+            Actividad a = this.getActividad(i);
             if ((a.getPeriodoIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(a.getPeriodoFin()))) {
                 lista.afegir(a);
             }
@@ -220,14 +220,14 @@ public class ListaActividades {
      * @return
      * @throws NomActivitatDuplicatException
      */
-    public ListaActividades llistaClasseAvui(Data avui, LlistaInscripcions a)
+    public ListaActividad llistaClasseAvui(Data avui, LlistaInscripcions a)
             throws NomActivitatDuplicatException, NoHayEspacioException {
-        ListaActividades lista = new ListaActividades(numElems);
+        ListaActividad lista = new ListaActividad(numElems);
 
         int contador = 0;
 
         for (int i = 0; i < this.getNumElems(); i++) {
-            Actividades act = llista[i];
+            Actividad act = llista[i];
 
             if (act.claseHoy(avui)) {
                 contador++;
@@ -258,17 +258,17 @@ public class ListaActividades {
         for (int i = 0; i < numElems; i++) {
             if (llista[i].getNom().equalsIgnoreCase(nom)) {
                 trobat = true;
-                if (llista[i] instanceof ActividadesDia) {
-                    ActividadesDia dia = (ActividadesDia) llista[i];
+                if (llista[i] instanceof ActividadDia) {
+                    ActividadDia dia = (ActividadDia) llista[i];
                     if (dia.getLimite() > a.contarInscritos(nom)) {
                         resultado = true;
                     }
-                } else if (llista[i] instanceof ActividadesPeriodicas) {
-                    ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+                } else if (llista[i] instanceof ActividadPeriodicas) {
+                    ActividadPeriodicas periodica = (ActividadPeriodicas) llista[i];
                     if (periodica.getLimite() > a.contarInscritos(nom)) {
                         resultado = true;
                     }
-                } else if (llista[i] instanceof ActividadesOnline) {
+                } else if (llista[i] instanceof ActividadOnline) {
                     if (20 > a.contarInscritos(nom)) {
                         resultado = true;
                     }
@@ -291,22 +291,22 @@ public class ListaActividades {
         String resultado = "";
 
         for (int i = 0; i < numElems; i++) {
-            if (llista[i] instanceof ActividadesDia) {
-                ActividadesDia dia = (ActividadesDia) llista[i];
+            if (llista[i] instanceof ActividadDia) {
+                ActividadDia dia = (ActividadDia) llista[i];
                 if (avui.esIgual(dia.getFechaIn())) {
                     resultado = resultado + "- " + dia.getNom() + "\n";
                 }
 
-            } else if (llista[i] instanceof ActividadesPeriodicas) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+            } else if (llista[i] instanceof ActividadPeriodicas) {
+                ActividadPeriodicas periodica = (ActividadPeriodicas) llista[i];
 
                 Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
 
                 if (periodica.getFechaIn().esDataInferiorOigual(avui) && (avui.esDataInferiorOigual(fechaFin))) {
                     resultado = resultado + "- " + periodica.getNom() + "\n";
                 }
-            } else if (llista[i] instanceof ActividadesOnline) {
-                ActividadesOnline online = (ActividadesOnline) llista[i];
+            } else if (llista[i] instanceof ActividadOnline) {
+                ActividadOnline online = (ActividadOnline) llista[i];
 
                 Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
 
@@ -327,9 +327,9 @@ public class ListaActividades {
      * @throws NomActivitatDuplicatException
      * @throws ActivitatNoTrobadaException
      */
-    public ListaActividades actPlazasDisponibles(LlistaInscripcions a)
+    public ListaActividad actPlazasDisponibles(LlistaInscripcions a)
             throws NomActivitatDuplicatException, ActivitatNoTrobadaException, NoHayEspacioException {
-        ListaActividades act = new ListaActividades(numElems);
+        ListaActividad act = new ListaActividad(numElems);
 
         for (int i = 0; i < numElems; i++) {
             if (this.plazasDisponibles(llista[i].getNom(), a)) {
@@ -364,16 +364,16 @@ public class ListaActividades {
     public void elActNoCondiciones(LlistaInscripcions a, Data avui) {
         for (int i = this.getNumElems() - 1; i >= 0; i--) {
 
-            if (llista[i] instanceof ActividadesDia) {
-                ActividadesDia dia = (ActividadesDia) llista[i];
+            if (llista[i] instanceof ActividadDia) {
+                ActividadDia dia = (ActividadDia) llista[i];
 
                 if ((!avui.esDataInferiorOigual(dia.getPeriodoFin()))
                         && (a.contarInscritos(dia.getNom()) < (0.1 * dia.getLimite()))) {
                     this.eliminarActividad(i);
                     System.out.println("La actividad '" + dia.getNom() + "' se ha eliminado correctamente");
                 }
-            } else if (llista[i] instanceof ActividadesPeriodicas) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
+            } else if (llista[i] instanceof ActividadPeriodicas) {
+                ActividadPeriodicas periodica = (ActividadPeriodicas) llista[i];
 
                 if ((!avui.esDataInferiorOigual(periodica.getPeriodoFin()))
                         && (a.contarInscritos(periodica.getNom()) < (0.1 * periodica.getLimite()))) {
@@ -381,8 +381,8 @@ public class ListaActividades {
                     System.out.println("La actividad '" + periodica.getNom() + "' se ha eliminado correctamente");
 
                 }
-            } else if (llista[i] instanceof ActividadesOnline) {
-                ActividadesOnline online = (ActividadesOnline) llista[i];
+            } else if (llista[i] instanceof ActividadOnline) {
+                ActividadOnline online = (ActividadOnline) llista[i];
 
                 if (a.contarInscritos(online.getNom()) < 20) {
                     this.eliminarActividad(i);

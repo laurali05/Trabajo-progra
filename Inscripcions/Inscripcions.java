@@ -1,12 +1,12 @@
 package Inscripcions;
 
-import Actividades.Actividades;
+import Actividades.Actividad;
 import Data.Data;
 import Usuari.Usuari;
 
 public class Inscripcions{
     private Usuari persona;
-    private Actividades activitat;
+    private Actividad activitat;
     private int valoracio;
     private Data data;
 
@@ -15,7 +15,7 @@ public class Inscripcions{
      */
     public Inscripcions (){
         this.persona=new Usuari();
-        this.activitat=new Actividades();
+        this.activitat=new Actividad();
         this.valoracio=0;
         this.data= new Data(4,10,2025);
     }
@@ -25,7 +25,7 @@ public class Inscripcions{
      * @param persones personas que forman parte de la actividad
      * @param activitat actividad en cuestión
     */
-    public Inscripcions (Usuari persona, Actividades activitat, int valoracio, Data data){
+    public Inscripcions (Usuari persona, Actividad activitat, int valoracio, Data data){
         this.persona=persona;
         this.activitat=activitat;
         this.valoracio=valoracio;
@@ -47,7 +47,7 @@ public class Inscripcions{
         return persona;
     }
 
-    public Actividades getActivitat(){
+    public Actividad getActivitat(){
         return activitat;
     }
 
@@ -63,7 +63,7 @@ public class Inscripcions{
         this.persona = persona;
     }
 
-    public void setActivitat(Actividades activitat){
+    public void setActivitat(Actividad activitat){
         this.activitat = activitat;
     }
 

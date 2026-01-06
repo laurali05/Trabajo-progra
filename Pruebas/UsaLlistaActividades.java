@@ -25,7 +25,7 @@ public class UsaLlistaActividades {
 
     private static void compruebaConstructorToStringLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA CONSTRUCTOR Y TOSTRING ------");
-        ListaActividades lista = new ListaActividades(10);
+        ListaActividad lista = new ListaActividad(10);
         System.out.println("Lista vacía: ");
         System.out.println(lista);
         System.out.println();
@@ -33,17 +33,17 @@ public class UsaLlistaActividades {
 
     private static void compruebaAfegirLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA AFEGIR ------");
-        ListaActividades lista = new ListaActividades(5);
+        ListaActividad lista = new ListaActividad(5);
 
-        ActividadesPeriodicas a = new ActividadesPeriodicas("Periodica", "Curso", new Data(14, 10, 2925), new Data(31, 10, 2025),
+        ActividadPeriodicas a = new ActividadPeriodicas("Periodica", "Curso", new Data(14, 10, 2925), new Data(31, 10, 2025),
                  "Estudiants" , "Viernes", new int[] { 18, 00 }, new Data(5, 11, 2025), 4, 50, 0,
                 "Sescelades", "Tarragona");
 
-        ActividadesDia b = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+        ActividadDia b = new ActividadDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                  "PDI, PGTAS, Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                 "Tarragona");
 
-        ActividadesOnline c = new ActividadesOnline("Online", "Entrevista", new Data(15, 11, 2925), new Data(20, 11, 2025),
+        ActividadOnline c = new ActividadOnline("Online", "Entrevista", new Data(15, 11, 2925), new Data(20, 11, 2025),
                  "PDI, Estudiants" , new Data(22, 11, 2025), 7,
                 "https://www.universitat.cat/actividades/java2025");
 
@@ -58,13 +58,13 @@ public class UsaLlistaActividades {
 
     private static void compruebaCopiaLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA COPIA ------");
-        ListaActividades lista = new ListaActividades(5);
+        ListaActividad lista = new ListaActividad(5);
 
-        Actividades a = new Actividades("Dia", "Curso de especialización", new Data(4, 9, 2025), new Data(31, 10, 2025),
+        Actividad a = new Actividad("Dia", "Curso de especialización", new Data(4, 9, 2025), new Data(31, 10, 2025),
                  "PTGAS" );
         lista.afegir(a);
 
-        ListaActividades copia = lista.copia();
+        ListaActividad copia = lista.copia();
 
         System.out.println("Copia de la lista:");
         System.out.println(copia);
@@ -73,13 +73,13 @@ public class UsaLlistaActividades {
 
     private static void compruebaEqualsLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA IGUALS ------");
-        ListaActividades lista1 = new ListaActividades(5);
-        ListaActividades lista2 = new ListaActividades(5);
+        ListaActividad lista1 = new ListaActividad(5);
+        ListaActividad lista2 = new ListaActividad(5);
 
-        Actividades a = new Actividades("Dia", "Curso de especialización", new Data(4, 10, 2025), new Data(31, 10, 2025),
+        Actividad a = new Actividad("Dia", "Curso de especialización", new Data(4, 10, 2025), new Data(31, 10, 2025),
                "PDI, Estudiants" );
 
-        ActividadesDia b = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+        ActividadDia b = new ActividadDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                 "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0, "Tarragona");
 
         lista1.afegir(a);
@@ -95,12 +95,12 @@ public class UsaLlistaActividades {
     private static void compruebaExcepcionNomDuplicat() throws FechaIncorrectaExcepcion {
         System.out.println("------ PRUEBA EXCEPCIÓN -------");
 
-        ListaActividades lista = new ListaActividades(200);
+        ListaActividad lista = new ListaActividad(200);
 
-        Actividades a = new Actividades("Dia", "Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
+        Actividad a = new Actividad("Dia", "Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
                 "Estudiants" );
 
-        Actividades b = new Actividades("Dia", "Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
+        Actividad b = new Actividad("Dia", "Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
                  "PDI" );
 
         try {

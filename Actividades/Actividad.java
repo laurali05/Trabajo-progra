@@ -7,7 +7,7 @@ import Excepcions.FechaIncorrectaExcepcion;
  * Clase: Actividades
  * Autor: Laura Lope
  */
-public class Actividades {
+public class Actividad {
     private String tipo;
     private String nom;
     private Data periodoIn;
@@ -17,7 +17,7 @@ public class Actividades {
     /**
      * Constructor sin parámetros
      */
-    public Actividades() {
+    public Actividad() {
         this.tipo = "Dia";
         this.nom = "Charla";
         this.periodoIn = new Data(1, 9, 2025);
@@ -33,7 +33,7 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos)
+    public Actividad(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos)
             throws FechaIncorrectaExcepcion {
         this.nom = nom;
 
@@ -178,8 +178,8 @@ public class Actividades {
      * @return
      * @throws FechaIncorrectaExcepcion
      */
-    public Actividades copia() throws FechaIncorrectaExcepcion {
-        Actividades a = new Actividades();
+    public Actividad copia() throws FechaIncorrectaExcepcion {
+        Actividad a = new Actividad();
         a.tipo = this.tipo;
         a.nom = this.nom;
         a.periodoIn = this.periodoIn.copia();
@@ -194,7 +194,7 @@ public class Actividades {
      * @param a
      * @return
      */
-    public boolean iguals(Actividades a) {
+    public boolean iguals(Actividad a) {
         if (!this.tipo.equalsIgnoreCase(a.tipo)) {
             return false;
         }

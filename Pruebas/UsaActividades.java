@@ -44,14 +44,14 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor sin parámetros y el toString ------");
                 System.out.println();
 
-                Actividades a = new Actividades();
+                Actividad a = new Actividad();
                 System.out.println(a);
                 System.out.println();
 
                 System.out.println("------ Comprueba el constructor con parámetros con fechas correctas ------");
                 System.out.println();
 
-                Actividades b = new Actividades("Dia", "Curso de especialización", new Data(4, 10, 2025),
+                Actividad b = new Actividad("Dia", "Curso de especialización", new Data(4, 10, 2025),
                                 new Data(31, 10, 2025),
                                 new String("PDI, Estudiants"));
                 System.out.println(b);
@@ -60,7 +60,7 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor con parámetros con fecha incorrecta ------");
                 System.out.println();
 
-                Actividades c = new Actividades("Dia","Curso de especialización", new Data(1, 6, 2025),
+                Actividad c = new Actividad("Dia","Curso de especialización", new Data(1, 6, 2025),
                                 new Data(31, 10, 2025),
                                 new String("PTGAS"));
                 System.out.println(c);
@@ -71,7 +71,7 @@ public class UsaActividades {
                 System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
                 System.out.println();
 
-                Actividades a = new Actividades();
+                Actividad a = new Actividad();
                 System.out.println("------ COMPRUEBA EL NOMBRE ------");
                 a.setNom("Conferencia");
                 System.out.println("El nombre de la actividad es " + a.getNom());
@@ -152,8 +152,8 @@ public class UsaActividades {
 
         private static void compruebaCopiaEIgualsActividades() throws FechaIncorrectaExcepcion {
                 System.out.println("------ COMPRUEBA COPIA ------");
-                Actividades a = new Actividades();
-                Actividades b = a.copia();
+                Actividad a = new Actividad();
+                Actividad b = a.copia();
                 System.out.println(b);
                 System.out.println();
 
@@ -191,7 +191,7 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor y el toString (todo correcto) ------");
                 System.out.println();
 
-                ActividadesDia a = new ActividadesDia("Dia","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadDia a = new ActividadDia("Dia","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
                 System.out.println(a);
@@ -200,7 +200,7 @@ public class UsaActividades {
                 System.out.println(
                                 "------ Comprueba el constructor con parámetros con fecha y horario incorrecto ------");
                 System.out.println();
-                ActividadesDia b = new ActividadesDia("Dia","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadDia b = new ActividadDia("Dia","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 3, 2025), new int[] { 24, 60 }, 20, 0,
                                 "Tarragona");
                 System.out.println(b);
@@ -212,7 +212,7 @@ public class UsaActividades {
                 System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
                 System.out.println();
 
-                ActividadesDia a = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadDia a = new ActividadDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
                 System.out.println("------ COMPRUEBA LA FECHA ------");
@@ -265,10 +265,10 @@ public class UsaActividades {
 
         private static void compruebaCopiaEIgualsActividadesDia() throws FechaIncorrectaExcepcion {
                 System.out.println("------ COMPRUEBA COPIA ------");
-                ActividadesDia a = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadDia a = new ActividadDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                                 "Tarragona");
-                ActividadesDia b = a.copia();
+                ActividadDia b = a.copia();
                 System.out.println(b);
                 System.out.println();
 
@@ -308,7 +308,7 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor y el toString (todo correcto) ------");
                 System.out.println();
 
-                ActividadesOnline a = new ActividadesOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadOnline a = new ActividadOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println(a);
@@ -316,7 +316,7 @@ public class UsaActividades {
 
                 System.out.println("------ Comprueba el constructor con parámetros con fecha incorrecta ------");
                 System.out.println();
-                ActividadesOnline b = new ActividadesOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadOnline b = new ActividadOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                 "Estudiants" , new Data(6, 3, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println(b);
@@ -328,7 +328,7 @@ public class UsaActividades {
                 System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
                 System.out.println();
 
-                ActividadesOnline a = new ActividadesOnline("Online","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadOnline a = new ActividadOnline("Online","Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                  "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
                 System.out.println("------ COMPRUEBA LA FECHA ------");
@@ -355,10 +355,10 @@ public class UsaActividades {
 
         private static void compruebaCopiaEIgualsActividadesOnline() throws FechaIncorrectaExcepcion {
                 System.out.println("------ COMPRUEBA COPIA ------");
-                ActividadesOnline a = new ActividadesOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+                ActividadOnline a = new ActividadOnline("Online", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                                  "Estudiants" , new Data(6, 10, 2025), 7,
                                 "https://www.universitat.cat/actividades/java2025");
-                ActividadesOnline b = a.copia();
+                ActividadOnline b = a.copia();
                 System.out.println(b);
                 System.out.println();
 
@@ -390,7 +390,7 @@ public class UsaActividades {
                 System.out.println("------ Comprueba el constructor y el toString (todo correcto) ------");
                 System.out.println();
 
-                ActividadesPeriodicas a = new ActividadesPeriodicas("Periodica","Premios", new Data(29, 9, 2925),
+                ActividadPeriodicas a = new ActividadPeriodicas("Periodica","Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
                                  "Estudiants" , "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
@@ -400,7 +400,7 @@ public class UsaActividades {
                 System.out.println(
                                 "------ Comprueba el constructor con parámetros con fecha y horario incorrecto ------");
                 System.out.println();
-                ActividadesPeriodicas b = new ActividadesPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
+                ActividadPeriodicas b = new ActividadPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
                                  "Estudiants" , "Lunes", new int[] { 40, 00 }, new Data(6, 5, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
@@ -413,7 +413,7 @@ public class UsaActividades {
                 System.out.println("------ COMPRUEBA LOS SETTERS Y LOS GETTERS ------");
                 System.out.println();
 
-                ActividadesPeriodicas a = new ActividadesPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
+                ActividadPeriodicas a = new ActividadPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025),
                                  "Estudiants" , "Lunes", new int[] { 18, 00 }, new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
@@ -489,11 +489,11 @@ public class UsaActividades {
 
         private static void compruebaCopiaEIgualsActividadesPeriodicas() throws FechaIncorrectaExcepcion {
                 System.out.println("------ COMPRUEBA COPIA ------");
-                ActividadesPeriodicas a = new ActividadesPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
+                ActividadPeriodicas a = new ActividadPeriodicas("Periodica", "Premios", new Data(29, 9, 2925),
                                 new Data(5, 10, 2025), "Estudiants", "Lunes", new int[] { 18, 00 },
                                 new Data(6, 10, 2025), 4,
                                 20, 0, "Sescelades", "Tarragona");
-                ActividadesPeriodicas b = a.copia();
+                ActividadPeriodicas b = a.copia();
                 System.out.println(b);
                 System.out.println();
 

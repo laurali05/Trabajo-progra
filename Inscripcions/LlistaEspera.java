@@ -1,6 +1,6 @@
 package Inscripcions;
 
-import Actividades.Actividades;
+import Actividades.Actividad;
 import Usuari.LlistaUsuari;
 
 public class LlistaEspera {
@@ -69,7 +69,7 @@ public class LlistaEspera {
      * @param act
      * @return
      */
-    public Inscripcions buscarPrimerEspera(Actividades act) {
+    public Inscripcions buscarPrimerEspera(Actividad act) {
         boolean trobat = false;
 
         Inscripcions insPrimer = null;
@@ -94,7 +94,7 @@ public class LlistaEspera {
         }
     }
 
-    public LlistaUsuari usuarisApuntats(Actividades act){
+    public LlistaUsuari usuarisApuntats(Actividad act){
         LlistaUsuari aux = new LlistaUsuari(100);
         for (int i=0;i<numElem;i++){
             if (llista[i].getActivitat().iguals(act)){
