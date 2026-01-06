@@ -8,7 +8,6 @@ import Lector.FitxerActividades;
 import Lector.FitxerSerialitzat;
 import Lector.FitxerUsuari;
 import Usuari.*; // Para organizar componente
-
 import java.awt.*; // Para clicks y reclas
 import java.awt.event.*;
 import javax.swing.*;
@@ -30,7 +29,7 @@ public class Pantalla extends JFrame {
     private int anyActual = 2025;
 
     private ListaActividad llistaActividades;
-    private LlistaInscripcions llistaInscripcions;
+    private LlistaInscripcio llistaInscripcions;
     private LlistaUsuari llistaUsuari;
 
     /**
@@ -41,7 +40,7 @@ public class Pantalla extends JFrame {
      * @param llistaInscripcions
      */
     public Pantalla(ListaActividad llistaActividades, LlistaUsuari llistaUsuari,
-            LlistaInscripcions llistaInscripcions) {
+            LlistaInscripcio llistaInscripcions) {
 
         this.llistaActividades = llistaActividades;
         this.llistaUsuari = llistaUsuari;
@@ -368,7 +367,7 @@ public class Pantalla extends JFrame {
         // Crear datos de prueba
         ListaActividad listaTmp = new ListaActividad(1000);
         LlistaUsuari usuariosTmp = new LlistaUsuari(1000);
-        LlistaInscripcions inscripcionesTmp = new LlistaInscripcions(1000);
+        LlistaInscripcio inscripcionesTmp = new LlistaInscripcio(1000);
 
         try {
             usuariosTmp = FitxerUsuari.carregarFitxeUsuari();
@@ -427,7 +426,7 @@ public class Pantalla extends JFrame {
 
         final ListaActividad lista = listaTmp;
         final LlistaUsuari usuarios = usuariosTmp;
-        final LlistaInscripcions inscripciones = inscripcionesTmp;
+        final LlistaInscripcio inscripciones = inscripcionesTmp;
 
         SwingUtilities.invokeLater(() -> {
             new Pantalla(lista, usuarios, inscripciones);

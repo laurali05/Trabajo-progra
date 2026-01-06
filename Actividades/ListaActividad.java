@@ -220,7 +220,7 @@ public class ListaActividad {
      * @return
      * @throws NomActivitatDuplicatException
      */
-    public ListaActividad llistaClasseAvui(Data avui, LlistaInscripcions a)
+    public ListaActividad llistaClasseAvui(Data avui, LlistaInscripcio a)
             throws NomActivitatDuplicatException, NoHayEspacioException {
         ListaActividad lista = new ListaActividad(numElems);
 
@@ -251,7 +251,7 @@ public class ListaActividad {
      * @param nom
      * @return
      */
-    public boolean plazasDisponibles(String nom, LlistaInscripcions a) throws ActivitatNoTrobadaException {
+    public boolean plazasDisponibles(String nom, LlistaInscripcio a) throws ActivitatNoTrobadaException {
         boolean resultado = false;
         boolean trobat = false;
 
@@ -327,7 +327,7 @@ public class ListaActividad {
      * @throws NomActivitatDuplicatException
      * @throws ActivitatNoTrobadaException
      */
-    public ListaActividad actPlazasDisponibles(LlistaInscripcions a)
+    public ListaActividad actPlazasDisponibles(LlistaInscripcio a)
             throws NomActivitatDuplicatException, ActivitatNoTrobadaException, NoHayEspacioException {
         ListaActividad act = new ListaActividad(numElems);
 
@@ -361,7 +361,7 @@ public class ListaActividad {
      * @param a
      * @param avui
      */
-    public void elActNoCondiciones(LlistaInscripcions a, Data avui) {
+    public void elActNoCondiciones(LlistaInscripcio a, Data avui) {
         for (int i = this.getNumElems() - 1; i >= 0; i--) {
 
             if (llista[i] instanceof ActividadDia) {

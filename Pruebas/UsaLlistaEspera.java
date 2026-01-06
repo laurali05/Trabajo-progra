@@ -22,7 +22,7 @@ public class UsaLlistaEspera {
 
       // Afegim primera inscripció
 
-      Inscripcions ins = new Inscripcions();
+      Inscripcio ins = new Inscripcio();
       llista.afegir(ins);
 
       // Tornem a mostrar la llista pero ara amb la inscripció

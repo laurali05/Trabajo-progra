@@ -14,13 +14,13 @@ public class UsaLlistaInscripcions {
         // seva funcionalitat.--
 
         System.out.println("Creació de la llista d'inscripcions:\n");
-        LlistaInscripcions llista = new LlistaInscripcions(6);
+        LlistaInscripcio llista = new LlistaInscripcio(6);
 
         // Mostrem llista buida
         System.out.println(llista + "\n");
 
         // Afegim primera inscripció
-        Inscripcions ins = new Inscripcions();
+        Inscripcio ins = new Inscripcio();
         try {
             llista.afegir(ins);
         } catch (UsuariJaInscritException e) {
@@ -45,7 +45,7 @@ public class UsaLlistaInscripcions {
             System.err.println("L'usuari " + e + " ja esta inscrit");
         }
         
-        LlistaInscripcions llistacop = llista.copia();
+        LlistaInscripcio llistacop = llista.copia();
 
         // Tornem a mostrar la llista completa
         System.out.println(llista + "\n");

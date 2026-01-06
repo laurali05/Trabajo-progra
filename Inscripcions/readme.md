@@ -1,1 +1,0 @@
-Carpeta inscripcions realitzada per Izan Flores Tortosa

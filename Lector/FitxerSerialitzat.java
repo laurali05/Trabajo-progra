@@ -1,9 +1,13 @@
 package Lector;
 
 import Excepcions.*;
-import Inscripcions.LlistaInscripcions;
+import Inscripcions.LlistaInscripcio;
 import java.io.*;
 
+/**
+ * Clase FitxerSerialitzat
+ * Autor: Izan Flores
+ */
 public class FitxerSerialitzat {
 
     /**
@@ -13,12 +17,12 @@ public class FitxerSerialitzat {
      * @return Les inscripcions de l'arxiu fitxerInscripcio en forma de llista
      * @throws CarregarFitxersException
      */
-    public static LlistaInscripcions carregarInscripcions() throws CarregarFitxersException {
-        LlistaInscripcions llista = null;
+    public static LlistaInscripcio carregarInscripcions() throws CarregarFitxersException {
+        LlistaInscripcio llista = null;
         ObjectInputStream inputFile;
         try {
             inputFile = new ObjectInputStream(new FileInputStream("Fitxers/fitxerInscripcions.bin"));
-            llista = (LlistaInscripcions) inputFile.readObject();
+            llista = (LlistaInscripcio) inputFile.readObject();
             inputFile.close();
         } catch (ClassNotFoundException | IOException e) {
             throw new CarregarFitxersException();
@@ -33,7 +37,7 @@ public class FitxerSerialitzat {
      * @param llista la llista d'Inscripcions que volem guardar
      * @throws GuardarFitxersException
      */
-    public static void guardarInscripcions(LlistaInscripcions llista) throws GuardarFitxersException {
+    public static void guardarInscripcions(LlistaInscripcio llista) throws GuardarFitxersException {
         ObjectOutputStream outputFile;
         try {
             outputFile = new ObjectOutputStream(new FileOutputStream("Fitxers/fitxerInscripcions.bin"));

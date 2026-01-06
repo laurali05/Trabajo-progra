@@ -3,16 +3,20 @@ package Inscripcions;
 import Actividades.Actividad;
 import Usuari.LlistaUsuari;
 
+/**
+ * Clase: LlistaEspera
+ * Autor: Izan Flores
+ */
 public class LlistaEspera {
     private final int maxPersones = 10;
     private int numElem;
-    private Inscripcions[] llista;
+    private Inscripcio[] llista;
 
     /**
      * Constructor de la llista d'espera
      */
     public LlistaEspera() {
-        llista = new Inscripcions[maxPersones];
+        llista = new Inscripcio[maxPersones];
         numElem = 0;
     }
 
@@ -29,7 +33,7 @@ public class LlistaEspera {
     /**
      * Métode cópia de la llista
      * 
-     * @return llista copiada
+     * @return cópia de la llista
      */
     public LlistaEspera copia() {
         LlistaEspera novaLlista = new LlistaEspera();
@@ -42,16 +46,18 @@ public class LlistaEspera {
     /**
      * Métode per afegir noves inscripcions a la llista
      * 
-     * @param ins inscripcio a afegir
+     * @param ins 
      */
-    public void afegir(Inscripcions ins) {
+    public void afegir(Inscripcio ins) {
         if (numElem < maxPersones) {
             llista[numElem] = ins.copia();
             numElem++;
         }
     }
 
-    // Métode toString
+    /**
+     * Métode toString
+     */
     @Override
     public String toString() {
         String text = "Llista Espera -> Inscripcions a la llista:" + numElem + "\n";
@@ -67,12 +73,12 @@ public class LlistaEspera {
      * (Jordi)
      * 
      * @param act
-     * @return
+     * @return primera inscripcio de la llista espera
      */
-    public Inscripcions buscarPrimerEspera(Actividad act) {
+    public Inscripcio buscarPrimerEspera(Actividad act) {
         boolean trobat = false;
 
-        Inscripcions insPrimer = null;
+        Inscripcio insPrimer = null;
         int i = 0;
         while (!trobat && i < numElem) {
             if (llista[i].getActivitat().equals(act)) {
@@ -94,6 +100,12 @@ public class LlistaEspera {
         }
     }
 
+    /**
+     * Métode que retorna una llista d'usuaris apuntats a una activitat
+     * 
+     * @param act 
+     * @return llista d'usuaris apuntats a l'activitat
+     */
     public LlistaUsuari usuarisApuntats(Actividad act){
         LlistaUsuari aux = new LlistaUsuari(100);
         for (int i=0;i<numElem;i++){

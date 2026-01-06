@@ -3,7 +3,7 @@ package Pruebas;
 import Actividades.Actividad;
 import Data.Data;
 import Excepcions.FechaIncorrectaExcepcion;
-import Inscripcions.Inscripcions;
+import Inscripcions.Inscripcio;
 import Usuari.Usuari;
 
 /**
@@ -17,7 +17,7 @@ public class UsaInscripcions {
         // Generació de una inscripció
 
         System.out.println("\nGeneració de inscripció:\n");
-        Inscripcions insini = new Inscripcions();
+        Inscripcio insini = new Inscripcio();
         System.out.println(insini.toString() + "\n");
 
         // Generació d'una inscripció amb parametres
@@ -27,14 +27,14 @@ public class UsaInscripcions {
         Usuari persona = new Usuari("Robert", "robert@gmail.com");
         Actividad activitat = new Actividad("Dia", "Robotica", new Data(3, 9, 2025), new Data(3, 11, 2025),
                 ("PDI, Estudiants"));
-        Inscripcions insparam = new Inscripcions(persona, activitat, 8, datanova);
+        Inscripcio insparam = new Inscripcio(persona, activitat, datanova);
         System.out.println(insparam.toString());
 
         // Comprobació del métode cópia
 
         System.out.println("\n---Proba métode cópia---\n");
 
-        Inscripcions inscopia = insparam.copia();
+        Inscripcio inscopia = insparam.copia();
         System.out.println("Inscripcio copiada de la donada per parametere: \n" + inscopia);
 
     }
