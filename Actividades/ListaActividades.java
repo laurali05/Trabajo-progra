@@ -8,7 +8,7 @@ import Inscripcions.*;
  * Clase: Lista de actividades
  * Autor: Laura Lope
  */
-public class LlistaActividades {
+public class ListaActividades {
     private int numElems;
     private Actividades[] llista;
 
@@ -17,7 +17,7 @@ public class LlistaActividades {
      * 
      * @param mida
      */
-    public LlistaActividades(int mida) {
+    public ListaActividades(int mida) {
         this.llista = new Actividades[mida];
         this.numElems = 0;
     }
@@ -43,7 +43,7 @@ public class LlistaActividades {
      * 
      * @param a
      */
-    public void afegir(Actividades a) throws NomActivitatDuplicatException {
+    public void afegir(Actividades a) throws NomActivitatDuplicatException, NoHayEspacioException {
         for (int i = 0; i < numElems; i++) {
             if (llista[i].getNom().equalsIgnoreCase(a.getNom())) {
                 throw new NomActivitatDuplicatException("Ya existe una actividad con este nombre: " + a.getNom());
@@ -53,6 +53,8 @@ public class LlistaActividades {
         if (numElems < llista.length) {
             llista[numElems] = a;
             numElems++;
+        } else {
+            throw new NoHayEspacioException();
         }
     }
 
@@ -74,8 +76,8 @@ public class LlistaActividades {
      * 
      * @return
      */
-    public LlistaActividades copia() throws NomActivitatDuplicatException {
-        LlistaActividades nueva = new LlistaActividades(llista.length);
+    public ListaActividades copia() throws NomActivitatDuplicatException, NoHayEspacioException {
+        ListaActividades nueva = new ListaActividades(llista.length);
         for (int i = 0; i < numElems; i++) {
             nueva.afegir(llista[i]); // Si quieres copia profunda: implementar método copia en Actividades
         }
@@ -88,7 +90,7 @@ public class LlistaActividades {
      * @param otra
      * @return
      */
-    public boolean iguals(LlistaActividades otra) {
+    public boolean iguals(ListaActividades otra) {
         if (this.numElems != otra.numElems)
             return false;
         for (int i = 0; i < numElems; i++) {
@@ -107,6 +109,7 @@ public class LlistaActividades {
         for (int i = pos; i < numElems - 1; i++) {
             llista[i] = llista[i + 1];
         }
+        llista[numElems-1] = null;
         numElems--;
     }
 
@@ -117,8 +120,8 @@ public class LlistaActividades {
      * @param opcio
      * @return
      */
-    public LlistaActividades llistaTipus(int opcio) {
-        LlistaActividades llistaEsp = new LlistaActividades(numElems);
+    public ListaActividades llistaTipus(int opcio) throws NoHayEspacioException{
+        ListaActividades llistaEsp = new ListaActividades(numElems);
         if (opcio == 1) {
             for (int i = 0; i < numElems; i++) {
                 if (llista[i] instanceof ActividadesDia) {
@@ -194,8 +197,8 @@ public class LlistaActividades {
      * @return
      * @throws NomActivitatDuplicatException
      */
-    public LlistaActividades llistaPeriodo(Data avui) throws NomActivitatDuplicatException {
-        LlistaActividades lista = new LlistaActividades(numElems);
+    public ListaActividades llistaPeriodo(Data avui) throws NomActivitatDuplicatException, NoHayEspacioException {
+        ListaActividades lista = new ListaActividades(numElems);
         for (int i = 0; i < numElems; i++) {
 
             Actividades a = this.getActividad(i);
@@ -217,9 +220,9 @@ public class LlistaActividades {
      * @return
      * @throws NomActivitatDuplicatException
      */
-    public LlistaActividades llistaClasseAvui(Data avui, LlistaInscripcions a)
-            throws NomActivitatDuplicatException {
-        LlistaActividades lista = new LlistaActividades(numElems);
+    public ListaActividades llistaClasseAvui(Data avui, LlistaInscripcions a)
+            throws NomActivitatDuplicatException, NoHayEspacioException {
+        ListaActividades lista = new ListaActividades(numElems);
         boolean plazas;
         boolean listEspera;
         int contador = 0;
@@ -368,9 +371,9 @@ public class LlistaActividades {
      * @throws NomActivitatDuplicatException
      * @throws ActivitatNoTrobadaException
      */
-    public LlistaActividades actPlazasDisponibles(LlistaInscripcions a)
-            throws NomActivitatDuplicatException, ActivitatNoTrobadaException {
-        LlistaActividades act = new LlistaActividades(numElems);
+    public ListaActividades actPlazasDisponibles(LlistaInscripcions a)
+            throws NomActivitatDuplicatException, ActivitatNoTrobadaException, NoHayEspacioException {
+        ListaActividades act = new ListaActividades(numElems);
 
         for (int i = 0; i < numElems; i++) {
             if (this.plazasDisponibles(llista[i].getNom(), a)) {
@@ -401,7 +404,7 @@ public class LlistaActividades {
      * @param avui
      */
     public void elActNoCondiciones(LlistaInscripcions a, Data avui){
-        for (int i = 0; i < this.getNumElems(); i++) {
+        for (int i = this.getNumElems() - 1; i >= 0; i--) {
 
             if (llista[i] instanceof ActividadesDia) {
                 ActividadesDia dia = (ActividadesDia) llista[i];
