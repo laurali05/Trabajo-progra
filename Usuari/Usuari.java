@@ -1,5 +1,9 @@
 package Usuari;
 
+/**
+ * Clase: Usuari
+ * Autor: Jordi Vivas
+ */
 public class Usuari {
 
     private String nom;

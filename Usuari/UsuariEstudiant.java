@@ -1,5 +1,9 @@
 package Usuari;
 
+/**
+ * Clase: UsuariEstudiant
+ * Autor: Jordi Vivas
+ */
 public class UsuariEstudiant extends Usuari {
    private String grau;
    private int anyIni;

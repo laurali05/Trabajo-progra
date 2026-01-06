@@ -1,5 +1,9 @@
 package Usuari;
 
+/**
+ * Clase: UsuariPDI
+ * Autor: Jordi Vivas
+ */
 public class UsuariPDI extends Usuari {
   private String departament;
   private String campus;

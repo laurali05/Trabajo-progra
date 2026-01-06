@@ -1,1 +1,0 @@
-Carpeta Usuari creada i programada per Jordi Vivas Sakuta.

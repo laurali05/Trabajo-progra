@@ -470,6 +470,7 @@ public class App {
 
     /**
      * Autor Jordi
+     * Metode de l'opció que elimina un usuari d'una activitat previament inscrita
      *
      * @param llistaUsuari
      * @param llistaInscripcions
@@ -574,6 +575,7 @@ public class App {
 
     /**
      * Autor Jordi
+     * Metode de l'opció que busca les activitats en las que esta apunat un usuari concret
      *
      * @param llistaUsuari
      * @param llistaInscripcions
@@ -598,6 +600,7 @@ public class App {
 
     /**
      * Autor Jordi
+     * Metode de l'opció que mostra els detalls d'un usuari concret
      *
      * @param llistaUsuari
      */
@@ -704,6 +707,7 @@ public class App {
 
     /**
      * Autor Jordi
+     * Metode de l'opció que mostra les dades especifiques o generals d'una llista concreta
      *
      * @param llistaUsuari
      * @param llistaActividades
