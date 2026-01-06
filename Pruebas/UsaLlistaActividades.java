@@ -2,7 +2,8 @@ package Pruebas;
 
 import Actividades.*;
 import Data.Data;
-
+import Excepcions.FechaIncorrectaExcepcion;
+import Excepcions.NoHayEspacioException;
 import Excepcions.NomActivitatDuplicatException;
 
 /**
@@ -10,7 +11,7 @@ import Excepcions.NomActivitatDuplicatException;
  * Autor: Laura Lope
  */
 public class UsaLlistaActividades {
-    public static void main(String[] args) throws NomActivitatDuplicatException {
+    public static void main(String[] args) throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBAS CLASE LLISTA ACTIVIDADES ------");
         System.out.println();
 
@@ -24,25 +25,25 @@ public class UsaLlistaActividades {
 
     private static void compruebaConstructorToStringLlistaActividades() throws NomActivitatDuplicatException {
         System.out.println("------ PRUEBA CONSTRUCTOR Y TOSTRING ------");
-        LlistaActividades lista = new LlistaActividades(10);
+        ListaActividades lista = new ListaActividades(10);
         System.out.println("Lista vacía: ");
         System.out.println(lista);
         System.out.println();
     }
 
-    private static void compruebaAfegirLlistaActividades() throws NomActivitatDuplicatException {
+    private static void compruebaAfegirLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA AFEGIR ------");
-        LlistaActividades lista = new LlistaActividades(5);
+        ListaActividades lista = new ListaActividades(5);
 
-        ActividadesPeriodicas a = new ActividadesPeriodicas("Curso", new Data(14, 10, 2925), new Data(31, 10, 2025),
+        ActividadesPeriodicas a = new ActividadesPeriodicas("Periodica", "Curso", new Data(14, 10, 2925), new Data(31, 10, 2025),
                  "Estudiants" , "Viernes", new int[] { 18, 00 }, new Data(5, 11, 2025), 4, 50, 0,
                 "Sescelades", "Tarragona");
 
-        ActividadesDia b = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+        ActividadesDia b = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                  "PDI, PGTAS, Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0,
                 "Tarragona");
 
-        ActividadesOnline c = new ActividadesOnline("Entrevista", new Data(15, 11, 2925), new Data(20, 11, 2025),
+        ActividadesOnline c = new ActividadesOnline("Online", "Entrevista", new Data(15, 11, 2925), new Data(20, 11, 2025),
                  "PDI, Estudiants" , new Data(22, 11, 2025), 7,
                 "https://www.universitat.cat/actividades/java2025");
 
@@ -55,30 +56,30 @@ public class UsaLlistaActividades {
         System.out.println();
     }
 
-    private static void compruebaCopiaLlistaActividades() throws NomActivitatDuplicatException {
+    private static void compruebaCopiaLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA COPIA ------");
-        LlistaActividades lista = new LlistaActividades(5);
+        ListaActividades lista = new ListaActividades(5);
 
-        Actividades a = new Actividades("Curso de especialización", new Data(4, 9, 2025), new Data(31, 10, 2025),
+        Actividades a = new Actividades("Dia", "Curso de especialización", new Data(4, 9, 2025), new Data(31, 10, 2025),
                  "PTGAS" );
         lista.afegir(a);
 
-        LlistaActividades copia = lista.copia();
+        ListaActividades copia = lista.copia();
 
         System.out.println("Copia de la lista:");
         System.out.println(copia);
         System.out.println();
     }
 
-    private static void compruebaEqualsLlistaActividades() throws NomActivitatDuplicatException {
+    private static void compruebaEqualsLlistaActividades() throws NomActivitatDuplicatException, FechaIncorrectaExcepcion, NoHayEspacioException {
         System.out.println("------ PRUEBA IGUALS ------");
-        LlistaActividades lista1 = new LlistaActividades(5);
-        LlistaActividades lista2 = new LlistaActividades(5);
+        ListaActividades lista1 = new ListaActividades(5);
+        ListaActividades lista2 = new ListaActividades(5);
 
-        Actividades a = new Actividades("Curso de especialización", new Data(4, 10, 2025), new Data(31, 10, 2025),
+        Actividades a = new Actividades("Dia", "Curso de especialización", new Data(4, 10, 2025), new Data(31, 10, 2025),
                "PDI, Estudiants" );
 
-        ActividadesDia b = new ActividadesDia("Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
+        ActividadesDia b = new ActividadesDia("Dia", "Premios", new Data(29, 9, 2925), new Data(5, 10, 2025),
                 "Estudiants" , new Data(6, 10, 2025), new int[] { 18, 00 }, 20, 0, "Tarragona");
 
         lista1.afegir(a);
@@ -91,15 +92,15 @@ public class UsaLlistaActividades {
         System.out.println();
     }
 
-    private static void compruebaExcepcionNomDuplicat() {
+    private static void compruebaExcepcionNomDuplicat() throws FechaIncorrectaExcepcion {
         System.out.println("------ PRUEBA EXCEPCIÓN -------");
 
-        LlistaActividades lista = new LlistaActividades(200);
+        ListaActividades lista = new ListaActividades(200);
 
-        Actividades a = new Actividades("Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
+        Actividades a = new Actividades("Dia", "Charla", new Data(15, 9, 2025), new Data(30, 9, 2025),
                 "Estudiants" );
 
-        Actividades b = new Actividades("Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
+        Actividades b = new Actividades("Dia", "Charla", new Data(20, 10, 2025), new Data(25, 10, 2025),
                  "PDI" );
 
         try {
@@ -110,6 +111,8 @@ public class UsaLlistaActividades {
             System.out.println("No se lanzó la excepción esperada.");
         } catch (NomActivitatDuplicatException e) {
             System.out.println(e.getMessage());
+        } catch (NoHayEspacioException e) {
+            System.err.println(e.getMessage());
         }
     }
 }

@@ -4,9 +4,10 @@ import Actividades.Actividades;
 import Actividades.ActividadesDia;
 import Actividades.ActividadesOnline;
 import Actividades.ActividadesPeriodicas;
-import Actividades.LlistaActividades;
+import Actividades.ListaActividades;
 import Data.*;
 import Excepcions.ActivitatNoTrobadaException;
+import Excepcions.NoHayEspacioException;
 import Excepcions.NomActivitatDuplicatException;
 import Excepcions.UsuariJaInscritException;
 import Excepcions.UsuariNoTrobatException;
@@ -112,8 +113,8 @@ public class LlistaInscripcions {
      * @param nom
      * @return
      */
-    public LlistaActividades ActivitatsUsuari(Usuari nom) {
-        LlistaActividades aux = new LlistaActividades(limit);
+    public ListaActividades ActivitatsUsuari(Usuari nom) {
+        ListaActividades aux = new ListaActividades(limit);
         try {
             for (int i = 0; i < numElem; i++) {
 
@@ -124,6 +125,8 @@ public class LlistaInscripcions {
             }
         } catch (NomActivitatDuplicatException e) {
             System.out.println(e + " Duplicat");
+        } catch (NoHayEspacioException e) {
+            System.err.println(e.getMessage());
         }
         return aux;
     }
@@ -327,7 +330,7 @@ public class LlistaInscripcions {
      * @param avui
      * @param valoracio
      */
-    public void valorarActivitat(LlistaActividades llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
+    public void valorarActivitat(ListaActividades llistaActivitat, LlistaUsuari llistaUsuaris, String act, String nom, Data avui, int valoracio) {
         int i = 0;
         int indexVal=0;
         boolean trobat = false;
@@ -416,7 +419,7 @@ public class LlistaInscripcions {
      * Metode que calcula i mostra per pantalla la mitjana dels col·lectius
      * @param llistaActivitat
      */
-    public void mitjanaColectius(LlistaActividades llistaActivitat) {
+    public void mitjanaColectius(ListaActividades llistaActivitat) {
         int[] dia = new int[numElem];
         int[] periodicas = new int[numElem];
         int[] online = new int[numElem];
@@ -481,7 +484,7 @@ public class LlistaInscripcions {
      * @param act
      * @return
      */
-    public int posicioValoracio(Inscripcions ins, LlistaActividades llistaActivitat, String act){
+    public int posicioValoracio(Inscripcions ins, ListaActividades llistaActivitat, String act){
         int aux=0;
         boolean trobat = false;
         int i=0;

@@ -1,20 +1,21 @@
 package Actividades;
 
 import Data.Data;
+import Excepcions.FechaIncorrectaExcepcion;
 
 /**
  * Clase: Actividades periódicas
  * Autor: Laura Lope
  */
 public class ActividadesPeriodicas extends Actividades {
-    public String diaSemana;
-    public int[] horario = new int[2];
-    public Data fechaIn;
-    public int numSemanas;
-    public int limite;
-    public double precio;
-    public String centro;
-    public String ciudad;
+    private String diaSemana;
+    private int[] horario = new int[2];
+    private Data fechaIn;
+    private int numSemanas;
+    private int limite;
+    private double precio;
+    private String centro;
+    private String ciudad;
 
     /**
      * Constructor sin parámetros
@@ -48,11 +49,13 @@ public class ActividadesPeriodicas extends Actividades {
      * @param centro
      * @param ciudad
      */
-    public ActividadesPeriodicas(String nom, Data periodoIn, Data periodoFin, String colectivos, String diaSemana,
-            int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad) {
-        super(nom, periodoIn, periodoFin, colectivos);
+    public ActividadesPeriodicas(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos,
+            String diaSemana,
+            int[] horario, Data fechaIn, int numSemanas, int limite, double precio, String centro, String ciudad)
+            throws FechaIncorrectaExcepcion {
+        super(tipo, nom, periodoIn, periodoFin, colectivos);
 
-        this.tipo = "Periodica";
+        setTipo("Periódica");
 
         if (diaSemana.equalsIgnoreCase("Lunes")
                 || diaSemana.equalsIgnoreCase("Martes") | diaSemana.equalsIgnoreCase("Miércoles")
@@ -64,7 +67,9 @@ public class ActividadesPeriodicas extends Actividades {
         }
 
         if (horario[0] <= 23 && horario[0] >= 0 && horario[1] <= 59 && horario[1] >= 0) {
-            this.horario = horario;
+            this.horario = new int[2];
+            this.horario[0] = horario[0];
+            this.horario[1] = horario[1];
         } else {
             this.horario = new int[] { 00, 00 };
         }
@@ -73,6 +78,7 @@ public class ActividadesPeriodicas extends Actividades {
             this.fechaIn = fechaIn;
         } else {
             this.fechaIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+            throw new FechaIncorrectaExcepcion(fechaIn);
         }
 
         this.numSemanas = numSemanas;
@@ -271,8 +277,9 @@ public class ActividadesPeriodicas extends Actividades {
      * 
      * @return
      */
-    public ActividadesPeriodicas copia() {
-        ActividadesPeriodicas a = new ActividadesPeriodicas(this.nom, this.periodoIn, this.periodoFin, this.colectivos,
+    public ActividadesPeriodicas copia() throws FechaIncorrectaExcepcion {
+        ActividadesPeriodicas a = new ActividadesPeriodicas(this.getTipo(), this.getNom(), this.getPeriodoIn(),
+                this.getPeriodoFin(), this.getColectivos(),
                 this.diaSemana,
                 this.horario, this.fechaIn, this.numSemanas, this.limite, this.precio, this.centro, this.ciudad);
         return a;
@@ -285,7 +292,9 @@ public class ActividadesPeriodicas extends Actividades {
      * @return
      */
     public boolean iguals(ActividadesPeriodicas a) {
-        super.iguals(a);
+        if (super.iguals(a) == false) {
+            return false;
+        }
 
         if (!a.diaSemana.equalsIgnoreCase(this.diaSemana)) {
             return false;
@@ -295,7 +304,7 @@ public class ActividadesPeriodicas extends Actividades {
             return false;
         } else {
             for (int i = 0; i < this.horario.length; i++) {
-                if (this.horario[i] != this.horario[i]) {
+                if (this.horario[i] != a.horario[i]) {
                     return false;
                 }
             }
@@ -326,5 +335,15 @@ public class ActividadesPeriodicas extends Actividades {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean claseHoy(Data avui) {
+        Data fechaFin = this.fechaIn.sumarDias(this.numSemanas * 7);
+        if (this.fechaIn.esDataInferiorOigual(avui) && avui.esDataInferiorOigual(fechaFin)) {
+            int diasDesdeInicio = this.fechaIn.numDiesAData(avui);
+            return (diasDesdeInicio % 7 == 0);
+        }
+        return false;
     }
 }

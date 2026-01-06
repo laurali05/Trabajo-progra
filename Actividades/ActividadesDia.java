@@ -1,17 +1,18 @@
 package Actividades;
 
 import Data.Data;
+import Excepcions.FechaIncorrectaExcepcion;
 
 /**
  * Clase: Actividades día
  * Autor: Laura Lope
  */
 public class ActividadesDia extends Actividades {
-    public Data fechaIn;
-    public int[] horario = new int[2];
-    public int limite;
-    public double precio;
-    public String ciudad;
+    private Data fechaIn;
+    private int[] horario = new int[2];
+    private int limite;
+    private double precio;
+    private String ciudad;
 
     /**
      * Constructor sin parámetros.
@@ -40,20 +41,23 @@ public class ActividadesDia extends Actividades {
      * @param precio     Precio de la actividdd
      * @param ciudad     En que ciudad es la actividad
      */
-    public ActividadesDia(String nom, Data periodoIn, Data periodoFin, String colectivos, Data fecha,
-            int[] horario, int limite, double precio, String ciudad) {
-        super(nom, periodoIn, periodoFin, colectivos);
+    public ActividadesDia(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fecha,
+            int[] horario, int limite, double precio, String ciudad) throws FechaIncorrectaExcepcion {
+        super(tipo, nom, periodoIn, periodoFin, colectivos);
 
-        this.tipo = "Dia";
+        setTipo("Dia");
 
         if (fecha.getMes() >= 9 && fecha.getMes() <= 12) {
             this.fechaIn = fecha;
         } else {
             this.fechaIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+            throw new FechaIncorrectaExcepcion(fechaIn);
         }
 
         if (horario[0] <= 23 && horario[0] >= 0 && horario[1] <= 59 && horario[1] >= 0) {
-            this.horario = horario;
+            this.horario = new int[2];
+            this.horario[0] = horario[0];
+            this.horario[1] = horario[1];
         } else {
             this.horario = new int[] { 00, 00 };
         }
@@ -187,9 +191,11 @@ public class ActividadesDia extends Actividades {
      * Método que hace una copia
      * 
      * @return
+     * @throws FechaIncorrectaExcepcion
      */
-    public ActividadesDia copia() {
-        ActividadesDia a = new ActividadesDia(this.nom, this.periodoIn, this.periodoFin, this.colectivos, this.fechaIn,
+    public ActividadesDia copia() throws FechaIncorrectaExcepcion {
+        ActividadesDia a = new ActividadesDia(this.getTipo(), this.getNom(), this.getPeriodoIn(), this.getPeriodoFin(),
+                this.getColectivos(), this.fechaIn,
                 this.horario, this.limite, this.precio, this.ciudad);
         return a;
     }
@@ -201,7 +207,10 @@ public class ActividadesDia extends Actividades {
      * @return
      */
     public boolean iguals(ActividadesDia a) {
-        super.iguals(a);
+        if (super.iguals(a) == false) {
+            return false;
+        }
+
         if (!a.fechaIn.esIgual(this.fechaIn)) {
             return false;
         }
@@ -210,7 +219,7 @@ public class ActividadesDia extends Actividades {
             return false;
         } else {
             for (int i = 0; i < this.horario.length; i++) {
-                if (this.horario[i] != this.horario[i]) {
+                if (this.horario[i] != a.horario[i]) {
                     return false;
                 }
             }
@@ -229,5 +238,10 @@ public class ActividadesDia extends Actividades {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean claseHoy(Data avui) {
+        return avui.esIgual(this.fechaIn);
     }
 }

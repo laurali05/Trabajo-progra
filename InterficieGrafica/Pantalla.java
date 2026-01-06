@@ -29,7 +29,7 @@ public class Pantalla extends JFrame {
     private int mesActual = 9;
     private int anyActual = 2025;
 
-    private LlistaActividades llistaActividades;
+    private ListaActividades llistaActividades;
     private LlistaInscripcions llistaInscripcions;
     private LlistaUsuari llistaUsuari;
 
@@ -40,7 +40,7 @@ public class Pantalla extends JFrame {
      * @param llistaUsuari
      * @param llistaInscripcions
      */
-    public Pantalla(LlistaActividades llistaActividades, LlistaUsuari llistaUsuari,
+    public Pantalla(ListaActividades llistaActividades, LlistaUsuari llistaUsuari,
             LlistaInscripcions llistaInscripcions) {
 
         this.llistaActividades = llistaActividades;
@@ -366,7 +366,7 @@ public class Pantalla extends JFrame {
 
     public static void main(String[] args) {
         // Crear datos de prueba
-        LlistaActividades listaTmp = new LlistaActividades(1000);
+        ListaActividades listaTmp = new ListaActividades(1000);
         LlistaUsuari usuariosTmp = new LlistaUsuari(1000);
         LlistaInscripcions inscripcionesTmp = new LlistaInscripcions(1000);
 
@@ -381,7 +381,7 @@ public class Pantalla extends JFrame {
         }
         try {
             // Actividad 1: Yoga
-            ActividadesDia yoga = new ActividadesDia(
+            ActividadesDia yoga = new ActividadesDia("Dia",
                     "Yoga para principiantes",
                     new Data(1, 9, 2025),
                     new Data(15, 9, 2025),
@@ -394,7 +394,7 @@ public class Pantalla extends JFrame {
             listaTmp.afegir(yoga);
 
             // Actividad 2: Pilates
-            ActividadesDia pilates = new ActividadesDia(
+            ActividadesDia pilates = new ActividadesDia("Dia",
                     "Pilates avanzado",
                     new Data(1, 9, 2025),
                     new Data(20, 9, 2025),
@@ -407,7 +407,7 @@ public class Pantalla extends JFrame {
             listaTmp.afegir(pilates);
 
             // Actividad 3: Meditación online
-            ActividadesOnline meditacion = new ActividadesOnline(
+            ActividadesOnline meditacion = new ActividadesOnline("Dia",
                     "Meditación online",
                     new Data(1, 10, 2025),
                     new Data(15, 10, 2025),
@@ -419,9 +419,13 @@ public class Pantalla extends JFrame {
 
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Error: " + e.getMessage());
+        } catch (NoHayEspacioException e){
+            System.err.println(e.getMessage());
+        } catch (FechaIncorrectaExcepcion e) {
+            System.err.println(e.getMessage());
         }
 
-        final LlistaActividades lista = listaTmp;
+        final ListaActividades lista = listaTmp;
         final LlistaUsuari usuarios = usuariosTmp;
         final LlistaInscripcions inscripciones = inscripcionesTmp;
 

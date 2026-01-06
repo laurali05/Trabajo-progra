@@ -1,15 +1,16 @@
 package Actividades;
 
 import Data.Data;
+import Excepcions.FechaIncorrectaExcepcion;
 
 /**
  * Clase: Actividades online
  * Autor: Laura Lope
  */
 public class ActividadesOnline extends Actividades {
-    public Data fechaIn;
-    public int periodoVis; // Periodo de visualización
-    public String enlace;
+    private Data fechaIn;
+    private int periodoVis; // Periodo de visualización
+    private String enlace;
 
     /**
      * Constructor sin parámetros
@@ -34,16 +35,17 @@ public class ActividadesOnline extends Actividades {
      * @param periodoVis
      * @param enlace
      */
-    public ActividadesOnline(String nom, Data periodoIn, Data periodoFin, String colectivos, Data fechaIn,
-            int periodoVis, String enlace) {
-        super(nom, periodoIn, periodoFin, colectivos);
+    public ActividadesOnline(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos, Data fechaIn,
+            int periodoVis, String enlace) throws FechaIncorrectaExcepcion {
+        super(tipo, nom, periodoIn, periodoFin, colectivos);
 
-        this.tipo = "Online";
+        setTipo("Online");
 
         if (fechaIn.getMes() >= 9 && fechaIn.getMes() <= 12) {
             this.fechaIn = fechaIn;
         } else {
             this.fechaIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+            throw new FechaIncorrectaExcepcion(fechaIn);
         }
 
         this.periodoVis = periodoVis;
@@ -120,8 +122,10 @@ public class ActividadesOnline extends Actividades {
      * 
      * @return
      */
-    public ActividadesOnline copia() {
-        ActividadesOnline a = new ActividadesOnline(this.nom, this.periodoIn, this.periodoFin, this.colectivos,
+    public ActividadesOnline copia() throws FechaIncorrectaExcepcion {
+        ActividadesOnline a = new ActividadesOnline(this.getTipo(), this.getNom(), this.getPeriodoIn(),
+                this.getPeriodoFin(),
+                this.getColectivos(),
                 this.fechaIn,
                 this.periodoVis, this.enlace);
         return a;
@@ -134,7 +138,9 @@ public class ActividadesOnline extends Actividades {
      * @return
      */
     public boolean iguals(ActividadesOnline a) {
-        super.iguals(a);
+        if (super.iguals(a) == false) {
+            return false;
+        }
         if (!a.fechaIn.esIgual(this.fechaIn)) {
             return false;
         }
@@ -148,6 +154,12 @@ public class ActividadesOnline extends Actividades {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean claseHoy(Data avui) {
+        Data fechaFin = this.fechaIn.sumarDias(this.periodoVis);
+        return this.fechaIn.esDataInferiorOigual(avui) && avui.esDataInferiorOigual(fechaFin);
     }
 
 }

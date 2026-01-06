@@ -1,18 +1,18 @@
 package Actividades;
 
 import Data.Data;
+import Excepcions.FechaIncorrectaExcepcion;
 
 /**
  * Clase: Actividades
  * Autor: Laura Lope
  */
 public class Actividades {
-    public String tipo;
-    public String nom;
-    public Data periodoIn;
-    public Data periodoFin;
-    public String colectivos;
-
+    private String tipo;
+    private String nom;
+    private Data periodoIn;
+    private Data periodoFin;
+    private String colectivos;
 
     /**
      * Constructor sin parámetros
@@ -33,19 +33,25 @@ public class Actividades {
      * @param periodofin Fecha en la que finaliza el periodo de inscripciones
      * @param colectivos Colectivos que pueden formar parte de la actvidad
      */
-    public Actividades(String nom, Data periodoIn, Data periodoFin, String colectivos) {
+    public Actividades(String tipo, String nom, Data periodoIn, Data periodoFin, String colectivos)
+            throws FechaIncorrectaExcepcion {
         this.nom = nom;
+
+        this.tipo = tipo;
 
         if (periodoIn.getMes() >= 9 && periodoIn.getMes() <= 12) {
             this.periodoIn = periodoIn;
         } else {
-            this.periodoIn = new Data(); // Si no cumple la condición devuelve la fecha por defecto
+            this.periodoIn = new Data();
+            throw new FechaIncorrectaExcepcion(periodoIn);
         }
 
         if (periodoFin.getMes() >= 9 && periodoFin.getMes() <= 12) {
             this.periodoFin = periodoFin;
         } else {
             this.periodoFin = new Data();
+            throw new FechaIncorrectaExcepcion(periodoFin);
+
         }
 
         this.colectivos = colectivos;
@@ -74,11 +80,12 @@ public class Actividades {
      * 
      * @param periodoIn
      */
-    public void setPeriodoIn(Data periodoIn) {
+    public void setPeriodoIn(Data periodoIn) throws FechaIncorrectaExcepcion {
         if (periodoIn.getMes() >= 9 && periodoIn.getMes() <= 12) {
             this.periodoIn = periodoIn;
         } else {
             this.periodoIn = new Data();
+            throw new FechaIncorrectaExcepcion(periodoIn);
         }
     }
 
@@ -87,11 +94,12 @@ public class Actividades {
      * 
      * @param periodoFin
      */
-    public void setPeriodoFin(Data periodoFin) {
+    public void setPeriodoFin(Data periodoFin) throws FechaIncorrectaExcepcion {
         if (periodoFin.getMes() >= 9 && periodoFin.getMes() <= 12) {
             this.periodoFin = periodoFin;
         } else {
             this.periodoFin = new Data();
+            throw new FechaIncorrectaExcepcion(periodoFin);
         }
     }
 
@@ -168,8 +176,9 @@ public class Actividades {
      * Método que hace una copia
      * 
      * @return
+     * @throws FechaIncorrectaExcepcion
      */
-    public Actividades copia() {
+    public Actividades copia() throws FechaIncorrectaExcepcion {
         Actividades a = new Actividades();
         a.tipo = this.tipo;
         a.nom = this.nom;
@@ -208,4 +217,15 @@ public class Actividades {
 
         return true;
     }
+
+    /**
+     * Comprueba si la actividad tiene clase hoy (Implementación por defecto)
+     * 
+     * @param avui
+     * @return
+     */
+    public boolean claseHoy(Data avui) {
+        return false;
+    }
+
 }

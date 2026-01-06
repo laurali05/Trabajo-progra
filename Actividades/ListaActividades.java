@@ -109,7 +109,7 @@ public class ListaActividades {
         for (int i = pos; i < numElems - 1; i++) {
             llista[i] = llista[i + 1];
         }
-        llista[numElems-1] = null;
+        llista[numElems - 1] = null;
         numElems--;
     }
 
@@ -120,7 +120,7 @@ public class ListaActividades {
      * @param opcio
      * @return
      */
-    public ListaActividades llistaTipus(int opcio) throws NoHayEspacioException{
+    public ListaActividades llistaTipus(int opcio) throws NoHayEspacioException {
         ListaActividades llistaEsp = new ListaActividades(numElems);
         if (opcio == 1) {
             for (int i = 0; i < numElems; i++) {
@@ -223,66 +223,22 @@ public class ListaActividades {
     public ListaActividades llistaClasseAvui(Data avui, LlistaInscripcions a)
             throws NomActivitatDuplicatException, NoHayEspacioException {
         ListaActividades lista = new ListaActividades(numElems);
-        boolean plazas;
-        boolean listEspera;
+
         int contador = 0;
 
         for (int i = 0; i < this.getNumElems(); i++) {
-            if (llista[i] instanceof ActividadesDia) {
-                ActividadesDia dia = (ActividadesDia) llista[i];
-                if (avui.esIgual(dia.getFechaIn())) {
-                    contador++;
-                    lista.afegir(dia);
-                    try {
-                        plazas = this.plazasDisponibles(dia.getNom(), a);
-                        listEspera = a.teLlistaEspera(dia);
-                        System.out.println(
-                                "\nActividad " + contador + ": \n\n" + dia.toString() + "\nPlazas disponibles: "
-                                        + plazas + "\nLista de espera: " + listEspera);
-                    } catch (ActivitatNoTrobadaException e) {
+            Actividades act = llista[i];
+
+            if (act.claseHoy(avui)) {
+                contador++;
+                lista.afegir(act);
+                try {
+                    boolean plazas = this.plazasDisponibles(act.getNom(), a);
+                    boolean listEspera = a.teLlistaEspera(act);
+                    System.out.println("\nActividad " + contador + ": \n\n" + act.toString() + "\nPlazas disponibles: "
+                        + plazas + "\nLista de espera: " + listEspera);
+                } catch (ActivitatNoTrobadaException e) {
                         System.out.println("No se ha encontrado una actividad con ese nombre");
-                    }
-                }
-
-            } else if (llista[i] instanceof ActividadesPeriodicas) {
-                ActividadesPeriodicas periodica = (ActividadesPeriodicas) llista[i];
-
-                Data fechaFin = periodica.getFechaIn().sumarDias(periodica.getNumSemanas() * 7);
-
-                if ((periodica.getFechaIn().esDataInferiorOigual(avui)) && ((avui.esDataInferiorOigual(fechaFin)))) {
-
-                    int diasDesdeInicio = periodica.getFechaIn().numDiesAData(avui);
-
-                    if (diasDesdeInicio % 7 == 0) {
-                        contador++;
-                        lista.afegir(periodica);
-                        try {
-                            plazas = this.plazasDisponibles(periodica.getNom(), a);
-                            listEspera = a.teLlistaEspera(periodica);
-                            System.out.println("\nActividad " + contador + ": \n\n" + periodica.toString()
-                                    + "\nPlazas disponibles: " + plazas + "\nLista de espera: " + listEspera);
-                        } catch (ActivitatNoTrobadaException e) {
-                            System.out.println("No se ha encontrado una actividad con ese nombre");
-                        }
-                    }
-                }
-
-            } else if (llista[i] instanceof ActividadesOnline) {
-                ActividadesOnline online = (ActividadesOnline) llista[i];
-
-                Data fechaFin = online.getFechaIn().sumarDias(online.getPeriodoVis());
-
-                if ((online.getFechaIn().esDataInferiorOigual(avui)) && (avui.esDataInferiorOigual(fechaFin))) {
-                    contador++;
-                    lista.afegir(online);
-                    try {
-                        plazas = this.plazasDisponibles(online.getNom(), a);
-                        listEspera = a.teLlistaEspera(online);
-                        System.out.println("\nActividad " + contador + ": \n\n" + online.toString()
-                                + "\nPlazas disponibles: " + plazas + "\nLista de espera: " + listEspera);
-                    } catch (ActivitatNoTrobadaException e) {
-                        System.out.println("No se ha encontrado una actividad con ese nombre");
-                    }
                 }
             }
         }
@@ -388,7 +344,7 @@ public class ListaActividades {
      * 
      * @return
      */
-    public String nomActividades(){
+    public String nomActividades() {
         String nomActividades = " ";
 
         for (int i = 0; i < this.getNumElems(); i++) {
@@ -399,11 +355,13 @@ public class ListaActividades {
     }
 
     /**
-     * Elimina las actividades que están fuera del periodo de inscripción y que no han llegado a un mínimo de inscritos
+     * Elimina las actividades que están fuera del periodo de inscripción y que no
+     * han llegado a un mínimo de inscritos
+     * 
      * @param a
      * @param avui
      */
-    public void elActNoCondiciones(LlistaInscripcions a, Data avui){
+    public void elActNoCondiciones(LlistaInscripcions a, Data avui) {
         for (int i = this.getNumElems() - 1; i >= 0; i--) {
 
             if (llista[i] instanceof ActividadesDia) {
