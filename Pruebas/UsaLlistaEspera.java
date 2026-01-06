@@ -1,5 +1,6 @@
 package Pruebas;
 
+import Excepcions.UsuariJaInscritException;
 import Inscripcions.*;
 
 /**
@@ -7,7 +8,7 @@ import Inscripcions.*;
  * Autor: Izan Flores
  */
 public class UsaLlistaEspera {
-   public static void main(String[] args) {
+   public static void main(String[] args) throws UsuariJaInscritException {
       System.out.println("------ PRUEBAS CLASE LLISTA ESPERA ------\n");
 
       // --Les probes es faran amb els constructos sense parametres per validar la

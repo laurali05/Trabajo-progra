@@ -1,6 +1,7 @@
 package Inscripcions;
 
 import Actividades.Actividad;
+import Excepcions.UsuariJaInscritException;
 import Usuari.LlistaUsuari;
 
 /**
@@ -38,7 +39,11 @@ public class LlistaEspera {
     public LlistaEspera copia() {
         LlistaEspera novaLlista = new LlistaEspera();
         for (int i = 0; i < numElem; i++) {
+            try{
             novaLlista.afegir(llista[i]);
+            } catch (UsuariJaInscritException e){
+                System.err.println("L'usuari "+e+" ja estava inscrit.");
+            }
         }
         return novaLlista;
     }
@@ -48,7 +53,15 @@ public class LlistaEspera {
      * 
      * @param ins 
      */
-    public void afegir(Inscripcio ins) {
+    public void afegir(Inscripcio ins) throws UsuariJaInscritException{
+        int i=0;
+        boolean trobat = false;
+        while(!trobat && i<numElem){
+            if(llista[i].getUsuari().esIgual(ins.getUsuari())){
+                trobat=true;
+                throw new UsuariJaInscritException(ins.getUsuari().getNom());
+            } else i++;
+        }
         if (numElem < maxPersones) {
             llista[numElem] = ins.copia();
             numElem++;
@@ -83,10 +96,11 @@ public class LlistaEspera {
         while (!trobat && i < numElem) {
             if (llista[i].getActivitat().equals(act)) {
                 insPrimer = llista[i];
-                for (int j = 0; j < numElem; j++) {
+                for (int j = i; j < numElem; j++) {
                     llista[j] = llista[j + 1];
-                    numElem--;
                 }
+                numElem--;
+                llista[numElem]=null;
                 trobat = true;
             } else
                 i++;

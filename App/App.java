@@ -166,29 +166,29 @@ public class App {
 
     /**
      * Autor Izan
-     * 
+     *
      * @param llistaInscripcions
      * @param llistaActividades
      */
-    private static void opcio19(LlistaInscripcio llistaInscripcions,LlistaUsuari llistaUsuaris) {
+    private static void opcio19(LlistaInscripcio llistaInscripcions, LlistaUsuari llistaUsuaris) {
         llistaInscripcions.mitjanaColectius(llistaUsuaris);
     }
 
     /**
      * Autor Izan
-     * 
+     *
      * @param llistaUsuari
      * @param llistaInscripcions
      */
-    private static void opcio18(LlistaUsuari llistaUsuari,LlistaInscripcio llistaInscripcions) {
-        System.out.println("Introdueix el nom de l'usuari que vols veure les valoracions: "+llistaUsuari.nomUsuarios());
+    private static void opcio18(LlistaUsuari llistaUsuari, LlistaInscripcio llistaInscripcions) {
+        System.out.println("Introdueix el nom de l'usuari que vols veure les valoracions: " + llistaUsuari.nomUsuarios());
         String nom = teclat.nextLine();
         System.out.println(llistaInscripcions.valoracionsUsuari(nom, llistaUsuari));
     }
 
     /**
      * Autor Izan
-     * 
+     *
      * @param llistaInscripcions
      */
     private static void opcio17(LlistaInscripcio llistaInscripcions) {
@@ -198,7 +198,7 @@ public class App {
 
     /**
      * Autor Izan
-     * 
+     *
      * @param llistaUsuari
      * @param llistaActividades
      * @param llistaInscripcions
@@ -216,8 +216,7 @@ public class App {
     }
 
     /**
-     * Método que añade una actividad online 
-     * Autor Laura Lope
+     * Método que añade una actividad online Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -280,15 +279,14 @@ public class App {
             System.out.println(online.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + online.getNom());
-        } catch (NoHayEspacioException e){
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         }
 
     }
 
     /**
-     * Método que añade una nueva actividad periodíca 
-     * Autor Laura Lope
+     * Método que añade una nueva actividad periodíca Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -378,15 +376,14 @@ public class App {
             System.out.println(periodica.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + periodica.getNom());
-        } catch (NoHayEspacioException e){
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         }
 
     }
 
     /**
-     * Método que añade una nueva actividad de tipo día 
-     * Autor Laura Lope
+     * Método que añade una nueva actividad de tipo día Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -463,14 +460,14 @@ public class App {
             System.out.println(dia.toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Ya existe una actividad con el nombre: " + dia.getNom());
-        } catch (NoHayEspacioException e){
-            
+        } catch (NoHayEspacioException e) {
+
         }
     }
 
     /**
-     * Autor Jordi
-     * Metode de l'opció que elimina un usuari d'una activitat previament inscrita
+     * Autor Jordi Metode de l'opció que elimina un usuari d'una activitat
+     * previament inscrita
      *
      * @param llistaUsuari
      * @param llistaInscripcions
@@ -574,8 +571,8 @@ public class App {
     }
 
     /**
-     * Autor Jordi
-     * Metode de l'opció que busca les activitats en las que esta apunat un usuari concret
+     * Autor Jordi Metode de l'opció que busca les activitats en las que esta
+     * apunat un usuari concret
      *
      * @param llistaUsuari
      * @param llistaInscripcions
@@ -599,8 +596,7 @@ public class App {
     }
 
     /**
-     * Autor Jordi
-     * Metode de l'opció que mostra els detalls d'un usuari concret
+     * Autor Jordi Metode de l'opció que mostra els detalls d'un usuari concret
      *
      * @param llistaUsuari
      */
@@ -636,8 +632,7 @@ public class App {
     }
 
     /**
-     * Método que indica las actividades con plazas disponibles 
-     * Autor Laura Lope
+     * Método que indica las actividades con plazas disponibles Autor Laura Lope
      *
      * @param llistaActividades
      * @param llistaInscripcions
@@ -654,14 +649,14 @@ public class App {
             System.err.println("Está actividad ya está añadida");
         } catch (ActivitatNoTrobadaException e) {
             System.err.println("No se ha encontrado una actividad con ese nombre");
-        } catch(NoHayEspacioException e) {
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         }
     }
 
     /**
-     * Método que devuelve una lista con las actividades que están activas en una fecha en concreto
-     * Autor Laura Lope
+     * Método que devuelve una lista con las actividades que están activas en
+     * una fecha en concreto Autor Laura Lope
      *
      * @param llistaActividades
      */
@@ -671,8 +666,7 @@ public class App {
 
     /**
      * Método que comprueba que actividades tiene clase hoy y si hay plazas y
-     * lista de espera
-     *  Autor Laura Lope
+     * lista de espera Autor Laura Lope
      *
      * @param llistaActividades
      * @param llistaInscripcions
@@ -683,14 +677,14 @@ public class App {
             llistaActividades.llistaClasseAvui(avui, llistaInscripcions);
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Está actividad ya está añadida");
-        } catch(NoHayEspacioException e){
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         }
     }
 
     /**
-     * Método que devuelve una lista con las actividades que aún se encuentran en periodo de inscripción
-     * Autor Laura Lope
+     * Método que devuelve una lista con las actividades que aún se encuentran
+     * en periodo de inscripción Autor Laura Lope
      *
      * @param llistaActividades
      * @param avui
@@ -700,14 +694,14 @@ public class App {
             System.out.println(llistaActividades.llistaPeriodo(avui).toString());
         } catch (NomActivitatDuplicatException e) {
             System.err.println("Está actividad ya está añadida");
-        } catch (NoHayEspacioException e){
+        } catch (NoHayEspacioException e) {
             System.err.println(e.getMessage());
         }
     }
 
     /**
-     * Autor Jordi
-     * Metode de l'opció que mostra les dades especifiques o generals d'una llista concreta
+     * Autor Jordi Metode de l'opció que mostra les dades especifiques o
+     * generals d'una llista concreta
      *
      * @param llistaUsuari
      * @param llistaActividades

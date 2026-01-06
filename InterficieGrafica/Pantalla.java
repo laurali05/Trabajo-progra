@@ -248,8 +248,8 @@ public class Pantalla extends JFrame {
             panelCalendariDies.add(l);
         }
 
-        int totalDies = calcularDiesDelMes(mesActual, anyActual);
-        int diaSetmanaInici = calcularDiaSetmana(1, mesActual, anyActual); // 0=Dilluns
+        int totalDies = Data.diesMes(mesActual, anyActual);
+        int diaSetmanaInici = Data.calcularDiaSetmana(1, mesActual, anyActual); // 0=Dilluns
 
         for (int i = 0; i < diaSetmanaInici; i++) {
             panelCalendariDies.add(new JLabel(""));
@@ -277,37 +277,13 @@ public class Pantalla extends JFrame {
         panelCalendariDies.repaint();
     }
 
-    private boolean esDeTraspas(int any) {
-        return (any % 4 == 0 && any % 100 != 0) || (any % 400 == 0);
-    }
-
-    private int calcularDiesDelMes(int mes, int any) {
-        if (mes == 4 || mes == 6 || mes == 9 || mes == 11)
-            return 30;
-        if (mes == 2)
-            return esDeTraspas(any) ? 29 : 28;
-        return 31;
-    }
-
-    private int calcularDiaSetmana(int dia, int mes, int any) {
-        int m = mes;
-        int y = any;
-
-        if (m < 3) {
-            m += 12;
-            y -= 1;
-        }
-
-        int K = y % 100;
-        int J = y / 100;
-
-        int h = (dia + 13 * (m + 1) / 5 + K + K / 4 + J / 4 + 5 * J) % 7;
-
-        int resultat = ((h + 5) % 7) + 1;
-
-        return resultat - 1;
-    }
-
+    /**
+     * Métode que mira si existeix una activitat en el data o no
+     * @param dia
+     * @param mes
+     * @param any
+     * @return si exiteix o no l'activitat
+     */
     private boolean existeixActivitat(int dia, int mes, int any) {
         for (int i = 0; i < llistaActividades.getNumElems(); i++) {
             Actividad act = llistaActividades.getActividad(i);

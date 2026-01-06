@@ -236,7 +236,7 @@ public class Data {
 		return hoEs;
 	}
 
-	private static boolean esAnyTraspas(int any) {
+	public static boolean esAnyTraspas(int any) {
 		if ((any % 4 == 0) && ((any % 100 != 0) || (any % 400 == 0))) {
 			return true;
 		} else {
@@ -244,7 +244,7 @@ public class Data {
 		}
 	}
 
-	private static int diesMes(int mes, int any) {
+	public static int diesMes(int mes, int any) {
 		int diesMes;
 		if (mes == 2) {
 			if (esAnyTraspas(any)) {
@@ -261,5 +261,24 @@ public class Data {
 		}
 		return diesMes;
 	}
+
+	    public static int calcularDiaSetmana(int dia, int mes, int any) {
+        int m = mes;
+        int a = any;
+
+        if (m < 3) {
+            m += 12;
+            a -= 1;
+        }
+
+        int K = a % 100;
+        int J = a / 100;
+
+        int h = (dia + 13 * (m + 1) / 5 + K + K / 4 + J / 4 + 5 * J) % 7;
+
+        int resultat = ((h + 5) % 7) + 1;
+
+        return resultat - 1;
+    }
 
 }

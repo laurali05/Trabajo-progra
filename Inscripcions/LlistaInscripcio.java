@@ -229,7 +229,7 @@ public class LlistaInscripcio {
      *
      * @param opcio
      * @param llistaUsuari
-     * @return
+     * @return Usuari més actiu del col·lectiu en concret
      */
     public Usuari UsuariMesActiu(int opcio, LlistaUsuari llistaUsuari) {
         int numActivitats = 0;
