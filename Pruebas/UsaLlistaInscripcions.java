@@ -21,7 +21,9 @@ public class UsaLlistaInscripcions {
 
         // Afegim primera inscripció
         Inscripcio ins = new Inscripcio();
+
         try {
+
             llista.afegir(ins);
         } catch (UsuariJaInscritException e) {
             System.err.println("L'usuari " + e + " ja esta inscrit");
@@ -44,7 +46,7 @@ public class UsaLlistaInscripcions {
         } catch (UsuariJaInscritException e) {
             System.err.println("L'usuari " + e + " ja esta inscrit");
         }
-        
+
         LlistaInscripcio llistacop = llista.copia();
 
         // Tornem a mostrar la llista completa

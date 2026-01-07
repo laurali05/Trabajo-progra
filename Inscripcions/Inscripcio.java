@@ -1,6 +1,6 @@
 package Inscripcions;
 
-import Actividades.Actividad;
+import Actividades.*;
 import Data.Data;
 import Usuari.Usuari;
 
@@ -20,7 +20,7 @@ public class Inscripcio {
      */
     public Inscripcio() {
         this.persona = new Usuari();
-        this.activitat = new Actividad();
+        this.activitat = new ActividadDia();
         this.valoracio = -1;
         this.data = new Data(4, 10, 2025);
     }
