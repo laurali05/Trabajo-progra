@@ -63,7 +63,7 @@ public class Pantalla extends JFrame {
 
         JTabbedPane pestanyes = new JTabbedPane();
         pestanyes.addTab("Calendari Mensual", crearPanelCalendari());
-        pestanyes.addTab("Lista Actividades", crearPanelTabla());
+        pestanyes.addTab("Llista Activitats", crearPanelTabla());
 
         add(pestanyes, BorderLayout.CENTER);
 
@@ -104,7 +104,7 @@ public class Pantalla extends JFrame {
      */
     private JPanel crearPanelTabla() {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createTitledBorder("Lista Actividades"));
+        panel.setBorder(BorderFactory.createTitledBorder("Llista Activitats"));
 
         String[] columnas = { "Tipo", "Nombre Actividad", "Inicio Inscripción", "Fin Inscripción", "Colectivos" };
         modeloTabla = new DefaultTableModel(columnas, 0) {
