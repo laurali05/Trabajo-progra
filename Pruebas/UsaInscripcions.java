@@ -4,7 +4,7 @@ import Actividades.Actividad;
 import Data.Data;
 import Excepcions.FechaIncorrectaExcepcion;
 import Inscripcions.Inscripcio;
-import Usuari.Usuari;
+import Usuari.UsuariEstudiant;
 
 /**
  * Classe UsaInscripcions
@@ -24,7 +24,7 @@ public class UsaInscripcions {
 
         System.out.println("Generació de inscripció amb parametres:\n");
         Data datanova = new Data(6, 9, 2025);
-        Usuari persona = new Usuari("Robert", "robert@gmail.com");
+        UsuariEstudiant persona = new UsuariEstudiant("Robert", "Robert.Colomer","GEB",2020);
         Actividad activitat = new Actividad("Dia", "Robotica", new Data(3, 9, 2025), new Data(3, 11, 2025),
                 ("PDI, Estudiants"));
         Inscripcio insparam = new Inscripcio(persona, activitat, datanova);
